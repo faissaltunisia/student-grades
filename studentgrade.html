@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>عرض درجات الطالب</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #007bff;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+    .result {
+      margin-top: 20px;
+      background-color: #e9ecef;
+      padding: 15px;
+      border-radius: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+    th {
+      background-color: #007bff;
+      color: white;
+    }
+    .error {
+      color: red;
+      font-weight: bold;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>عرض درجات الطالب</h2>
+    <label for="idNumber">أدخل رقمك المدني (id):</label>
+    <input type="text" id="idNumber" placeholder="مثال: 1234567890" />
+    <button onclick="searchGrades()">عرض الدرجات</button>
+    <div id="output" class="result"></div>
+  </div>
+
+  <script>
+    function searchGrades() {
+      const id = document.getElementById('idNumber').value.trim();
+      const outputDiv = document.getElementById('output');
+      outputDiv.innerHTML = "";
+
+      const studentsDataStr = localStorage.getItem('studentsData');
+      if (!studentsDataStr) {
+        outputDiv.innerHTML = '<p class="error">لم يتم رفع بيانات الطلاب بعد. يرجى التواصل مع المعلم.</p>';
+        return;
+      }
+
+      if (!id) {
+        outputDiv.innerHTML = '<p class="error">يرجى إدخال رقم المدني (id).</p>';
+        return;
+      }
+
+      const studentsData = JSON.parse(studentsDataStr);
+      const student = studentsData[id];
+
+      if (!student) {
+        outputDiv.innerHTML = '<p class="error">لم يتم العثور على الطالب بهذا الرقم.</p>';
+        return;
+      }
+
+      let tableHTML = `<h3>الطالب: ${student.name}</h3>`;
+      tableHTML += '<table><thead><tr><th>المادة</th><th>الدرجة</th></tr></thead><tbody>';
+      for (const [subject, grade] of Object.entries(student.grades)) {
+        tableHTML += `<tr><td>${subject}</td><td>${grade}</td></tr>`;
+      }
+      tableHTML += '</tbody></table>';
+
+      outputDiv.innerHTML = tableHTML;
+    }
+  </script>
+</body>
+</html>

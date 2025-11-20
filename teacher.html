@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>صفحة رفع ملف الدرجات - المعلم</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      direction: rtl;
+      background-color: #f0f0f0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: bold;
+    }
+    input[type="file"] {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+    button {
+      width: 100%;
+      padding: 10px;
+      background-color: #28a745;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #218838;
+    }
+    .message {
+      margin-top: 15px;
+      text-align: center;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>رفع ملف درجات الطلاب (Excel)</h2>
+    <label for="fileInput">اختر ملف Excel:</label>
+    <input type="file" id="fileInput" accept=".xlsx, .xls" />
+    <button onclick="uploadFile()">رفع وحفظ البيانات</button>
+    <div id="message" class="message"></div>
+    <p style="text-align:center; margin-top:20px;">
+      بعد رفع الملف، يمكن للطلاب زيارة <a href="grades.html">صفحة عرض الدرجات</a>.
+    </p>
+  </div>
+
+  <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+  <script>
+    function uploadFile() {
+      const fileInput = document.getElementById('fileInput');
+      const messageDiv = document.getElementById('message');
+
+      if (!fileInput.files.length) {
+        messageDiv.style.color = 'red';
+        messageDiv.textContent = 'يرجى اختيار ملف Excel أولاً.';
+        return;
+      }
+
+      const file = fileInput.files[0];
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+        const data = new Uint8Array(event.target.result);
+        const workbook = XLSX.read(data, {type: 'array'});
+
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+
+        const jsonData = XLSX.utils.sheet_to_json(worksheet, {defval: ""});
+        // تحويل البيانات إلى كائن
+        const studentsData = {};
+        jsonData.forEach(row => {
+          const id = row["id"];
+          if (id) {
+            const { id: _, "اسم": name, ...grades } = row;
+            studentsData[id.toString().trim()] = { name, grades };
+          }
+        });
+
+        // حفظ البيانات في localStorage
+        localStorage.setItem('studentsData', JSON.stringify(studentsData));
+
+        messageDiv.style.color = 'green';
+        messageDiv.textContent = 'تم رفع وحفظ بيانات الطلاب بنجاح.';
+      };
+
+      reader.readAsArrayBuffer(file);
+    }
+  </script>
+</body>
+</html>
