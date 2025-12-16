@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوستر التلاوة والحفظ - المنهج العماني</title>
+    <title>بوستر التلاوة والحفظ - مدرسة المروج</title>
     <style>
         :root {
             --primary-color: #2e4d3e; /* أخضر زيتوني عماني */
@@ -21,36 +21,56 @@
         }
 
         .poster {
-            width: 900px;
+            width: 950px;
             background-color: var(--bg-color);
             border: 15px solid var(--primary-color);
             padding: 40px;
             box-shadow: 0 0 30px rgba(0,0,0,0.2);
             position: relative;
-            background-image: url('https://www.transparenttextures.com/patterns/paper.png'); /* تأثير ملمس الورق */
+            background-image: url('https://www.transparenttextures.com/patterns/paper.png');
         }
 
-        /* الزخارف العمانية في الزوايا */
-        .poster::before, .poster::after {
-            content: "✦";
-            position: absolute;
-            color: var(--secondary-color);
-            font-size: 40px;
+        /* تنسيق الهيدر الجديد مع الشعار واسم المدرسة */
+        .school-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 15px;
+            margin-bottom: 20px;
         }
-        .poster::before { top: 10px; right: 10px; }
-        .poster::after { bottom: 10px; left: 10px; }
+
+        .school-info {
+            text-align: right;
+            color: var(--primary-color);
+        }
+
+        .school-name {
+            font-size: 22px;
+            font-weight: bold;
+            margin: 0;
+        }
+
+        .school-logo {
+            width: 100px;
+            height: 100px;
+            object-fit: contain;
+            /* استبدل هذا الرابط برابط شعار المدرسة الفعلي */
+            border: 1px solid #eee;
+            padding: 5px;
+            background: white;
+            border-radius: 50%;
+        }
 
         header {
             text-align: center;
-            border-bottom: 3px double var(--secondary-color);
             margin-bottom: 30px;
-            padding-bottom: 20px;
         }
 
         h1 {
             color: var(--primary-color);
             font-size: 32px;
-            margin: 0;
+            margin: 10px 0;
         }
 
         h2 {
@@ -64,8 +84,8 @@
             background: white;
             padding: 15px;
             border-radius: 10px;
-            border-right: 5px solid var(--accent-color);
-            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+            border-right: 8px solid var(--accent-color);
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
         }
 
         .grade-title {
@@ -73,23 +93,23 @@
             font-weight: bold;
             font-size: 20px;
             margin-bottom: 15px;
-            display: flex;
-            align-items: center;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
         }
 
         .surah-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
             gap: 15px;
         }
 
         .surah-card {
             background: var(--bg-color);
             border: 1px solid #ddd;
-            padding: 10px;
+            padding: 12px;
             border-radius: 8px;
             text-align: center;
-            transition: transform 0.2s;
+            transition: all 0.3s;
             cursor: pointer;
             text-decoration: none;
             display: block;
@@ -99,6 +119,7 @@
         .surah-card:hover {
             transform: translateY(-5px);
             border-color: var(--primary-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
             background: #f0f4f2;
         }
 
@@ -106,19 +127,23 @@
             font-weight: bold;
             display: block;
             color: var(--primary-color);
+            font-size: 1.1em;
         }
 
         .surah-type {
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
+            margin: 5px 0;
+            display: block;
         }
 
         .qr-placeholder {
-            margin-top: 8px;
-            font-size: 10px;
+            margin-top: 10px;
+            font-size: 11px;
             color: var(--secondary-color);
             border: 1px dashed var(--secondary-color);
-            padding: 5px;
+            padding: 8px;
+            background: #fffcf5;
         }
 
         footer {
@@ -126,16 +151,26 @@
             text-align: center;
             font-size: 14px;
             color: var(--primary-color);
-            opacity: 0.8;
+            border-top: 1px solid var(--secondary-color);
+            padding-top: 20px;
         }
     </style>
 </head>
 <body>
 
 <div class="poster">
+    <div class="school-header">
+        <div class="school-info">
+            <p style="margin:0; font-size:14px;">سلطنة عمان</p>
+            <p style="margin:0; font-size:14px;">وزارة التربية والتعليم</p>
+            <h3 class="school-name">مدرسة المروج للتعليم الأساسي (5-8)</h3>
+        </div>
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Logo_of_the_Ministry_of_Education_of_Oman.svg/1200px-Logo_of_the_Ministry_of_Education_of_Oman.svg.png" alt="شعار المدرسة" class="school-logo">
+    </div>
+
     <header>
         <h1>دليل السور المقررة (تلاوة وحفظ)</h1>
-        <h2>منهج التربية الإسلامية - سلطنة عمان</h2>
+        <h2>للعام الدراسي 2024 - 2025م</h2>
     </header>
 
     <div class="grade-section">
@@ -144,88 +179,61 @@
             <a href="https://www.youtube.com/watch?v=jlOQA6kxVhg" target="_blank" class="surah-card">
                 <span class="surah-name">سورة الحاقة</span>
                 <span class="surah-type">حفظ وتلاوة (ف1)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <div class="qr-placeholder">اضغط لمشاهدة التلاوة</div>
             </a>
             <a href="https://www.youtube.com/watch?v=9uhw5w9shok" target="_blank" class="surah-card">
                 <span class="surah-name">سورة المعارج</span>
                 <span class="surah-type">حفظ وتلاوة (ف1)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <div class="qr-placeholder">اضغط لمشاهدة التلاوة</div>
             </a>
             <a href="https://www.youtube.com/watch?v=2eZALUIELbw" target="_blank" class="surah-card">
                 <span class="surah-name">سورة نوح</span>
                 <span class="surah-type">حفظ وتلاوة (ف2)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <div class="qr-placeholder">اضغط لمشاهدة التلاوة</div>
             </a>
         </div>
     </div>
 
- <div class="grade-section">
+    <div class="grade-section">
         <div class="grade-title">📑 الصف السادس الأساسي</div>
         <div class="surah-grid">
             <a href="https://www.youtube.com/watch?v=jlOQA6kxVhg" target="_blank" class="surah-card">
-                <span class="surah-name">سورة المدثر </span>
-                <span class="surah-type">حفظ وتلاوة (فصل دراسي الاول )</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <span class="surah-name">سورة المدثر</span>
+                <span class="surah-type">حفظ وتلاوة (ف1)</span>
+                <div class="qr-placeholder">اضغط لمشاهدة التلاوة</div>
             </a>
             <a href="https://www.youtube.com/watch?v=9uhw5w9shok" target="_blank" class="surah-card">
                 <span class="surah-name">سورة المزمل</span>
-                <span class="surah-type">حفظ وتلاوة (فصل دراسي الاول )</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <span class="surah-type">حفظ وتلاوة (ف1)</span>
+                <div class="qr-placeholder">اضغط لمشاهدة التلاوة</div>
             </a>
             <a href="https://www.youtube.com/watch?v=2eZALUIELbw" target="_blank" class="surah-card">
-                <span class="surah-name">سورة الجن </span>
-                <span class="surah-type">حفظ وتلاوة (فصل دراسي الثاني)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=2eZALUIELbw" target="_blank" class="surah-card">
-                <span class="surah-name">سورة نوح </span>
-                <span class="surah-type">حفظ وتلاوة (فصل دراسي الثاني)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <span class="surah-name">سورة الجن</span>
+                <span class="surah-type">حفظ وتلاوة (ف2)</span>
+                <div class="qr-placeholder">اضغط لمشاهدة التلاوة</div>
             </a>
         </div>
     </div>
 
-    
     <div class="grade-section">
-        <div class="grade-title">📑 الصف السابع الأساسي</div>
+        <div class="grade-title">📑 الصفوف العليا (7-8)</div>
         <div class="surah-grid">
             <a href="https://www.youtube.com/watch?v=p_OoZqwlUM4" target="_blank" class="surah-card">
                 <span class="surah-name">سورة الملك</span>
-                <span class="surah-type">حفظ وتلاوة (ف1)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <span class="surah-type">الصف السابع (ف1)</span>
+                <div class="qr-placeholder">فتح الفيديو التعليمي</div>
             </a>
-            <a href="https://www.youtube.com/watch?v=C-WNHzGweWM" target="_blank" class="surah-card">
-                <span class="surah-name">سورة المزمل</span>
-                <span class="surah-type">حفظ وتلاوة (ف2)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
-            </a>
-        </div>
-    </div>
-
-    <div class="grade-section">
-        <div class="grade-title">📑 الصف الثامن الأساسي</div>
-        <div class="surah-grid">
             <a href="https://www.youtube.com/watch?v=VGQc-ml-ui8" target="_blank" class="surah-card">
                 <span class="surah-name">سورة الحجرات</span>
-                <span class="surah-type">حفظ وتلاوة (ف1)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=leXvCDEs8ac" target="_blank" class="surah-card">
-                <span class="surah-name">سورة التحريم</span>
-                <span class="surah-type">حفظ وتلاوة (ف1)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
-            </a>
-            <a href="https://www.youtube.com/watch?v=3O4KcsD3Yk4" target="_blank" class="surah-card">
-                <span class="surah-name">سورة القلم</span>
-                <span class="surah-type">حفظ وتلاوة (ف2)</span>
-                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+                <span class="surah-type">الصف الثامن (ف1)</span>
+                <div class="qr-placeholder">فتح الفيديو التعليمي</div>
             </a>
         </div>
     </div>
 
     <footer>
-        <p>تصميم أ.فيصل العريبي -- دعم الطلاب في حفظ وتلاوة كتاب الله</p>
-        <p>وزارة التربية والتعليم محافظة ظفار- سلطنة عمان</p>
+        <p>إشراف وتصميم: <strong>أ. فيصل العريبي</strong></p>
+        <p>مدرسة المروج للتعليم الأساسي (5-8) - محافظة ظفار</p>
     </footer>
 </div>
 
