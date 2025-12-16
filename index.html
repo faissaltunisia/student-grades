@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة التلاوة - مدرسة المروج</title>
+    <title>بوابة التلاوة الرقمية - مدرسة المروج</title>
     <style>
         :root {
             --primary: #2e4d3e; 
@@ -11,6 +11,7 @@
             --accent: #d4af37;
             --bg: #fdfaf5;
             --white: #ffffff;
+            --text: #333;
         }
 
         * { box-sizing: border-box; transition: all 0.3s ease; }
@@ -26,120 +27,122 @@
 
         .poster-container {
             width: 100%;
-            max-width: 950px;
+            max-width: 1000px;
             background: var(--bg);
-            border: 10px solid var(--primary);
+            border: 12px solid var(--primary);
             padding: 25px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-            background-image: url('https://www.transparenttextures.com/patterns/paper.png');
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            position: relative;
         }
 
-        /* الهيدر الاحترافي باستخدام شعار GitHub */
+        /* هيدر المدرسة الاحترافي */
         .main-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 3px double var(--gold);
             padding-bottom: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
         }
 
-        .school-brand h2 { margin: 0; font-size: clamp(16px, 4vw, 22px); color: var(--primary); }
+        .school-brand { text-align: right; }
+        .school-brand h2 { margin: 0; font-size: 18px; color: var(--primary); }
         .school-brand p { margin: 0; font-size: 13px; color: #666; }
 
-        .logo-box img { 
-            width: clamp(80px, 15vw, 120px); 
-            height: auto; 
-            border-radius: 8px;
-            filter: drop-shadow(0 2px 5px rgba(0,0,0,0.1));
-        }
+        .logo-box img { width: 80px; height: auto; }
 
         .poster-title { text-align: center; margin-bottom: 30px; }
         .poster-title h1 { 
             color: var(--primary); 
-            font-size: clamp(18px, 5vw, 28px); 
+            font-size: clamp(20px, 6vw, 32px); 
             margin: 0;
-            border-bottom: 2px solid var(--accent);
-            display: inline-block;
-            padding-bottom: 5px;
+            letter-spacing: -1px;
         }
 
+        /* هيكلة الصفوف والفصول */
         .grade-block {
-            background: rgba(255,255,255,0.7);
-            border-radius: 12px;
-            margin-bottom: 30px;
-            padding: 15px;
-            border: 1px solid #ddd;
+            background: rgba(255,255,255,0.6);
+            border-radius: 15px;
+            margin-bottom: 35px;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
         }
 
         .grade-header {
             background: var(--primary);
             color: white;
-            padding: 8px 20px;
-            border-radius: 5px;
+            padding: 10px 25px;
+            border-radius: 50px;
             display: inline-block;
-            margin-bottom: 15px;
-            font-size: 16px;
+            margin-bottom: 20px;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 4px 10px rgba(46, 77, 62, 0.3);
         }
 
-        .semesters-grid {
+        .semesters-container {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            gap: 20px;
         }
 
         .semester-box {
             background: var(--white);
             padding: 15px;
-            border-radius: 10px;
+            border-radius: 12px;
             border-top: 4px solid var(--gold);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
         }
 
-        .semester-box h3 {
-            font-size: 14px;
+        .semester-title {
             color: var(--gold);
-            margin-top: 0;
-            border-bottom: 1px solid #eee;
-            padding-bottom: 10px;
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-bottom: 1px dashed #eee;
+            padding-bottom: 5px;
         }
 
-        .surah-item {
+        .surah-list { display: flex; flex-direction: column; gap: 10px; }
+
+        .surah-link {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 10px;
-            margin-bottom: 8px;
+            padding: 12px;
             background: var(--bg);
-            border-radius: 6px;
+            border: 1px solid #eee;
+            border-radius: 8px;
             text-decoration: none;
-            color: var(--primary);
-            font-weight: bold;
-            font-size: 14px;
+            color: var(--text);
         }
 
-        .surah-item:hover {
-            background: var(--primary);
-            color: white;
+        .surah-link:hover {
+            background: #f0f4f2;
+            border-color: var(--primary);
             transform: scale(1.02);
         }
 
-        .play-btn { font-size: 12px; opacity: 0.8; }
+        .surah-info b { color: var(--primary); font-size: 14px; }
+        .play-icon { font-size: 18px; color: var(--accent); }
 
-        /* التجاوب مع الهاتف */
-        @media (max-width: 600px) {
-            .semesters-grid { grid-template-columns: 1fr; }
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .semesters-container { grid-template-columns: 1fr; }
             .main-header { flex-direction: column-reverse; text-align: center; gap: 15px; }
             .school-brand { text-align: center; }
-            .poster-container { padding: 15px; border-width: 5px; }
+            .poster-container { padding: 15px; border-width: 6px; }
         }
 
         footer {
             text-align: center;
-            margin-top: 30px;
-            padding-top: 15px;
+            margin-top: 40px;
+            padding-top: 20px;
             border-top: 1px solid #ddd;
-            font-size: 12px;
+            font-size: 13px;
             color: #777;
         }
     </style>
@@ -153,7 +156,7 @@
             <p>سلطنة عمان | محافظة ظفار</p>
         </div>
         <div class="logo-box">
-            <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" alt="شعار مدرسة المروج">
+           <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" alt="شعار مدرسة المروج">
         </div>
     </div>
 
@@ -162,83 +165,111 @@
     </div>
 
     <div class="grade-block">
-        <div class="grade-header">الصف الخامس</div>
-        <div class="semesters-grid">
+        <div class="grade-header">الصف الخامس الأساسي</div>
+        <div class="semesters-container">
             <div class="semester-box">
-                <h3>📖 الفصل الأول</h3>
-                <a href="https://www.youtube.com/watch?v=fPshn6t89sM" class="surah-item" target="_blank">
-                    <span>سورة المرسلات</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
-                <a href="https://www.youtube.com/watch?v=3u_sH2fI0U4" class="surah-item" target="_blank">
-                    <span>سورة الإنسان</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
+                <div class="semester-title">📚 الفصل الدراسي الأول</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=fPshn6t89sM" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة المرسلات</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=3u_sH2fI0U4" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة الإنسان</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
             </div>
             <div class="semester-box">
-                <h3>📖 الفصل الثاني</h3>
-                <a href="https://www.youtube.com/watch?v=YpD-W-mP-Hk" class="surah-item" target="_blank">
-                    <span>سورة القيامة</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <div class="grade-block">
-        <div class="grade-header">الصف السادس</div>
-        <div class="semesters-grid">
-            <div class="semester-box">
-                <h3>📖 الفصل الأول</h3>
-                <a href="https://www.youtube.com/watch?v=jlOQA6kxVhg" class="surah-item" target="_blank">
-                    <span>سورة المدثر</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
-                <a href="https://www.youtube.com/watch?v=9uhw5w9shok" class="surah-item" target="_blank">
-                    <span>سورة المزمل</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
-            </div>
-            <div class="semester-box">
-                <h3>📖 الفصل الثاني</h3>
-                <a href="https://www.youtube.com/watch?v=M9AAnpuxJFc" class="surah-item" target="_blank">
-                    <span>سورة الجن</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
+                <div class="semester-title">📚 الفصل الدراسي الثاني</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=YpD-W-mP-Hk" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة القيامة</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <div class="grade-block">
-        <div class="grade-header">الصف السابع والثامن</div>
-        <div class="semesters-grid">
+        <div class="grade-header">الصف السادس الأساسي</div>
+        <div class="semesters-container">
             <div class="semester-box">
-                <h3>📖 الفصل الأول</h3>
-                <a href="https://www.youtube.com/watch?v=p_OoZqwlUM4" class="surah-item" target="_blank">
-                    <span>سورة الملك (سابع)</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
-                <a href="https://www.youtube.com/watch?v=VGQc-ml-ui8" class="surah-item" target="_blank">
-                    <span>سورة الحجرات (ثامن)</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
+                <div class="semester-title">📚 الفصل الدراسي الأول</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=jlOQA6kxVhg" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة المدثر</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
             </div>
             <div class="semester-box">
-                <h3>📖 الفصل الثاني</h3>
-                <a href="https://www.youtube.com/watch?v=C-WNHzGweWM" class="surah-item" target="_blank">
-                    <span>سورة المزمل (سابع)</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
-                <a href="https://www.youtube.com/watch?v=3O4KcsD3Yk4" class="surah-item" target="_blank">
-                    <span>سورة القلم (ثامن)</span>
-                    <span class="play-btn">▶ استماع</span>
-                </a>
+                <div class="semester-title">📚 الفصل الدراسي الثاني</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=M9AAnpuxJFc" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة الجن</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grade-block">
+        <div class="grade-header">الصف السابع الأساسي</div>
+        <div class="semesters-container">
+            <div class="semester-box">
+                <div class="semester-title">📚 الفصل الدراسي الأول</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=p_OoZqwlUM4" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة الملك</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
+            </div>
+            <div class="semester-box">
+                <div class="semester-title">📚 الفصل الدراسي الثاني</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=C-WNHzGweWM" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة المزمل</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="grade-block">
+        <div class="grade-header">الصف الثامن الأساسي</div>
+        <div class="semesters-container">
+            <div class="semester-box">
+                <div class="semester-title">📚 الفصل الدراسي الأول</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=VGQc-ml-ui8" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة الحجرات</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                    <a href="https://www.youtube.com/watch?v=leXvCDEs8ac" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة التحريم</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
+            </div>
+            <div class="semester-box">
+                <div class="semester-title">📚 الفصل الدراسي الثاني</div>
+                <div class="surah-list">
+                    <a href="https://www.youtube.com/watch?v=3O4KcsD3Yk4" target="_blank" class="surah-link">
+                        <div class="surah-info"><b>سورة القلم</b></div>
+                        <div class="play-icon">▶</div>
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>تصميم مبرمج: أ. فيصل العريبي | مدرسة المروج 2024</p>
+        <p>تصميم أ. فيصل العريبي | كافة الحقوق محفوظة لمدرسة المروج 2024</p>
     </footer>
 </div>
 
