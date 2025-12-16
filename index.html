@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوستر التلاوة والحفظ - المنهج العماني</title>
+    <style>
+        :root {
+            --primary-color: #2e4d3e; /* أخضر زيتوني عماني */
+            --secondary-color: #c5a059; /* ذهبي رملي */
+            --bg-color: #fdfaf5; /* لون الورق القديم */
+            --accent-color: #d4af37;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #e0e0e0;
+            display: flex;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .poster {
+            width: 900px;
+            background-color: var(--bg-color);
+            border: 15px solid var(--primary-color);
+            padding: 40px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
+            position: relative;
+            background-image: url('https://www.transparenttextures.com/patterns/paper.png'); /* تأثير ملمس الورق */
+        }
+
+        /* الزخارف العمانية في الزوايا */
+        .poster::before, .poster::after {
+            content: "✦";
+            position: absolute;
+            color: var(--secondary-color);
+            font-size: 40px;
+        }
+        .poster::before { top: 10px; right: 10px; }
+        .poster::after { bottom: 10px; left: 10px; }
+
+        header {
+            text-align: center;
+            border-bottom: 3px double var(--secondary-color);
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 32px;
+            margin: 0;
+        }
+
+        h2 {
+            color: var(--secondary-color);
+            font-size: 18px;
+            margin-top: 5px;
+        }
+
+        .grade-section {
+            margin-bottom: 25px;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            border-right: 5px solid var(--accent-color);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .grade-title {
+            color: var(--primary-color);
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .surah-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .surah-card {
+            background: var(--bg-color);
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            transition: transform 0.2s;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            color: #333;
+        }
+
+        .surah-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-color);
+            background: #f0f4f2;
+        }
+
+        .surah-name {
+            font-weight: bold;
+            display: block;
+            color: var(--primary-color);
+        }
+
+        .surah-type {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .qr-placeholder {
+            margin-top: 8px;
+            font-size: 10px;
+            color: var(--secondary-color);
+            border: 1px dashed var(--secondary-color);
+            padding: 5px;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 14px;
+            color: var(--primary-color);
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+<div class="poster">
+    <header>
+        <h1>دليل السور المقررة (تلاوة وحفظ)</h1>
+        <h2>منهج التربية الإسلامية - سلطنة عمان</h2>
+    </header>
+
+    <div class="grade-section">
+        <div class="grade-title">📑 الصف الخامس الأساسي</div>
+        <div class="surah-grid">
+            <a href="https://www.youtube.com/watch?v=jlOQA6kxVhg" target="_blank" class="surah-card">
+                <span class="surah-name">سورة الحاقة</span>
+                <span class="surah-type">حفظ وتلاوة (ف1)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=9uhw5w9shok" target="_blank" class="surah-card">
+                <span class="surah-name">سورة المعارج</span>
+                <span class="surah-type">حفظ وتلاوة (ف1)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=2eZALUIELbw" target="_blank" class="surah-card">
+                <span class="surah-name">سورة نوح</span>
+                <span class="surah-type">حفظ وتلاوة (ف2)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="grade-section">
+        <div class="grade-title">📑 الصف السابع الأساسي</div>
+        <div class="surah-grid">
+            <a href="https://www.youtube.com/watch?v=p_OoZqwlUM4" target="_blank" class="surah-card">
+                <span class="surah-name">سورة الملك</span>
+                <span class="surah-type">حفظ وتلاوة (ف1)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=C-WNHzGweWM" target="_blank" class="surah-card">
+                <span class="surah-name">سورة المزمل</span>
+                <span class="surah-type">حفظ وتلاوة (ف2)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+        </div>
+    </div>
+
+    <div class="grade-section">
+        <div class="grade-title">📑 الصف الثامن الأساسي</div>
+        <div class="surah-grid">
+            <a href="https://www.youtube.com/watch?v=VGQc-ml-ui8" target="_blank" class="surah-card">
+                <span class="surah-name">سورة الحجرات</span>
+                <span class="surah-type">حفظ وتلاوة (ف1)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=leXvCDEs8ac" target="_blank" class="surah-card">
+                <span class="surah-name">سورة التحريم</span>
+                <span class="surah-type">حفظ وتلاوة (ف1)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+            <a href="https://www.youtube.com/watch?v=3O4KcsD3Yk4" target="_blank" class="surah-card">
+                <span class="surah-name">سورة القلم</span>
+                <span class="surah-type">حفظ وتلاوة (ف2)</span>
+                <div class="qr-placeholder">اضغط لفتح الفيديو</div>
+            </a>
+        </div>
+    </div>
+
+    <footer>
+        <p>تم التصميم لدعم الطلاب في حفظ وتلاوة كتاب الله</p>
+        <p>وزارة التربية والتعليم - سلطنة عمان</p>
+    </footer>
+</div>
+
+</body>
+</html>
