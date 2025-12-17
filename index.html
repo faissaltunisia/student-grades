@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المروج | رؤية تربوية حديثة</title>
+    <title>بوابة المروج | تصميم الظرف الدائري</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --royal-green: #1b3a2d;
             --royal-gold: #c5a059;
-            --bg-paper: #f4f1ea;
-            --header-h: 60px; /* حجم الهيدر المصغر */
+            --bg-paper: #f0f2f0;
+            --header-min-h: 70px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -18,216 +18,229 @@
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--bg-paper);
+            background-image: url('https://www.transparenttextures.com/patterns/clean-gray-paper.png');
             overflow-x: hidden;
             transition: 0.5s;
         }
 
-        /* --- تأثير الظرف (The Envelope Flap) --- */
-        #envelope-flap {
+        /* --- غطاء الظرف الدائري (Header) --- */
+        header {
             position: fixed;
-            top: 0; left: 0; width: 100%; height: 50vh;
+            top: 0; left: 0; width: 100%;
+            height: 180px; /* الارتفاع الكلي للغطاء في وضع الغلق */
             background: var(--royal-green);
+            color: var(--royal-gold);
             z-index: 3000;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            border-bottom: 5px solid var(--royal-gold);
-            transition: transform 1s cubic-bezier(0.7, 0, 0.3, 1);
+            /* شكل نصف دائري من الأسفل */
+            border-bottom-left-radius: 50% 40px;
+            border-bottom-right-radius: 50% 40px;
+            border-bottom: 4px solid var(--royal-gold);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transition: all 0.8s cubic-bezier(0.7, 0, 0.3, 1);
         }
 
-        /* حالة الانفتاح */
-        body.envelope-open #envelope-flap { transform: translateY(-100%); }
+        /* حالة الهيدر عند فتح الموقع */
+        body.is-open header {
+            height: var(--header-min-h);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+            transform: translateY(0);
+        }
 
-        .flap-content { text-align: center; color: var(--royal-gold); }
-        .flap-content h1 { font-family: 'Amiri', serif; font-size: 2rem; }
-
-        /* --- الهيدر النحيف المصغر --- */
-        header {
-            position: fixed;
-            top: 0; width: 100%; height: var(--header-h);
-            background: var(--royal-green);
-            color: var(--royal-gold);
+        .header-content {
             display: flex;
             align-items: center;
-            padding: 0 15px;
-            z-index: 2000;
-            border-bottom: 2px solid var(--royal-gold);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            gap: 15px;
+            width: 90%;
+            max-width: 1000px;
             opacity: 0;
             transition: 0.5s 0.8s;
         }
 
-        body.envelope-open header { opacity: 1; }
+        body.is-open .header-content { opacity: 1; }
 
-        .header-main { display: flex; align-items: center; gap: 10px; width: 100%; }
-        .logo { width: 40px; height: 40px; background: white; border-radius: 8px; padding: 2px; }
-        .school-info { line-height: 1.2; }
-        .school-name { font-weight: 900; font-size: 0.9rem; }
-        .vision { font-size: 0.65rem; color: #fff; opacity: 0.8; font-style: italic; }
+        .logo-box img {
+            width: 45px; height: 45px;
+            background: white; border-radius: 10px;
+            padding: 2px; border: 1px solid var(--royal-gold);
+        }
+
+        .school-meta { flex-grow: 1; }
+        .school-meta h1 { font-size: 0.9rem; font-weight: 900; }
+        .school-meta p { font-size: 0.65rem; color: #fff; opacity: 0.8; font-style: italic; }
+
+        /* --- الشريط السفلي الكبير (Footer) --- */
+        footer {
+            position: fixed;
+            bottom: 0; left: 0; width: 100%;
+            height: 80px; /* شريط سفلي كبير كما طلبت */
+            background: var(--royal-green);
+            color: var(--royal-gold);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 2500;
+            border-top: 4px solid var(--royal-gold);
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+        }
 
         /* --- حاوية البطاقات --- */
-        .container {
+        .main-container {
             max-width: 800px;
-            margin: calc(var(--header-h) + 20px) auto 80px;
-            padding: 15px;
-            perspective: 1000px;
+            margin: 200px auto 120px; /* مسافة للتعويض عن الهيدر الكبير */
+            padding: 0 20px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: 1s 0.5s;
         }
+
+        body.is-open .main-container { opacity: 1; transform: translateY(0); margin-top: 100px; }
 
         .card {
             background: white;
-            border-radius: 12px;
+            border-radius: 15px;
             margin-bottom: 20px;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transform: rotateX(10deg);
-            opacity: 0;
-            transition: 0.8s;
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            overflow: hidden;
         }
 
-        body.envelope-open .card { transform: rotateX(0); opacity: 1; }
-
-        .card-header {
-            padding: 12px 18px;
-            background: #fafafa;
+        .card-title {
+            padding: 15px 20px;
+            background: #fdfcf8;
+            font-weight: 800;
+            color: var(--royal-green);
             display: flex;
             justify-content: space-between;
             align-items: center;
             border-bottom: 1px solid #eee;
         }
 
-        .card-header h2 { font-size: 1rem; color: var(--royal-green); }
-
-        /* الفصول */
-        .semester { border-bottom: 1px solid #f9f9f9; }
+        /* الفصول الدراسية */
+        .sem-box { border-bottom: 1px solid #f9f9f9; }
         .sem-btn {
-            width: 100%; padding: 12px 20px; background: none; border: none;
+            width: 100%; padding: 15px 20px; background: none; border: none;
             display: flex; justify-content: space-between; font-family: inherit;
-            font-weight: 700; color: #444; cursor: pointer;
+            font-weight: 700; color: #555; cursor: pointer;
         }
 
         .sem-content {
-            max-height: 0; overflow: hidden; transition: 0.4s; background: #fffcf5;
+            max-height: 0; overflow: hidden; transition: 0.4s; background: #fffcf7;
         }
 
-        .semester.active .sem-content { max-height: 400px; }
+        .sem-box.active .sem-content { max-height: 300px; }
 
-        .surah-item {
-            display: block; padding: 10px 35px; text-decoration: none; color: var(--royal-green);
-            font-size: 0.9rem; border-bottom: 1px solid #f1f1f1;
+        .item-link {
+            display: block; padding: 12px 40px; text-decoration: none;
+            color: var(--royal-green); font-size: 0.9rem; border-bottom: 1px solid #f1f1f1;
         }
 
-        .surah-item:hover { background: var(--royal-gold); color: white; }
+        .item-link:hover { background: var(--royal-gold); color: white; }
 
-        /* --- الفوتر --- */
-        footer {
-            position: fixed; bottom: 0; width: 100%; height: 40px;
-            background: var(--royal-green); color: var(--royal-gold);
-            display: flex; align-items: center; justify-content: center;
-            font-size: 0.7rem; z-index: 2500; transition: 0.5s;
+        /* نص "افتح" يختفي بعد الفتح */
+        .tap-to-open {
+            font-weight: 900; letter-spacing: 2px;
+            animation: blink 1.5s infinite;
         }
+        body.is-open .tap-to-open { display: none; }
 
-        body.envelope-open footer { transform: translateY(0); }
+        @keyframes blink { 0%, 100% {opacity: 1;} 50% {opacity: 0.3;} }
+
+        @media (max-width: 600px) {
+            .school-meta h1 { font-size: 0.75rem; }
+            .school-meta p { display: none; } /* إخفاء الرؤية في الهواتف الصغيرة جداً لتوفير مساحة */
+        }
     </style>
 </head>
-<body id="mainBody">
+<body id="pageBody">
 
-    <div id="envelope-flap">
-        <div class="flap-content">
-            <h1 style="font-family: 'Amiri'; color: white;">بوابة المروج الرقمية</h1>
-            <p style="margin-top: 10px; letter-spacing: 2px;">يتم الفتح الآن...</p>
-        </div>
-    </div>
-
-    <header>
-        <div class="header-main">
-            <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="logo" alt="شعار">
-            <div class="school-info">
-                <div class="school-name">مدرسة المروج للتعليم الأساسي (5-8)</div>
-                <div class="vision">رؤيتنا: "جيل متمسك بقيمه، مبدع في علومه، محب لوطنه"</div>
+    <header id="envelopeHeader" onclick="openEnvelope()">
+        <div class="tap-to-open">انقر لفتح الظرف ✉️</div>
+        <div class="header-content">
+            <div class="logo-box">
+                <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" alt="الشعار">
             </div>
-            <div style="margin-right: auto; font-size: 0.7rem; background: var(--royal-gold); color: var(--royal-green); padding: 2px 8px; border-radius: 4px; font-weight: 900;">2025</div>
+            <div class="school-meta">
+                <h1>مدرسة المروج للتعليم الأساسي (5-8)</h1>
+                <p>رؤية التربية الإسلامية: "بناء جيل واعٍ، متمسك بقيمه، مبدع في فكره"</p>
+            </div>
+            <div style="font-weight: 900; font-size: 0.8rem;">2025</div>
         </div>
     </header>
 
-    <div class="container">
-        <div class="card" style="transition-delay: 0.2s;">
-            <div class="card-header">
-                <h2>الصف الخامس الأساسي</h2>
-                <span>📖</span>
-            </div>
-            <div class="semester">
+    <main class="main-container">
+        <div class="card">
+            <div class="card-title">الصف الخامس الأساسي <span>📖</span></div>
+            <div class="sem-box">
                 <button class="sem-btn" onclick="toggleSem(this)">الفصل الدراسي الأول <span>▼</span></button>
                 <div class="sem-content">
-                    <a href="#" class="surah-item">سورة المرسلات</a>
-                    <a href="#" class="surah-item">سورة الإنسان</a>
-                </div>
-            </div>
-            <div class="semester">
-                <button class="sem-btn" onclick="toggleSem(this)">الفصل الدراسي الثاني <span>▼</span></button>
-                <div class="sem-content">
-                    <a href="#" class="surah-item">سورة القيامة</a>
+                    <a href="#" class="item-link">سورة المرسلات</a>
+                    <a href="#" class="item-link">سورة الإنسان</a>
                 </div>
             </div>
         </div>
 
-        <div class="card" style="transition-delay: 0.4s;">
-            <div class="card-header"><h2>الصف السادس الأساسي</h2><span>📖</span></div>
-            <div class="semester">
+        <div class="card">
+            <div class="card-title">الصف السادس الأساسي <span>📖</span></div>
+            <div class="sem-box">
                 <button class="sem-btn" onclick="toggleSem(this)">الفصل الدراسي الأول <span>▼</span></button>
-                <div class="sem-content">
-                    <a href="#" class="surah-item">سورة المدثر</a>
-                </div>
+                <div class="sem-content"><a href="#" class="item-link">سورة المدثر</a></div>
             </div>
         </div>
 
-        <div class="card" style="transition-delay: 0.6s;">
-            <div class="card-header"><h2>الصف السابع الأساسي</h2><span>📖</span></div>
-            <div class="semester">
+        <div class="card">
+            <div class="card-title">الصف السابع الأساسي <span>📖</span></div>
+            <div class="sem-box">
                 <button class="sem-btn" onclick="toggleSem(this)">الفصل الدراسي الأول <span>▼</span></button>
-                <div class="sem-content"><a href="#" class="surah-item">سورة الملك</a></div>
+                <div class="sem-content"><a href="#" class="item-link">سورة الملك</a></div>
             </div>
         </div>
 
-        <div class="card" style="transition-delay: 0.8s;">
-            <div class="card-header"><h2>الصف الثامن الأساسي</h2><span>📖</span></div>
-            <div class="semester">
+        <div class="card">
+            <div class="card-title">الصف الثامن الأساسي <span>📖</span></div>
+            <div class="sem-box">
                 <button class="sem-btn" onclick="toggleSem(this)">الفصل الدراسي الأول <span>▼</span></button>
-                <div class="sem-content"><a href="#" class="surah-item">سورة الحجرات</a></div>
+                <div class="sem-content"><a href="#" class="item-link">سورة الحجرات</a></div>
             </div>
         </div>
-    </div>
+    </main>
 
     <footer>
-        <p>التربية الإسلامية: "قيمي حياة" &copy; 2025</p>
+        <div style="font-family: 'Amiri'; font-size: 1.2rem;">مدرسة المروج - قسم التربية الإسلامية</div>
+        <div style="font-size: 0.7rem; opacity: 0.8; margin-top: 5px;">سلطنة عُمان - محافظة ظفار &copy; 2025</div>
     </footer>
 
     <script>
-        // فتح الظرف تلقائياً عند التحميل
+        // فتح الظرف عند النقر أو تلقائياً بعد ثانية
+        function openEnvelope() {
+            document.body.classList.add('is-open');
+        }
+
         window.onload = () => {
-            setTimeout(() => {
-                document.body.classList.add('envelope-open');
-            }, 1000);
+            setTimeout(openEnvelope, 1200);
         };
 
-        // إغلاق الظرف عند السحب للأعلى (Scroll Up)
-        let lastScroll = 0;
-        window.addEventListener('scroll', () => {
-            let currentScroll = window.pageYOffset;
-            if (currentScroll < lastScroll && currentScroll < 10) {
-                // إذا وصل المستخدم لأعلى الصفحة وسحب أكثر، ينغلق الظرف
-                document.body.classList.remove('envelope-open');
-            } else if (currentScroll > 50) {
-                document.body.classList.add('envelope-open');
+        // إغلاق الظرف عند التمرير للأعلى بقوة
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function() {
+            let st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st < 5) {
+                document.body.classList.remove('is-open');
+            } else {
+                document.body.classList.add('is-open');
             }
-            lastScroll = currentScroll;
+            lastScrollTop = st;
         });
 
         function toggleSem(btn) {
             const parent = btn.parentElement;
             parent.classList.toggle('active');
-            document.querySelectorAll('.semester').forEach(el => {
+            document.querySelectorAll('.sem-box').forEach(el => {
                 if (el !== parent) el.classList.remove('active');
             });
         }
