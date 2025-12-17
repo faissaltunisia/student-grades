@@ -3,201 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المروج | التصميم الملكي</title>
+    <title>بوابة المروج | المصحف التفاعلي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --royal-green: #2d4639;
+            --royal-green: #1a2e23;
             --accent-gold: #d4af37;
-            --glass-bg: rgba(255, 255, 255, 0.1);
-            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
+            --glass: rgba(255, 255, 255, 0.1);
+            --gold-glow: 0 0 15px rgba(212, 175, 55, 0.3);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background-color: var(--royal-green);
-            /* نمط الأرابيسك في الخلفية كما في الصورة */
-            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
-            background-attachment: fixed;
+            background: var(--royal-green) url('https://www.transparenttextures.com/patterns/arabesque.png');
             color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            overflow-x: hidden;
         }
 
-        /* --- الهيدر النصف دائري الزجاجي --- */
+        /* --- الهيدر الملكي --- */
         header {
-            width: 90%;
-            max-width: 800px;
-            background: var(--glass-bg);
+            width: 100%; height: 80px;
+            background: rgba(0,0,0,0.3);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
-            border-top: none;
-            padding: 25px;
-            border-bottom-left-radius: 100px;
-            border-bottom-right-radius: 100px;
-            text-align: center;
-            margin-bottom: 40px;
-            box-shadow: var(--gold-glow);
-        }
-
-        .header-top { display: flex; justify-content: space-around; align-items: center; margin-bottom: 10px; }
-        .school-title { font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--accent-gold); }
-        .year { font-weight: 900; opacity: 0.8; }
-
-        /* --- حاوية البطاقات (نظام الشبكة كما في الصورة) --- */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            width: 90%;
-            max-width: 900px;
-            margin-bottom: 100px;
-        }
-
-        @media (max-width: 600px) {
-            .grid-container { grid-template-columns: 1fr; }
-        }
-
-        /* --- تصميم البطاقة الزجاجي --- */
-        .card {
-            background: var(--glass-bg);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 25px;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: scale(1.05) rotate(1deg);
-            border-color: var(--accent-gold);
-            box-shadow: var(--gold-glow);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .card-content { display: flex; align-items: center; gap: 15px; }
-
-        /* أيقونات القرآن الذهبية */
-        .quran-icon { width: 45px; height: 45px; fill: var(--accent-gold); filter: drop-shadow(0 0 5px var(--accent-gold)); }
-
-        .info h3 { font-size: 1.2rem; color: #fff; margin-bottom: 5px; }
-        .info p { font-size: 0.75rem; color: #ccc; }
-
-        /* أزرار الإجراءات */
-        .actions { display: flex; gap: 8px; }
-        .btn {
-            width: 35px; height: 35px; border-radius: 50%;
+            border-bottom: 2px solid var(--accent-gold);
             display: flex; align-items: center; justify-content: center;
-            border: none; cursor: pointer; transition: 0.3s;
+            position: sticky; top: 0; z-index: 1000;
         }
-        .btn-play { background: #e74c3c; color: white; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
-        .btn-book { background: var(--accent-gold); color: var(--royal-green); }
-        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
 
-        /* --- الفوتر العريض المستطيل --- */
-        footer {
-            width: 90%;
+        .header-content h1 { font-family: 'Amiri', serif; color: var(--accent-gold); font-size: 1.5rem; }
+
+        /* --- حاوية العرض المتغير --- */
+        .container {
             max-width: 800px;
-            background: var(--glass-bg);
+            margin: 40px auto;
+            padding: 0 20px;
+            min-height: 70vh;
+        }
+
+        .view { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .view.active { display: block; }
+
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- تصميم البطاقات --- */
+        .card {
+            background: var(--glass);
             backdrop-filter: blur(10px);
             border: 1px solid rgba(212, 175, 55, 0.3);
             border-radius: 20px;
-            padding: 20px;
-            text-align: center;
-            margin-bottom: 30px;
+            padding: 25px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex; align-items: center; justify-content: space-between;
         }
 
-        .footer-text { font-size: 0.85rem; color: var(--accent-gold); font-weight: bold; line-height: 1.6; }
+        .card:hover { transform: scale(1.02); background: rgba(255,255,255,0.15); box-shadow: var(--gold-glow); }
 
+        .btn-back {
+            background: none; border: 1px solid var(--accent-gold); color: var(--accent-gold);
+            padding: 8px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px;
+            font-weight: bold; transition: 0.3s;
+        }
+        .btn-back:hover { background: var(--accent-gold); color: var(--royal-green); }
+
+        /* --- قوائم السور --- */
+        .list-item {
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 10px; padding: 15px 25px;
+            border-radius: 15px; display: flex; justify-content: space-between;
+            align-items: center; border-right: 4px solid var(--accent-gold);
+        }
+
+        .icon-play { color: #e74c3c; font-size: 1.5rem; cursor: pointer; }
+
+        /* --- مشغل الفيديو --- */
+        .video-box {
+            width: 100%; aspect-ratio: 16/9;
+            background: #000; border-radius: 20px;
+            margin: 20px 0; overflow: hidden;
+            border: 1px solid var(--accent-gold);
+        }
+
+        .surah-info-box {
+            background: var(--glass); padding: 25px; border-radius: 20px;
+            line-height: 1.8; text-align: justify; border: 1px solid var(--accent-gold);
+        }
+
+        footer {
+            text-align: center; padding: 30px; font-size: 0.8rem; color: var(--accent-gold);
+            background: rgba(0,0,0,0.2); margin-top: 50px;
+        }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="header-top">
-            <span class="year">2025</span>
-            <div class="school-title">بوابة المروج الرقمية</div>
-            <span style="font-size: 1.5rem;">🌙</span>
-        </div>
-        <p style="font-size: 0.8rem; opacity: 0.7;">رؤية تربوية إسلامية معاصرة</p>
-    </header>
+<header>
+    <div class="header-content"><h1>بوابة المروج الرقمية</h1></div>
+</header>
 
-    <div class="grid-container">
-        
-        <div class="card">
-            <div class="card-content">
-                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
-                <div class="info">
-                    <h3>الصف الخامس</h3>
-                    <p>سورة المرسلات | حفظ</p>
-                </div>
-            </div>
-            <div class="actions">
-                <button class="btn btn-play">▶</button>
-                <button class="btn btn-book">📖</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
-                <div class="info">
-                    <h3>الصف السادس</h3>
-                    <p>سورة المدثر | حفظ</p>
-                </div>
-            </div>
-            <div class="actions">
-                <button class="btn btn-play">▶</button>
-                <button class="btn btn-book">📖</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
-                <div class="info">
-                    <h3>الصف السابع</h3>
-                    <p>سورة الملك | تلاوة</p>
-                </div>
-            </div>
-            <div class="actions">
-                <button class="btn btn-play">▶</button>
-                <button class="btn btn-book">📖</button>
-            </div>
-        </div>
-
-        <div class="card">
-            <div class="card-content">
-                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
-                <div class="info">
-                    <h3>الصف الثامن</h3>
-                    <p>سورة الحجرات | حفظ</p>
-                </div>
-            </div>
-            <div class="actions">
-                <button class="btn btn-play">▶</button>
-                <button class="btn btn-book">📖</button>
-            </div>
-        </div>
-
+<div class="container">
+    
+    <div id="view-grades" class="view active">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--accent-gold);">فهرس الصفوف الدراسية</h2>
+        <div class="card" onclick="showSemesters('الصف الخامس')"><span>الصف الخامس الأساسي</span> <span>📖</span></div>
+        <div class="card" onclick="showSemesters('الصف السادس')"><span>الصف السادس الأساسي</span> <span>📖</span></div>
+        <div class="card" onclick="showSemesters('الصف السابع')"><span>الصف السابع الأساسي</span> <span>📖</span></div>
+        <div class="card" onclick="showSemesters('الصف الثامن')"><span>الصف الثامن الأساسي</span> <span>📖</span></div>
     </div>
 
-    <footer>
-        <div class="footer-text">
-            قسم التربية الإسلامية - مدرسة المروج (5-8) <br>
-            بإشراف أ. فيصل العريبي &copy; 2025
+    <div id="view-semesters" class="view">
+        <button class="btn-back" onclick="changeView('view-grades')">← رجوع للفهرس</button>
+        <h2 id="grade-title" style="margin-bottom: 20px; color: var(--accent-gold);"></h2>
+        <div class="card" onclick="showSurahs('الفصل الأول')">الفصل الدراسي الأول <span>✦</span></div>
+        <div class="card" onclick="showSurahs('الفصل الثاني')">الفصل الدراسي الثاني <span>✦</span></div>
+    </div>
+
+    <div id="view-surahs" class="view">
+        <button class="btn-back" onclick="changeView('view-semesters')">← رجوع للفصول</button>
+        <h2 id="sem-title" style="margin-bottom: 20px; color: var(--accent-gold);"></h2>
+        <div id="surah-list-container">
+            </div>
+    </div>
+
+    <div id="view-content" class="view">
+        <button class="btn-back" onclick="changeView('view-surahs')">← رجوع لقائمة السور</button>
+        <div class="surah-info-box">
+            <h2 id="surah-name" style="color: var(--accent-gold); text-align: center; margin-bottom: 10px;"></h2>
+            <div class="video-box" id="video-player"></div>
+            <p id="surah-desc"></p>
         </div>
-    </footer>
+    </div>
+
+</div>
+
+<footer>
+    مدرسة المروج للتعليم الأساسي - سلطنة عُمان &copy; 2025 <br>
+    بإشراف أ. فيصل العريبي
+</footer>
+
+<script>
+    let currentGrade = "";
+    let currentSem = "";
+
+    // بيانات السور (مثال)
+    const surahData = {
+        "الصف الخامس": {
+            "الفصل الأول": [
+                { name: "سورة المرسلات", desc: "سورة مكية، تتحدث عن أهوال يوم القيامة وعظمة الخالق في الكون.", vid: "https://www.youtube.com/embed/S_8nBv-KueA" },
+                { name: "سورة الإنسان", desc: "سورة مدنية، تتحدث عن خلق الإنسان ونعم الله عليه وجزاء الأبرار.", vid: "https://www.youtube.com/embed/j_jU6VfW-58" }
+            ],
+            "الفصل الثاني": [{ name: "سورة القيامة", desc: "سورة مكية تركز على إثبات البعث والجزاء.", vid: "" }]
+        },
+        "الصف الثامن": {
+            "الفصل الأول": [
+                { name: "سورة الحجرات", desc: "سورة الآداب والأخلاق الاجتماعية وتنظيم علاقة المسلمين.", vid: "https://www.youtube.com/embed/69T4YIitv0c" }
+            ]
+        }
+    };
+
+    function changeView(viewId) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
+        window.scrollTo(0,0);
+    }
+
+    function showSemesters(grade) {
+        currentGrade = grade;
+        document.getElementById('grade-title').innerText = grade;
+        changeView('view-semesters');
+    }
+
+    function showSurahs(sem) {
+        currentSem = sem;
+        document.getElementById('sem-title').innerText = currentGrade + " - " + sem;
+        const container = document.getElementById('surah-list-container');
+        container.innerHTML = "";
+
+        const surahs = surahData[currentGrade]?.[sem] || [];
+        if(surahs.length === 0) {
+            container.innerHTML = "<p>سيتم إضافة السور قريباً...</p>";
+        } else {
+            surahs.forEach(s => {
+                container.innerHTML += `
+                    <div class="list-item" onclick="showSurahDetail('${s.name}', '${s.desc}', '${s.vid}')">
+                        <span>${s.name}</span>
+                        <span class="icon-play">▶</span>
+                    </div>
+                `;
+            });
+        }
+        changeView('view-surahs');
+    }
+
+    function showSurahDetail(name, desc, vid) {
+        document.getElementById('surah-name').innerText = name;
+        document.getElementById('surah-desc').innerText = desc;
+        const player = document.getElementById('video-player');
+        
+        if(vid) {
+            player.innerHTML = `<iframe width="100%" height="100%" src="${vid}" frameborder="0" allowfullscreen></iframe>`;
+        } else {
+            player.innerHTML = `<div style="display:flex; align-items:center; justify-content:center; height:100%;">الفيديو غير متوفر حالياً</div>`;
+        }
+        changeView('view-content');
+    }
+</script>
 
 </body>
 </html>
