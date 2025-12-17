@@ -23,10 +23,9 @@
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
-            perspective: 1000px; /* لتمكين التأثيرات ثلاثية الأبعاد */
+            perspective: 1000px;
         }
 
-        /* --- الهيدر الزجاجي --- */
         header {
             position: sticky; top: 0; z-index: 2000;
             background: rgba(10, 46, 31, 0.9);
@@ -43,15 +42,14 @@
 
         .brand { display: flex; align-items: center; gap: 15px; }
         .brand img { width: 50px; height: 50px; border: 2px solid var(--gold); border-radius: 10px; background: #fff; }
-        .brand h1 { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--gold); text-shadow: 0 2px 4px rgba(0,0,0,0.5); }
+        .brand h1 { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--gold); }
 
-        /* --- الحاوية الرئيسية --- */
         .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
 
         .view { display: none; opacity: 0; transform: rotateX(10deg) translateY(30px); transition: var(--transition); }
         .view.active { display: block; opacity: 1; transform: rotateX(0) translateY(0); }
 
-        /* --- تصميم بطاقة الفهرس ثلاثية الأبعاد --- */
+        /* --- بطاقة الفهرس المحدثة بأيقونة المصحف --- */
         .quran-card {
             background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
             border: 1px solid rgba(212, 175, 55, 0.2);
@@ -72,22 +70,20 @@
             box-shadow: 20px 20px 40px rgba(0,0,0,0.4), 0 0 15px rgba(212, 175, 55, 0.2);
         }
 
-        /* رمز رقم السورة المستوحى من الفهرس الورقي */
-        .quran-number {
-            width: 50px; height: 50px;
-            background: url('https://www.transparenttextures.com/patterns/black-paper.png'), var(--gold);
-            -webkit-mask: url('https://cdn-icons-png.flaticon.com/512/4462/4462271.png') no-repeat center;
-            mask: url('https://cdn-icons-png.flaticon.com/512/4462/4462271.png') no-repeat center;
-            mask-size: contain;
-            display: flex; align-items: center; justify-content: center;
-            color: var(--royal-green); font-weight: 900; font-size: 1.2rem;
+        /* حاوية أيقونة المصحف SVG */
+        .quran-icon-box {
+            width: 55px;
+            height: 55px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 0 5px var(--gold));
         }
 
         .card-main { display: flex; align-items: center; gap: 20px; }
         .card-text h3 { font-size: 1.2rem; margin-bottom: 4px; color: #fff; }
         .card-text p { font-size: 0.8rem; color: var(--gold); opacity: 0.8; }
 
-        /* زر العودة المطور */
         .back-btn {
             display: inline-flex; align-items: center; gap: 10px;
             color: var(--gold); cursor: pointer; padding: 10px 20px;
@@ -97,7 +93,6 @@
         }
         .back-btn:hover { background: var(--gold); color: var(--royal-green); transform: translateX(5px); }
 
-        /* --- مشغل الفيديو للهواتف --- */
         .video-container {
             width: 100%; aspect-ratio: 16/9; background: #000;
             border-radius: 20px; border: 2px solid var(--gold);
@@ -106,8 +101,7 @@
         }
 
         @media (max-width: 600px) {
-            .video-container { aspect-ratio: 4/3; } /* عرض أوضح في الهاتف */
-            .quran-card { padding: 15px; }
+            .video-container { aspect-ratio: 4/3; }
         }
 
         .info-panel {
@@ -120,6 +114,12 @@
             color: var(--gold); font-size: 0.85rem; border-top: 1px solid rgba(212, 175, 55, 0.1);
         }
 
+        /* أيقونة المصحف SVG المصممة برمجياً */
+        .svg-quran {
+            width: 40px;
+            height: 40px;
+            fill: var(--gold);
+        }
     </style>
 </head>
 <body>
@@ -138,30 +138,50 @@
     
     <div id="v-index" class="view active">
         <h2 style="text-align: center; color: var(--gold); font-family: 'Amiri'; font-size: 2.2rem; margin-bottom: 40px;">فهرس الصفوف الدراسية</h2>
+        
         <div class="quran-card" onclick="nav('v-index', 'v-sems', 'الصف الخامس')">
             <div class="card-main">
-                <div class="quran-number" style="background-color: var(--gold);">٥</div>
+                <div class="quran-icon-box">
+                    <svg class="svg-quran" viewBox="0 0 24 24">
+                        <path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/>
+                    </svg>
+                </div>
                 <div class="card-text"><h3>الصف الخامس الأساسي</h3><p>المقرر الدراسي للتربية الإسلامية</p></div>
             </div>
             <span style="color: var(--gold)">◀</span>
         </div>
+
         <div class="quran-card" onclick="nav('v-index', 'v-sems', 'الصف السادس')">
             <div class="card-main">
-                <div class="quran-number" style="background-color: var(--gold);">٦</div>
+                <div class="quran-icon-box">
+                    <svg class="svg-quran" viewBox="0 0 24 24">
+                        <path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/>
+                    </svg>
+                </div>
                 <div class="card-text"><h3>الصف السادس الأساسي</h3><p>المقرر الدراسي للتربية الإسلامية</p></div>
             </div>
             <span style="color: var(--gold)">◀</span>
         </div>
+
         <div class="quran-card" onclick="nav('v-index', 'v-sems', 'الصف السابع')">
             <div class="card-main">
-                <div class="quran-number" style="background-color: var(--gold);">٧</div>
+                <div class="quran-icon-box">
+                    <svg class="svg-quran" viewBox="0 0 24 24">
+                        <path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/>
+                    </svg>
+                </div>
                 <div class="card-text"><h3>الصف السابع الأساسي</h3><p>المقرر الدراسي للتربية الإسلامية</p></div>
             </div>
             <span style="color: var(--gold)">◀</span>
         </div>
+
         <div class="quran-card" onclick="nav('v-index', 'v-sems', 'الصف الثامن')">
             <div class="card-main">
-                <div class="quran-number" style="background-color: var(--gold);">٨</div>
+                <div class="quran-icon-box">
+                    <svg class="svg-quran" viewBox="0 0 24 24">
+                        <path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/>
+                    </svg>
+                </div>
                 <div class="card-text"><h3>الصف الثامن الأساسي</h3><p>المقرر الدراسي للتربية الإسلامية</p></div>
             </div>
             <span style="color: var(--gold)">◀</span>
@@ -173,13 +193,17 @@
         <h2 id="grade-label" style="color: var(--gold); margin-bottom: 25px; font-family: 'Amiri';"></h2>
         <div class="quran-card" onclick="showSurahs('الفصل الدراسي الأول')">
             <div class="card-main">
-                <div class="quran-number">١</div>
+                <div class="quran-icon-box">
+                    <svg class="svg-quran" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                </div>
                 <div class="card-text"><h3>الفصل الدراسي الأول</h3></div>
             </div>
         </div>
         <div class="quran-card" onclick="showSurahs('الفصل الدراسي الثاني')">
             <div class="card-main">
-                <div class="quran-number">٢</div>
+                <div class="quran-icon-box">
+                    <svg class="svg-quran" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                </div>
                 <div class="card-text"><h3>الفصل الدراسي الثاني</h3></div>
             </div>
         </div>
@@ -204,20 +228,19 @@
 
 <footer>
     <p>بوابة المروج الرقمية &copy; 2025</p>
-    <p style="opacity: 0.6; font-size: 0.7rem; margin-top: 10px;">نظام الفهرسة الذكي - إشراف أ. فيصل العريبي</p>
 </footer>
 
 <script>
     const database = {
         "الصف الخامس": {
             "الفصل الدراسي الأول": [
-                {t: "سورة المرسلات", d: "سورة مكية، تتحدث عن أهوال يوم القيامة وإثبات وقوع البعث والجزاء.", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Morsalat4.mp4"},
-                {t: "سورة الإنسان", d: "سورة مدنية، تتناول خلق الإنسان ونعم الله عليه وصفات الأبرار في الجنة.", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Insan1.mp4"}
+                {t: "سورة المرسلات", d: "سورة مكية، تتحدث عن يوم الفصل وأهوال القيامة.", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Morsalat4.mp4"},
+                {t: "سورة الإنسان", d: "سورة مدنية، تتناول خلق الإنسان ونعم الله عليه.", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Insan1.mp4"}
             ]
         },
         "الصف الثامن": {
             "الفصل الدراسي الأول": [
-                {t: "سورة الحجرات", d: "سورة الآداب والأخلاق، ترسم للمجتمع الإسلامي طريق التعامل الراقي.", v: "https://www.youtube.com/embed/69T4YIitv0c"}
+                {t: "سورة الحجرات", d: "سورة الآداب والأخلاق الإسلامية.", v: "https://www.youtube.com/embed/69T4YIitv0c"}
             ]
         }
     };
@@ -227,12 +250,10 @@
     function nav(from, to, grade = null) {
         document.getElementById(from).classList.remove('active');
         const toView = document.getElementById(to);
-        
         if(grade) {
             activeGrade = grade;
             document.getElementById('grade-label').innerText = grade;
         }
-
         setTimeout(() => {
             toView.classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
@@ -241,41 +262,4 @@
 
     function showSurahs(sem) {
         document.getElementById('sem-label').innerText = activeGrade + " - " + sem;
-        const container = document.getElementById('list-container');
-        container.innerHTML = "";
-        
-        const surahs = database[activeGrade]?.[sem] || [];
-        if(surahs.length === 0) {
-            container.innerHTML = "<div class='quran-card'>سيتم إضافة السور قريباً</div>";
-        } else {
-            surahs.forEach((s, index) => {
-                container.innerHTML += `
-                    <div class="quran-card" onclick="playSurah('${s.t}', '${s.d}', '${s.v}')">
-                        <div class="card-main">
-                            <div class="quran-number">${index + 1}</div>
-                            <div class="card-text"><h3>${s.t}</h3><p>تلاوة وتفسير</p></div>
-                        </div>
-                        <span style="color: var(--gold)">▶</span>
-                    </div>
-                `;
-            });
-        }
-        nav('v-sems', 'v-surahs');
-    }
-
-    function playSurah(t, d, v) {
-        document.getElementById('p-name').innerText = t;
-        document.getElementById('p-desc').innerText = d;
-        const frame = document.getElementById('p-video');
-        
-        if(v.includes('youtube')) {
-            frame.innerHTML = `<iframe width="100%" height="100%" src="${v}" frameborder="0" allowfullscreen></iframe>`;
-        } else {
-            frame.innerHTML = `<video width="100%" height="100%" controls controlsList="nodownload"><source src="${v}" type="video/mp4"></video>`;
-        }
-        nav('v-surahs', 'v-player');
-    }
-</script>
-
-</body>
-</html>
+        const container
