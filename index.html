@@ -3,236 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المروج | تجربة زجاجية انسيابية</title>
+    <title>بوابة المروج | المصحف التعليمي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --royal-green: #0a2e1f;
             --royal-gold: #c5a059;
-            --glass-white: rgba(255, 255, 255, 0.85);
-            --header-h: 75px;
+            --paper: #fdfbf7;
+            --glass: rgba(10, 46, 31, 0.9);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: #eef2ef;
-            background-image: radial-gradient(circle at top right, #d4e3db, #eef2ef);
-            min-height: 200vh;
+            background: #e4e9e5;
             color: var(--royal-green);
+            overflow-x: hidden;
         }
 
-        /* --- الهيدر الضبابي (Glass Header) --- */
+        /* --- الهيدر الضبابي النحيف --- */
         header {
             position: fixed;
-            top: 0; left: 0; width: 100%;
-            height: 180px; /* الارتفاع عند الغلق */
-            background: var(--royal-green);
-            z-index: 3000;
+            top: 0; width: 100%; height: 70px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
             display: flex;
-            flex-direction: column;
             align-items: center;
-            justify-content: center;
-            border-bottom-left-radius: 50% 30px;
-            border-bottom-right-radius: 50% 30px;
-            border-bottom: 3px solid var(--royal-gold);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            transition: all 0.7s cubic-bezier(0.65, 0, 0.35, 1);
-        }
-
-        /* الهيدر بعد الفتح (ضبابي) */
-        body.is-open header {
-            height: var(--header-h);
-            background: rgba(10, 46, 31, 0.85);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom-left-radius: 0;
-            border-bottom-right-radius: 0;
-        }
-
-        .header-content {
-            display: flex; align-items: center; gap: 15px; width: 95%; max-width: 1100px;
-            opacity: 0; transition: 0.5s 0.6s;
-        }
-
-        body.is-open .header-content { opacity: 1; }
-
-        .logo { width: 45px; height: 45px; border-radius: 10px; border: 2px solid var(--royal-gold); background: white; }
-
-        .school-info h1 { font-size: 1rem; font-weight: 900; color: var(--royal-gold); }
-        .school-info p { font-size: 0.7rem; color: #fff; opacity: 0.8; font-style: italic; }
-
-        /* --- حاوية البطاقات الانسيابية --- */
-        .container {
-            max-width: 850px;
-            margin: 220px auto 100px;
-            padding: 0 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-            transition: margin-top 0.7s ease;
-        }
-
-        body.is-open .container { margin-top: 110px; }
-
-        /* تأثير البطاقة (Card Effect) */
-        .card {
-            background: var(--glass-white);
-            backdrop-filter: blur(5px);
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            overflow: hidden;
-            transform: translateY(40px);
-            opacity: 0;
-            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-        }
-
-        body.is-open .card { transform: translateY(0); opacity: 1; }
-
-        .card:hover {
-            transform: translateY(-8px) scale(1.01);
-            box-shadow: 0 20px 40px rgba(10, 46, 31, 0.1);
-            border-color: var(--royal-gold);
-        }
-
-        .card-header {
-            padding: 20px 30px;
-            background: linear-gradient(to left, transparent, rgba(197, 160, 89, 0.05));
-            display: flex;
             justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
+            padding: 0 20px;
+            border-bottom: 3px solid var(--royal-gold);
         }
 
-        .card-header h2 { font-size: 1.15rem; font-weight: 800; }
+        .header-brand { display: flex; align-items: center; gap: 10px; }
+        .logo { width: 40px; height: 40px; background: white; border-radius: 8px; border: 1px solid var(--royal-gold); }
+        .header-text h1 { font-family: 'Amiri', serif; color: var(--royal-gold); font-size: 1.2rem; }
+        .header-text p { color: white; font-size: 0.6rem; opacity: 0.8; }
 
-        /* محتوى الفصول */
-        .semester-box { border-top: 1px solid rgba(0,0,0,0.03); }
-
-        .sem-trigger {
-            width: 100%; padding: 18px 30px; background: none; border: none;
-            display: flex; justify-content: space-between; font-family: inherit;
-            font-weight: 700; color: #333; cursor: pointer; transition: 0.3s;
+        /* --- حاوية الصفحات --- */
+        .page-container {
+            max-width: 800px;
+            margin: 90px auto 100px;
+            padding: 0 15px;
+            position: relative;
         }
 
-        .sem-trigger:hover { background: rgba(197, 160, 89, 0.1); }
+        .view { display: none; animation: fadeIn 0.5s ease; }
+        .view.active { display: block; }
 
-        .surah-list {
-            max-height: 0; overflow: hidden; transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-            background: rgba(255, 255, 255, 0.4);
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- تصميم الفهرس --- */
+        .index-title {
+            text-align: center; margin-bottom: 30px; font-family: 'Amiri', serif;
+            font-size: 2rem; color: var(--royal-green); border-bottom: 2px solid var(--royal-gold);
+            display: inline-block; width: 100%; padding-bottom: 10px;
         }
 
-        .semester-box.active .surah-list { max-height: 400px; }
-
-        .surah-item {
-            display: flex; align-items: center; padding: 15px 50px;
-            text-decoration: none; color: var(--royal-green); font-size: 0.95rem;
-            border-bottom: 1px solid rgba(0,0,0,0.02); transition: 0.3s;
+        .grade-card {
+            background: var(--paper);
+            border-radius: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            overflow: hidden;
         }
 
-        .surah-item:hover { padding-right: 60px; color: var(--royal-gold); font-weight: bold; }
-
-        /* --- الفوتر العريض --- */
-        footer {
-            position: fixed; bottom: 0; width: 100%; height: 90px;
+        .grade-name {
             background: var(--royal-green); color: var(--royal-gold);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            border-top: 3px solid var(--royal-gold); z-index: 2000;
+            padding: 15px 20px; font-weight: 900; display: flex; align-items: center; gap: 10px;
         }
 
-        /* نص الإرشاد */
-        .open-hint { color: var(--royal-gold); font-weight: 900; animation: bounce 2s infinite; cursor: pointer; }
-        @keyframes bounce { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-10px);} }
-        body.is-open .open-hint { display: none; }
+        .semester-section { padding: 10px 20px; border-bottom: 1px solid #eee; }
+        .semester-label { font-size: 0.8rem; font-weight: bold; color: var(--royal-gold); margin-bottom: 10px; display: block; }
 
+        .surah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 10px; }
+
+        .surah-btn {
+            background: white; border: 1px solid #ddd; padding: 12px; border-radius: 12px;
+            text-align: center; cursor: pointer; transition: 0.3s; font-weight: 700;
+        }
+
+        .surah-btn:hover { border-color: var(--royal-gold); background: var(--paper); transform: translateY(-3px); }
+
+        /* --- صفحة محتوى السورة --- */
+        .content-card {
+            background: var(--paper);
+            border-radius: 25px;
+            padding: 40px 25px;
+            border: 2px solid var(--royal-gold);
+            text-align: center;
+            min-height: 60vh;
+        }
+
+        .back-btn {
+            background: var(--royal-green); color: var(--royal-gold);
+            border: none; padding: 10px 25px; border-radius: 50px;
+            cursor: pointer; font-weight: 900; margin-bottom: 30px; display: inline-flex; align-items: center; gap: 8px;
+        }
+
+        .surah-detail-name { font-family: 'Amiri', serif; font-size: 2.5rem; color: var(--royal-green); margin-bottom: 15px; }
+        .surah-type { background: var(--royal-gold); color: white; padding: 4px 15px; border-radius: 50px; font-size: 0.8rem; }
+        .surah-desc { margin-top: 30px; font-size: 1.1rem; line-height: 1.8; text-align: justify; color: #444; }
+
+        /* --- الفوتر --- */
+        footer {
+            position: fixed; bottom: 0; width: 100%; height: 80px;
+            background: var(--royal-green); border-top: 3px solid var(--royal-gold);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            color: var(--royal-gold); z-index: 900;
+        }
     </style>
 </head>
-<body id="pageBody">
+<body>
 
-    <header onclick="openEnvelope()">
-        <div class="open-hint">اضغط لفتح المظروف 📖</div>
-        <div class="header-content">
-            <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="logo" alt="Logo">
-            <div class="school-info">
-                <h1>مدرسة المروج للتعليم الأساسي (5-8)</h1>
-                <p>رؤيتنا: "بناء جيل واعٍ، متمسك بقيمه، مبدع في فكره"</p>
+    <header>
+        <div class="header-brand">
+            <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="logo" alt="logo">
+            <div class="header-text">
+                <h1>بوابة المروج الرقمية</h1>
+                <p>جيل متمسك بقيمه، مبدع في فكره</p>
             </div>
-            <div style="margin-right: auto; color: #fff; font-weight: 900;">2025</div>
         </div>
+        <div style="color: white; font-weight: 900; font-size: 0.9rem;">2025</div>
     </header>
 
-    <main class="container">
-        <div class="card" style="transition-delay: 0.1s;">
-            <div class="card-header" onclick="toggleCard(this)">
-                <h2>الصف الخامس الأساسي</h2>
-                <span style="color: var(--royal-gold);">✦</span>
+    <div class="page-container">
+        
+        <div id="index-view" class="view active">
+            <h2 class="index-title">فهرس السور المقررة</h2>
+            
+            <div class="grade-card">
+                <div class="grade-name"><span>📖</span> الصف الخامس الأساسي</div>
+                <div class="semester-section">
+                    <span class="semester-label">الفصل الدراسي الأول</span>
+                    <div class="surah-grid">
+                        <div class="surah-btn" onclick="showSurah('سورة المرسلات', 'مكية', 'سورة المرسلات هي سورة مكية، من المفصل، آياتها 50، وترتيبها في المصحف 77، في الجزء التاسع والعشرين، بدأت بأسلوب قسم. تتحدث السورة عن يوم القيامة وأحوال المكذبين.')">سورة المرسلات</div>
+                        <div class="surah-btn" onclick="showSurah('سورة الإنسان', 'مدنية', 'سورة الإنسان من السور المدنية، عدد آياتها 31، تقع في الجزء 29. تتحدث عن خلق الإنسان ونعم الله عليه وصفات الأبرار وجزائهم في الجنة.')">سورة الإنسان</div>
+                    </div>
+                </div>
             </div>
-            <div class="semester-box">
-                <button class="sem-trigger" onclick="toggleSem(this)">الفصل الدراسي الأول <span>+</span></button>
-                <div class="surah-list">
-                    <a href="#" class="surah-item">سورة المرسلات</a>
-                    <a href="#" class="surah-item">سورة الإنسان</a>
+
+            <div class="grade-card">
+                <div class="grade-name"><span>📖</span> الصف السادس الأساسي</div>
+                <div class="semester-section">
+                    <span class="semester-label">الفصل الدراسي الأول</span>
+                    <div class="surah-grid">
+                        <div class="surah-btn" onclick="showSurah('سورة المدثر', 'مكية', 'سورة المدثر من أوائل ما نزل من القرآن الكريم، آياتها 56، تقع في الجزء 29. بدأت بـ (يا أيها المدثر) وهي دعوة للنبي ﷺ بالقيام بمهام الدعوة.')">سورة المدثر</div>
+                    </div>
+                </div>
+            </div>
+
+             <div class="grade-card">
+                <div class="grade-name"><span>📖</span> الصف السابع والثامن</div>
+                <div class="semester-section">
+                    <div class="surah-grid">
+                        <div class="surah-btn" onclick="showSurah('سورة الملك', 'مكية', 'سورة الملك المنجية من عذاب القبر، آياتها 30، تقع في الجزء 29. تتحدث عن قدرة الله في الكون وعظمة خلقه.')">سورة الملك</div>
+                        <div class="surah-btn" onclick="showSurah('سورة الحجرات', 'مدنية', 'سورة الحجرات سورة الآداب والأخلاق، آياتها 18، تقع في الجزء 26. تتحدث عن كيفية التعامل مع النبي ﷺ ومع المؤمنين بعضهم ببعض.')">سورة الحجرات</div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="card" style="transition-delay: 0.2s;">
-            <div class="card-header" onclick="toggleCard(this)">
-                <h2>الصف السادس الأساسي</h2>
-                <span style="color: var(--royal-gold);">✦</span>
-            </div>
-            <div class="semester-box">
-                <button class="sem-trigger" onclick="toggleSem(this)">الفصل الدراسي الأول <span>+</span></button>
-                <div class="surah-list"><a href="#" class="surah-item">سورة المدثر</a></div>
+        <div id="surah-view" class="view">
+            <button class="back-btn" onclick="showIndex()">← الرجوع للفهرس</button>
+            <div class="content-card">
+                <div id="surah-type" class="surah-type"></div>
+                <h2 id="surah-title" class="surah-detail-name"></h2>
+                <div style="width: 100px; hieght: 2px; border-bottom: 2px solid var(--royal-gold); margin: 0 auto 20px;"></div>
+                <p id="surah-desc" class="surah-desc"></p>
             </div>
         </div>
 
-        <div class="card" style="transition-delay: 0.3s;">
-            <div class="card-header" onclick="toggleCard(this)">
-                <h2>الصف السابع الأساسي</h2>
-                <span style="color: var(--royal-gold);">✦</span>
-            </div>
-            <div class="semester-box">
-                <button class="sem-trigger" onclick="toggleSem(this)">الفصل الدراسي الأول <span>+</span></button>
-                <div class="surah-list"><a href="#" class="surah-item">سورة الملك</a></div>
-            </div>
-        </div>
-    </main>
+    </div>
 
     <footer>
-        <div style="font-family: 'Amiri'; font-size: 1.3rem;">قسم التربية الإسلامية - مدرسة المروج</div>
-        <div style="font-size: 0.75rem; opacity: 0.8; margin-top: 5px;">سلطنة عُمان &copy; 2025</div>
+        <div style="font-family: 'Amiri'; font-size: 1.2rem;">قسم التربية الإسلامية - مدرسة المروج</div>
+        <div style="font-size: 0.7rem; opacity: 0.8;">تحت إشراف أ. فيصل العريبي &copy; 2025</div>
     </footer>
 
     <script>
-        function openEnvelope() {
-            document.body.classList.add('is-open');
+        function showSurah(title, type, desc) {
+            // إخفاء الفهرس وإظهار صفحة السورة
+            document.getElementById('index-view').classList.remove('active');
+            document.getElementById('surah-view').classList.add('active');
+
+            // تحديث البيانات
+            document.getElementById('surah-title').innerText = title;
+            document.getElementById('surah-type').innerText = type;
+            document.getElementById('surah-desc').innerText = desc;
+
+            // التمرير للأعلى
+            window.scrollTo(0, 0);
         }
 
-        // فتح تلقائي
-        window.onload = () => setTimeout(openEnvelope, 1000);
-
-        // إغلاق عند الصعود للأعلى
-        window.addEventListener('scroll', () => {
-            if (window.pageYOffset < 5) document.body.classList.remove('is-open');
-            else document.body.classList.add('is-open');
-        });
-
-        function toggleSem(btn) {
-            const box = btn.parentElement;
-            box.classList.toggle('active');
-            // إغلاق الباقي
-            document.querySelectorAll('.semester-box').forEach(el => {
-                if (el !== box) el.classList.remove('active');
-            });
-        }
-        
-        function toggleCard(header) {
-            // تأثير بصري عند الضغط على البطاقة
-            header.parentElement.style.transform = "scale(0.98)";
-            setTimeout(() => header.parentElement.style.transform = "", 100);
+        function showIndex() {
+            document.getElementById('surah-view').classList.remove('active');
+            document.getElementById('index-view').classList.add('active');
+            window.scrollTo(0, 0);
         }
     </script>
 </body>
