@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة المروج الرقمية | تتبع الإنجاز</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --royal-green: #062c1b;
+            --oman-green: #00843d;
+            --gold-light: #d4af37;
+            --gold-dark: #9d7d3d;
+            --paper: #fdfaf1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: var(--royal-green) url('https://www.transparenttextures.com/patterns/arabesque.png');
+            font-family: 'Tajawal', sans-serif;
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        /* --- الهيدر الرسمي --- */
+        .official-header {
+            background: linear-gradient(to bottom, #0a3d28, #062c1b);
+            border-bottom: 4px solid var(--gold-light);
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        .header-content {
+            max-width: 1000px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .gov-info h2 { font-family: 'Amiri', serif; font-size: 1.2rem; color: var(--gold-light); }
+        .school-logo { width: 70px; height: 70px; background: #fff; border: 2px solid var(--gold-light); border-radius: 50%; padding: 5px; }
+
+        /* --- حاوية المحتوى --- */
+        .book-wrapper {
+            max-width: 800px; margin: 30px auto;
+            background: var(--paper); border-radius: 15px; padding: 25px;
+            min-height: 75vh; box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            color: #333; border-left: 8px solid var(--gold-dark);
+        }
+
+        /* --- شريط الإنجاز المطور --- */
+        .progress-container {
+            background: #eee; border-radius: 20px; height: 25px;
+            margin: 20px 0; position: relative; overflow: hidden;
+            border: 1px solid var(--gold-dark); display: none;
+        }
+        .progress-bar {
+            background: linear-gradient(90deg, var(--oman-green), var(--gold-light));
+            height: 100%; width: 0%; transition: width 1s ease-in-out;
+        }
+        .progress-text {
+            position: absolute; width: 100%; text-align: center;
+            font-weight: 900; font-size: 0.8rem; line-height: 25px; color: #000;
+        }
+
+        /* --- بطاقات الفهرس --- */
+        .index-card {
+            background: #fff; border: 1px solid #e0e0e0;
+            border-right: 5px solid var(--gold-dark); border-radius: 12px;
+            padding: 18px; margin-bottom: 15px;
+            display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer; transition: 0.3s;
+        }
+        .index-card:hover { transform: translateX(-8px); border-color: var(--oman-green); }
+        
+        .card-right { display: flex; align-items: center; gap: 15px; }
+        .quran-icon { width: 40px; height: 40px; fill: var(--gold-dark); }
+        
+        .status-badge {
+            font-size: 0.7rem; padding: 3px 8px; border-radius: 10px;
+            background: #f0f0f0; color: #888;
+        }
+        .status-completed { background: var(--oman-green); color: white; }
+
+        /* --- الانتقالات والمشغل --- */
+        .view { display: none; animation: fadeIn 0.5s ease; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        .video-container {
+            width: 100%; aspect-ratio: 16/9; background: #000;
+            border-radius: 12px; border: 4px solid var(--gold-dark);
+            overflow: hidden; margin-top: 15px;
+        }
+
+        .btn-back {
+            background: var(--royal-green); color: white; border: none;
+            padding: 8px 18px; border-radius: 5px; cursor: pointer; margin-bottom: 15px;
+        }
+
+        footer { text-align: center; padding: 20px; color: var(--gold-light); font-size: 0.8rem; }
+    </style>
+</head>
+<body>
+
+<header class="official-header">
+    <div class="header-content">
+        <div class="gov-info"><h2>سلطنة عمان</h2><h3>وزارة التربية والتعليم</h3></div>
+        <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="school-logo">
+        <div class="gov-info" style="text-align: left;"><h2>مدرسة المروج</h2><h3>بوابة الإنجاز الرقمية</h3></div>
+    </div>
+</header>
+
+<div class="book-wrapper">
+    
+    <div id="v-index" class="view active">
+        <h2 style="text-align: center; font-family: 'Amiri'; color: var(--gold-dark); margin-bottom: 25px;">فهرس الصفوف الدراسية</h2>
+        <div class="index-card" onclick="loadSurahs('الصف الخامس')">
+            <div class="card-right">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                <div><h4>الصف الخامس الأساسي</h4><p>اضغط لاستعراض السور</p></div>
+            </div>
+            <span>▶</span>
+        </div>
+        </div>
+
+    <div id="v-list" class="view">
+        <button class="btn-back" onclick="switchView('v-list', 'v-index')">🔙 عودة</button>
+        <h2 id="grade-title" style="font-family: 'Amiri'; color: var(--oman-green);"></h2>
+        
+        <div class="progress-container" id="progWrap">
+            <div class="progress-bar" id="progBar"></div>
+            <div class="progress-text" id="progText">0% مكتمل</div>
+        </div>
+
+        <div id="surah-list"></div>
+    </div>
+
+    <div id="v-player" class="view">
+        <button class="btn-back" onclick="switchView('v-player', 'v-list')">🔙 إنهاء الدرس</button>
+        <h2 id="p-title" style="text-align: center; color: var(--royal-green); font-family: 'Amiri';"></h2>
+        <div class="video-container" id="p-video"></div>
+    </div>
+
+</div>
+
+<footer>سلطنة عمان - مدرسة المروج الرقمية 2025</footer>
+
+<script>
+    const db = {
+        "الصف الخامس": [
+            { id: "s1", t: "سورة المرسلات", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Morsalat4.mp4" },
+            { id: "s2", t: "سورة الإنسان", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Insan1.mp4" },
+            { id: "s3", t: "سورة النبأ", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Naba.mp4" }
+        ]
+    };
+
+    let currentGrade = "";
+    let watchedSurahs = JSON.parse(localStorage.getItem('quran_progress')) || {};
+
+    function switchView(from, to) {
+        document.getElementById(from).classList.remove('active');
+        document.getElementById(to).classList.add('active');
+        if(to === 'v-list') updateProgress();
+    }
+
+    function loadSurahs(grade) {
+        currentGrade = grade;
+        document.getElementById('grade-title').innerText = grade;
+        document.getElementById('progWrap').style.display = 'block';
+        renderList();
+        switchView('v-index', 'v-list');
+    }
+
+    function renderList() {
+        const container = document.getElementById('surah-list');
+        container.innerHTML = "";
+        const surahs = db[currentGrade] || [];
+        
+        surahs.forEach(s => {
+            const isDone = watchedSurahs[s.id];
+            container.innerHTML += `
+                <div class="index-card" onclick="playVideo('${s.id}', '${s.t}', '${s.v}')">
+                    <div class="card-right">
+                        <svg class="quran-icon" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                        <div>
+                            <h4>${s.t}</h4>
+                            <span class="status-badge ${isDone ? 'status-completed' : ''}">${isDone ? '✅ تم المشاهدة' : '📖 لم يبدأ بعد'}</span>
+                        </div>
+                    </div>
+                    <span>▶</span>
+                </div>
+            `;
+        });
+        updateProgress();
+    }
+
+    function playVideo(id, title, url) {
+        document.getElementById('p-title').innerText = title;
+        const box = document.getElementById('p-video');
+        box.innerHTML = `<video id="activeVid" width="100%" height="100%" controls autoplay><source src="${url}" type="video/mp4"></video>`;
+        
+        // بمجرد أن يبدأ الطالب الفيديو، نعتبره "شاهد" السورة (أو يمكنك جعلها عند النهاية)
+        markAsWatched(id);
+        switchView('v-list', 'v-player');
+    }
+
+    function markAsWatched(id) {
+        watchedSurahs[id] = true;
+        localStorage.setItem('quran_progress', JSON.stringify(watchedSurahs));
+    }
+
+    function updateProgress() {
+        const surahs = db[currentGrade] || [];
+        const total = surahs.length;
+        if(total === 0) return;
+
+        let watchedCount = 0;
+        surahs.forEach(s => { if(watchedSurahs[s.id]) watchedCount++; });
+
+        const percent = Math.round((watchedCount / total) * 100);
+        document.getElementById('progBar').style.width = percent + "%";
+        document.getElementById('progText').innerText = `إنجازك في ${currentGrade}: ${percent}%`;
+    }
+</script>
+
+</body>
+</html>
