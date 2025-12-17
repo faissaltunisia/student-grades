@@ -3,213 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المروج | المصحف التفاعلي</title>
+    <title>بوابة المروج | المصحف التعليمي الملكي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --royal-green: #1a2e23;
-            --accent-gold: #d4af37;
-            --glass: rgba(255, 255, 255, 0.1);
-            --gold-glow: 0 0 15px rgba(212, 175, 55, 0.3);
+            --royal-green: #0a2e1f;
+            --deep-green: #061f15;
+            --gold-gradient: linear-gradient(135deg, #d4af37 0%, #f2d57e 50%, #c5a059 100%);
+            --gold-text: #d4af37;
+            --glass: rgba(255, 255, 255, 0.05);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: var(--royal-green) url('https://www.transparenttextures.com/patterns/arabesque.png');
+            background: var(--deep-green) url('https://www.transparenttextures.com/patterns/arabesque.png');
             color: #fff;
             min-height: 100vh;
             overflow-x: hidden;
         }
 
-        /* --- الهيدر الملكي --- */
+        /* --- الهيدر الفخم --- */
         header {
-            width: 100%; height: 80px;
-            background: rgba(0,0,0,0.3);
-            backdrop-filter: blur(10px);
-            border-bottom: 2px solid var(--accent-gold);
-            display: flex; align-items: center; justify-content: center;
-            position: sticky; top: 0; z-index: 1000;
+            position: sticky; top: 0; z-index: 2000;
+            background: rgba(10, 46, 31, 0.9);
+            backdrop-filter: blur(15px);
+            border-bottom: 2px solid var(--gold-text);
+            padding: 10px 20px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
         }
 
-        .header-content h1 { font-family: 'Amiri', serif; color: var(--accent-gold); font-size: 1.5rem; }
-
-        /* --- حاوية العرض المتغير --- */
-        .container {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            min-height: 70vh;
+        .header-container {
+            max-width: 1000px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
         }
 
-        .view { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .school-brand { display: flex; align-items: center; gap: 15px; }
+        .logo { 
+            width: 55px; height: 55px; 
+            background: #fff; border-radius: 12px; 
+            padding: 3px; border: 2px solid var(--gold-text);
+            box-shadow: 0 0 10px var(--gold-text);
+        }
+
+        .school-name h1 { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--gold-text); }
+        .school-name p { font-size: 0.7rem; color: #fff; opacity: 0.8; letter-spacing: 1px; }
+
+        /* --- الحاوية الرئيسية --- */
+        .main-content {
+            max-width: 850px; margin: 40px auto; padding: 0 20px;
+        }
+
+        .view { display: none; animation: slideIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
         .view.active { display: block; }
 
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- تصميم البطاقات --- */
-        .card {
+        /* --- تصميم البطاقات المطور --- */
+        .royal-card {
             background: var(--glass);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(212, 175, 55, 0.3);
+            border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 20px;
             padding: 25px;
             margin-bottom: 20px;
             cursor: pointer;
-            transition: 0.3s;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
             display: flex; align-items: center; justify-content: space-between;
         }
 
-        .card:hover { transform: scale(1.02); background: rgba(255,255,255,0.15); box-shadow: var(--gold-glow); }
-
-        .btn-back {
-            background: none; border: 1px solid var(--accent-gold); color: var(--accent-gold);
-            padding: 8px 20px; border-radius: 50px; cursor: pointer; margin-bottom: 20px;
-            font-weight: bold; transition: 0.3s;
-        }
-        .btn-back:hover { background: var(--accent-gold); color: var(--royal-green); }
-
-        /* --- قوائم السور --- */
-        .list-item {
-            background: rgba(255,255,255,0.05);
-            margin-bottom: 10px; padding: 15px 25px;
-            border-radius: 15px; display: flex; justify-content: space-between;
-            align-items: center; border-right: 4px solid var(--accent-gold);
+        .royal-card::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%;
+            background: var(--gold-gradient);
         }
 
-        .icon-play { color: #e74c3c; font-size: 1.5rem; cursor: pointer; }
-
-        /* --- مشغل الفيديو --- */
-        .video-box {
-            width: 100%; aspect-ratio: 16/9;
-            background: #000; border-radius: 20px;
-            margin: 20px 0; overflow: hidden;
-            border: 1px solid var(--accent-gold);
+        .royal-card:hover {
+            transform: scale(1.03) translateX(-5px);
+            background: rgba(255, 255, 255, 0.1);
+            border-color: var(--gold-text);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4), 0 0 15px rgba(212, 175, 55, 0.2);
         }
 
-        .surah-info-box {
-            background: var(--glass); padding: 25px; border-radius: 20px;
-            line-height: 1.8; text-align: justify; border: 1px solid var(--accent-gold);
+        .card-info { display: flex; align-items: center; gap: 20px; }
+        .card-icon { font-size: 1.8rem; filter: drop-shadow(0 0 5px var(--gold-text)); }
+        .card-title { font-size: 1.2rem; font-weight: 800; color: #fff; }
+
+        /* --- الأزرار --- */
+        .back-nav {
+            display: inline-flex; align-items: center; gap: 8px;
+            color: var(--gold-text); cursor: pointer; font-weight: 900;
+            margin-bottom: 25px; padding: 8px 15px; border: 1px solid var(--gold-text);
+            border-radius: 50px; transition: 0.3s;
+        }
+        .back-nav:hover { background: var(--gold-text); color: var(--royal-green); }
+
+        /* --- عرض السورة والفيديو --- */
+        .video-stage {
+            width: 100%; aspect-ratio: 16/9; background: #000;
+            border-radius: 20px; border: 2px solid var(--gold-text);
+            margin: 25px 0; overflow: hidden; box-shadow: 0 10px 40px rgba(0,0,0,0.6);
         }
 
+        .details-box {
+            background: rgba(0,0,0,0.3); border-radius: 20px; padding: 30px;
+            border-right: 5px solid var(--gold-text); line-height: 1.8;
+        }
+
+        /* --- الفوتر --- */
         footer {
-            text-align: center; padding: 30px; font-size: 0.8rem; color: var(--accent-gold);
-            background: rgba(0,0,0,0.2); margin-top: 50px;
+            margin-top: 60px; padding: 40px; text-align: center;
+            background: rgba(0,0,0,0.4); border-top: 1px solid var(--gold-text);
+            color: var(--gold-text); font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="header-content"><h1>بوابة المروج الرقمية</h1></div>
+    <div class="header-container">
+        <div class="school-brand">
+            <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="logo" alt="شعار المروج">
+            <div class="school-name">
+                <h1>مدرسة المروج للتعليم الأساسي (5-8)</h1>
+                <p>قسـم التربيـة الإسـلامية | قيمي حيـاة</p>
+            </div>
+        </div>
+        <div style="font-weight: 900; color: var(--gold-text);">2025</div>
+    </div>
 </header>
 
-<div class="container">
+<div class="main-content">
     
     <div id="view-grades" class="view active">
-        <h2 style="text-align: center; margin-bottom: 30px; color: var(--accent-gold);">فهرس الصفوف الدراسية</h2>
-        <div class="card" onclick="showSemesters('الصف الخامس')"><span>الصف الخامس الأساسي</span> <span>📖</span></div>
-        <div class="card" onclick="showSemesters('الصف السادس')"><span>الصف السادس الأساسي</span> <span>📖</span></div>
-        <div class="card" onclick="showSemesters('الصف السابع')"><span>الصف السابع الأساسي</span> <span>📖</span></div>
-        <div class="card" onclick="showSemesters('الصف الثامن')"><span>الصف الثامن الأساسي</span> <span>📖</span></div>
+        <h2 style="font-family: 'Amiri'; color: var(--gold-text); margin-bottom: 30px; text-align: center; font-size: 2rem;">فهرس السور المقررة</h2>
+        
+        <div class="royal-card" onclick="openSemesters('الصف الخامس')">
+            <div class="card-info">
+                <span class="card-icon">📜</span>
+                <span class="card-title">الصف الخامس الأساسي</span>
+            </div>
+            <span>◀</span>
+        </div>
+
+        <div class="royal-card" onclick="openSemesters('الصف السادس')">
+            <div class="card-info">
+                <span class="card-icon">📜</span>
+                <span class="card-title">الصف السادس الأساسي</span>
+            </div>
+            <span>◀</span>
+        </div>
+
+        <div class="royal-card" onclick="openSemesters('الصف السابع')">
+            <div class="card-info">
+                <span class="card-icon">📜</span>
+                <span class="card-title">الصف السابع الأساسي</span>
+            </div>
+            <span>◀</span>
+        </div>
+
+        <div class="royal-card" onclick="openSemesters('الصف الثامن')">
+            <div class="card-info">
+                <span class="card-icon">📜</span>
+                <span class="card-title">الصف الثامن الأساسي</span>
+            </div>
+            <span>◀</span>
+        </div>
     </div>
 
     <div id="view-semesters" class="view">
-        <button class="btn-back" onclick="changeView('view-grades')">← رجوع للفهرس</button>
-        <h2 id="grade-title" style="margin-bottom: 20px; color: var(--accent-gold);"></h2>
-        <div class="card" onclick="showSurahs('الفصل الأول')">الفصل الدراسي الأول <span>✦</span></div>
-        <div class="card" onclick="showSurahs('الفصل الثاني')">الفصل الدراسي الثاني <span>✦</span></div>
+        <div class="back-nav" onclick="setView('view-grades')">🔙 العودة للفهرس</div>
+        <h2 id="display-grade" style="color: var(--gold-text); margin-bottom: 20px;"></h2>
+        <div class="royal-card" onclick="openSurahs('الفصل الدراسي الأول')">
+            <div class="card-info">
+                <span class="card-icon">🌓</span>
+                <span class="card-title">الفصل الدراسي الأول</span>
+            </div>
+        </div>
+        <div class="royal-card" onclick="openSurahs('الفصل الدراسي الثاني')">
+            <div class="card-info">
+                <span class="card-icon">🌕</span>
+                <span class="card-title">الفصل الدراسي الثاني</span>
+            </div>
+        </div>
     </div>
 
     <div id="view-surahs" class="view">
-        <button class="btn-back" onclick="changeView('view-semesters')">← رجوع للفصول</button>
-        <h2 id="sem-title" style="margin-bottom: 20px; color: var(--accent-gold);"></h2>
-        <div id="surah-list-container">
-            </div>
+        <div class="back-nav" onclick="setView('view-semesters')">🔙 العودة للفصول</div>
+        <h2 id="display-sem" style="color: var(--gold-text); margin-bottom: 20px;"></h2>
+        <div id="surah-render-area"></div>
     </div>
 
-    <div id="view-content" class="view">
-        <button class="btn-back" onclick="changeView('view-surahs')">← رجوع لقائمة السور</button>
-        <div class="surah-info-box">
-            <h2 id="surah-name" style="color: var(--accent-gold); text-align: center; margin-bottom: 10px;"></h2>
-            <div class="video-box" id="video-player"></div>
-            <p id="surah-desc"></p>
+    <div id="view-player" class="view">
+        <div class="back-nav" onclick="setView('view-surahs')">🔙 قائمة السور</div>
+        <div class="details-box">
+            <h2 id="target-surah-name" style="color: var(--gold-text); font-family: 'Amiri'; font-size: 2.2rem; text-align: center;"></h2>
+            <div class="video-stage" id="video-frame"></div>
+            <p id="target-surah-desc" style="font-size: 1.1rem; color: #eee;"></p>
         </div>
     </div>
 
 </div>
 
 <footer>
-    مدرسة المروج للتعليم الأساسي - سلطنة عُمان &copy; 2025 <br>
-    بإشراف أ. فيصل العريبي
+    <p>جميع الحقوق محفوظة لمدرسة المروج - سلطنة عُمان &copy; 2025</p>
+    <p style="margin-top: 10px; font-size: 0.7rem; opacity: 0.6;">صمم بكل فخر لدعم مسيرة التعليم الرقمي</p>
 </footer>
 
 <script>
-    let currentGrade = "";
-    let currentSem = "";
+    let selectedGrade = "";
+    let selectedSem = "";
 
-    // بيانات السور (مثال)
-    const surahData = {
+    const database = {
         "الصف الخامس": {
-            "الفصل الأول": [
-                { name: "سورة المرسلات", desc: "سورة مكية، تتحدث عن أهوال يوم القيامة وعظمة الخالق في الكون.", vid: "https://www.youtube.com/embed/S_8nBv-KueA" },
-                { name: "سورة الإنسان", desc: "سورة مدنية، تتحدث عن خلق الإنسان ونعم الله عليه وجزاء الأبرار.", vid: "https://www.youtube.com/embed/j_jU6VfW-58" }
-            ],
-            "الفصل الثاني": [{ name: "سورة القيامة", desc: "سورة مكية تركز على إثبات البعث والجزاء.", vid: "" }]
+            "الفصل الدراسي الأول": [
+                { name: "سورة المرسلات", desc: "سورة مكية من المفصل، آياتها 50، تتحدث عن يوم الفصل وأهوال القيامة.", vid: "https://www.youtube.com/embed/S_8nBv-KueA" },
+                { name: "سورة الإنسان", desc: "سورة مدنية تتحدث عن نعم الله على الإنسان وجزاء الأبرار في الجنة.", vid: "https://www.youtube.com/embed/j_jU6VfW-58" }
+            ]
         },
         "الصف الثامن": {
-            "الفصل الأول": [
-                { name: "سورة الحجرات", desc: "سورة الآداب والأخلاق الاجتماعية وتنظيم علاقة المسلمين.", vid: "https://www.youtube.com/embed/69T4YIitv0c" }
+            "الفصل الدراسي الأول": [
+                { name: "سورة الحجرات", desc: "سورة مدنية تعنى بالأخلاق والآداب الرفيعة في مجتمع المسلمين.", vid: "https://www.youtube.com/embed/69T4YIitv0c" }
             ]
         }
     };
 
-    function changeView(viewId) {
+    function setView(id) {
         document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
-        document.getElementById(viewId).classList.add('active');
+        document.getElementById(id).classList.add('active');
         window.scrollTo(0,0);
     }
 
-    function showSemesters(grade) {
-        currentGrade = grade;
-        document.getElementById('grade-title').innerText = grade;
-        changeView('view-semesters');
+    function openSemesters(grade) {
+        selectedGrade = grade;
+        document.getElementById('display-grade').innerText = grade;
+        setView('view-semesters');
     }
 
-    function showSurahs(sem) {
-        currentSem = sem;
-        document.getElementById('sem-title').innerText = currentGrade + " - " + sem;
-        const container = document.getElementById('surah-list-container');
-        container.innerHTML = "";
-
-        const surahs = surahData[currentGrade]?.[sem] || [];
+    function openSurahs(sem) {
+        selectedSem = sem;
+        document.getElementById('display-sem').innerText = selectedGrade + " | " + sem;
+        const area = document.getElementById('surah-render-area');
+        area.innerHTML = "";
+        
+        const surahs = database[selectedGrade]?.[sem] || [];
         if(surahs.length === 0) {
-            container.innerHTML = "<p>سيتم إضافة السور قريباً...</p>";
+            area.innerHTML = "<div class='royal-card'>قريباً سيتم رفع سور هذا الفصل</div>";
         } else {
             surahs.forEach(s => {
-                container.innerHTML += `
-                    <div class="list-item" onclick="showSurahDetail('${s.name}', '${s.desc}', '${s.vid}')">
-                        <span>${s.name}</span>
-                        <span class="icon-play">▶</span>
+                area.innerHTML += `
+                    <div class="royal-card" onclick="playSurah('${s.name}', '${s.desc}', '${s.vid}')">
+                        <div class="card-info">
+                            <span class="card-icon">📖</span>
+                            <span class="card-title">${s.name}</span>
+                        </div>
+                        <span style="color: var(--gold-text)">تلاوة وتفسير ▶</span>
                     </div>
                 `;
             });
         }
-        changeView('view-surahs');
+        setView('view-surahs');
     }
 
-    function showSurahDetail(name, desc, vid) {
-        document.getElementById('surah-name').innerText = name;
-        document.getElementById('surah-desc').innerText = desc;
-        const player = document.getElementById('video-player');
-        
-        if(vid) {
-            player.innerHTML = `<iframe width="100%" height="100%" src="${vid}" frameborder="0" allowfullscreen></iframe>`;
-        } else {
-            player.innerHTML = `<div style="display:flex; align-items:center; justify-content:center; height:100%;">الفيديو غير متوفر حالياً</div>`;
-        }
-        changeView('view-content');
+    function playSurah(name, desc, vid) {
+        document.getElementById('target-surah-name').innerText = name;
+        document.getElementById('target-surah-desc').innerText = desc;
+        const frame = document.getElementById('video-frame');
+        frame.innerHTML = vid ? `<iframe width="100%" height="100%" src="${vid}" frameborder="0" allowfullscreen></iframe>` 
+                               : "<div style='color:white; padding:20%'>فيديو التلاوة سيُتاح قريباً</div>";
+        setView('view-player');
     }
 </script>
 
