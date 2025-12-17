@@ -3,292 +3,255 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مصحف المروج التعليمي | الهوية العمانية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@500;800&display=swap" rel="stylesheet">
+    <title>بوابة المروج التعليمية | سلطنة عمان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --oman-green: #073b28;
-            --royal-gold: #c5a059;
-            --antique-paper: #f4ece1;
-            --border-gold: #9d7d3d;
+            --oman-red: #d21034;
+            --oman-green: #00843d;
+            --royal-green: #062c1b;
+            --gold-dark: #9d7d3d;
+            --gold-light: #d4af37;
+            --paper: #fdfaf1;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: #1a1a1a url('https://www.transparenttextures.com/patterns/dark-matter.png');
+            background: var(--royal-green) url('https://www.transparenttextures.com/patterns/arabesque.png');
             font-family: 'Tajawal', sans-serif;
-            color: #333;
-            overflow-x: hidden;
+            color: #fff;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            overflow-x: hidden;
         }
 
-        /* --- خلفية الكتاب --- */
-        .book-container {
-            width: 95%;
-            max-width: 900px;
-            margin: 40px auto;
-            background: var(--antique-paper);
-            min-height: 85vh;
-            position: relative;
-            box-shadow: 0 0 50px rgba(0,0,0,0.8), inset 0 0 100px rgba(0,0,0,0.1);
-            border: 15px solid var(--oman-green);
-            border-image: url('https://www.transparenttextures.com/patterns/arabesque.png') 30 stretch;
-            outline: 5px solid var(--royal-gold);
-            border-radius: 5px;
-            padding: 40px 20px;
-            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-        }
-
-        /* الزخارف الجانبية */
-        .book-container::before, .book-container::after {
-            content: ''; position: absolute; top: 0; width: 40px; height: 100%;
-            background: linear-gradient(to right, rgba(0,0,0,0.1), transparent, rgba(0,0,0,0.1));
-        }
-        .book-container::before { left: 0; border-right: 1px solid rgba(0,0,0,0.05); }
-        .book-container::after { right: 0; border-left: 1px solid rgba(0,0,0,0.05); }
-
-        /* --- الهيدر العماني --- */
-        .oman-header {
+        /* --- الهيدر الوزاري المطور --- */
+        .official-header {
+            background: linear-gradient(to bottom, #0a3d28, #062c1b);
+            border-bottom: 4px solid var(--gold-light);
+            padding: 20px;
             text-align: center;
-            border-bottom: 2px double var(--royal-gold);
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-        }
-        .oman-header h1 {
-            font-family: 'Amiri', serif;
-            color: var(--oman-green);
-            font-size: 2.2rem;
-            text-shadow: 1px 1px 0px var(--royal-gold);
-        }
-
-        /* --- تأثيرات الصفحات --- */
-        .page-view {
-            display: none;
-            animation: flipPage 0.8s ease-out forwards;
-        }
-        .page-view.active { display: block; }
-
-        @keyframes flipPage {
-            0% { opacity: 0; transform: rotateY(-20deg); }
-            100% { opacity: 1; transform: rotateY(0deg); }
-        }
-
-        /* --- تصميم الفهرس (شكل المصحف) --- */
-        .index-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
-        }
-
-        .surah-entry {
-            background: rgba(255, 255, 255, 0.6);
-            border: 1px solid var(--royal-gold);
-            padding: 15px 25px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: 0.3s;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
             position: relative;
         }
 
-        .surah-entry:hover {
-            background: white;
-            transform: scale(1.02);
-            box-shadow: 0 5px 15px rgba(157, 125, 61, 0.2);
+        .header-content {
+            max-width: 1000px; margin: 0 auto;
+            display: flex; align-items: center; justify-content: space-between;
         }
 
-        .surah-info { display: flex; align-items: center; gap: 20px; }
-        
-        .surah-num {
-            width: 45px; height: 45px;
-            background: url('https://cdn-icons-png.flaticon.com/512/4462/4462271.png') no-repeat center;
-            background-size: contain;
-            display: flex; align-items: center; justify-content: center;
-            font-family: 'Amiri', serif; font-weight: bold; color: var(--oman-green);
+        .gov-info h2 { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--gold-light); }
+        .gov-info h3 { font-size: 0.9rem; opacity: 0.9; letter-spacing: 1px; margin-top: 5px; }
+
+        .school-logo {
+            width: 80px; height: 80px; background: #fff;
+            border: 3px solid var(--gold-light); border-radius: 50%;
+            padding: 5px; box-shadow: 0 0 20px var(--gold-light);
         }
 
-        .surah-name { font-family: 'Amiri', serif; font-size: 1.5rem; color: #2c3e50; }
+        /* --- حاوية الكتاب --- */
+        .book-wrapper {
+            max-width: 850px; margin: 40px auto;
+            background: var(--paper);
+            border-radius: 15px;
+            padding: 30px;
+            min-height: 70vh;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+            color: #333;
+            border-left: 10px solid var(--gold-dark);
+        }
+
+        /* --- بطاقات الفهرس الجذابة --- */
+        .index-card {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-right: 6px solid var(--gold-dark);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .index-card:hover {
+            transform: translateX(-10px) scale(1.02);
+            border-color: var(--gold-light);
+            box-shadow: 0 15px 30px rgba(157, 125, 61, 0.2);
+            background: #fffdf5;
+        }
+
+        .card-right { display: flex; align-items: center; gap: 20px; }
+
+        /* أيقونة المصحف SVG */
+        .quran-icon {
+            width: 50px; height: 50px;
+            fill: var(--gold-dark);
+            filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+            transition: 0.3s;
+        }
+        .index-card:hover .quran-icon { fill: var(--oman-green); transform: rotate(-10deg); }
+
+        .card-text h4 { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--royal-green); }
+        .card-text p { font-size: 0.8rem; color: #777; font-weight: bold; }
+
+        /* --- تأثيرات الانتقال --- */
+        .view { display: none; animation: fadeIn 0.6s ease; }
+        .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* --- مشغل الفيديو --- */
-        .video-frame {
-            width: 100%;
-            background: #000;
-            border: 8px solid var(--oman-green);
-            border-radius: 10px;
-            margin: 20px 0;
-            aspect-ratio: 16/9;
+        .video-container {
+            width: 100%; aspect-ratio: 16/9; background: #000;
+            border-radius: 15px; border: 4px solid var(--gold-dark);
+            overflow: hidden; margin: 20px 0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
 
-        .btn-back {
-            background: var(--oman-green);
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            font-family: 'Tajawal';
-            cursor: pointer;
-            border-radius: 30px;
-            margin-bottom: 20px;
-            display: flex; align-items: center; gap: 8px;
+        .back-button {
+            background: var(--royal-green); color: #fff; border: none;
+            padding: 10px 20px; border-radius: 8px; cursor: pointer;
+            font-family: 'Tajawal'; font-weight: bold; margin-bottom: 20px;
+            display: inline-flex; align-items: center; gap: 8px;
             transition: 0.3s;
         }
-        .btn-back:hover { background: var(--royal-gold); }
+        .back-button:hover { background: var(--gold-dark); }
 
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            color: var(--royal-gold);
-            text-align: center;
-            font-size: 0.9rem;
-        }
-
-        /* زخرفة الركن */
-        .corner-ornament {
-            position: absolute; width: 80px; height: 80px;
-            opacity: 0.4; pointer-events: none;
-        }
-        .top-right { top: 10px; right: 10px; border-top: 3px solid var(--royal-gold); border-right: 3px solid var(--royal-gold); border-radius: 0 15px 0 0; }
-        .bottom-left { bottom: 10px; left: 10px; border-bottom: 3px solid var(--royal-gold); border-left: 3px solid var(--royal-gold); border-radius: 0 0 0 15px; }
+        footer { text-align: center; padding: 40px; color: var(--gold-light); font-size: 0.8rem; }
 
     </style>
 </head>
 <body>
 
-    <div class="book-container" id="mainBook">
-        <div class="corner-ornament top-right"></div>
-        <div class="corner-ornament bottom-left"></div>
+<header class="official-header">
+    <div class="header-content">
+        <div class="gov-info">
+            <h2>سلطنة عمان</h2>
+            <h3>وزارة التربية والتعليم</h3>
+        </div>
+        <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="school-logo" alt="شعار المدرسة">
+        <div class="gov-info" style="text-align: left;">
+            <h2>مدرسة المروج</h2>
+            <h3>للتعليم الأساسي (1-8)</h3>
+        </div>
+    </div>
+</header>
 
-        <div id="indexPage" class="page-view active">
-            <div class="oman-header">
-                <p style="color: var(--royal-gold); font-weight: bold;">سلطنة عمان</p>
-                <h1>فهرس السور التعليمي</h1>
-                <p style="font-size: 0.8rem; opacity: 0.7;">بوابة مدرسة المروج للتربية الإسلامية</p>
+<div class="book-wrapper">
+
+    <div id="v-index" class="view active">
+        <h2 style="text-align: center; font-family: 'Amiri'; color: var(--gold-dark); font-size: 2.2rem; margin-bottom: 30px;">فهرس المحتوى الرقمي</h2>
+        
+        <div class="index-card" onclick="openGrade('الصف الخامس')">
+            <div class="card-right">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                <div class="card-text"><h4>الصف الخامس الأساسي</h4><p>المقرر العماني الحديث</p></div>
             </div>
-
-            <div class="index-grid">
-                <div class="surah-entry" onclick="loadContent('الصف الخامس', 'الفصل الأول')">
-                    <div class="surah-info">
-                        <div class="surah-num">٥</div>
-                        <div class="surah-name">دروس الصف الخامس الأساسي</div>
-                    </div>
-                    <span>📖</span>
-                </div>
-                
-                <div class="surah-entry" onclick="loadContent('الصف السادس', 'الفصل الأول')">
-                    <div class="surah-info">
-                        <div class="surah-num">٦</div>
-                        <div class="surah-name">دروس الصف السادس الأساسي</div>
-                    </div>
-                    <span>📖</span>
-                </div>
-
-                <div class="surah-entry" onclick="loadContent('الصف السابع', 'الفصل الأول')">
-                    <div class="surah-info">
-                        <div class="surah-num">٧</div>
-                        <div class="surah-name">دروس الصف السابع الأساسي</div>
-                    </div>
-                    <span>📖</span>
-                </div>
-
-                <div class="surah-entry" onclick="loadContent('الصف الثامن', 'الفصل الأول')">
-                    <div class="surah-info">
-                        <div class="surah-num">٨</div>
-                        <div class="surah-name">دروس الصف الثامن الأساسي</div>
-                    </div>
-                    <span>📖</span>
-                </div>
-            </div>
+            <span style="color: var(--gold-dark)">◀</span>
         </div>
 
-        <div id="listPage" class="page-view">
-            <button class="btn-back" onclick="changePage('listPage', 'indexPage')">🔙 العودة للفهرس</button>
-            <h2 id="currentGrade" style="font-family: 'Amiri'; color: var(--oman-green); text-align: center; margin-bottom: 20px;"></h2>
-            <div id="surahListGrid" class="index-grid"></div>
-        </div>
-
-        <div id="videoPage" class="page-view">
-            <button class="btn-back" onclick="changePage('videoPage', 'listPage')">🔙 العودة للقائمة</button>
-            <div style="text-align: center;">
-                <h2 id="videoTitle" style="font-family: 'Amiri'; color: var(--oman-green); font-size: 2rem;"></h2>
-                <div id="videoContainer" class="video-frame"></div>
-                <div style="padding: 20px; background: rgba(0,0,0,0.03); border-radius: 10px; margin-top: 15px;">
-                    <p id="videoDesc" style="line-height: 1.8; color: #555;"></p>
-                </div>
+        <div class="index-card" onclick="openGrade('الصف السادس')">
+            <div class="card-right">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                <div class="card-text"><h4>الصف السادس الأساسي</h4><p>المقرر العماني الحديث</p></div>
             </div>
+            <span style="color: var(--gold-dark)">◀</span>
         </div>
 
+        <div class="index-card" onclick="openGrade('الصف السابع')">
+            <div class="card-right">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                <div class="card-text"><h4>الصف السابع الأساسي</h4><p>المقرر العماني الحديث</p></div>
+            </div>
+            <span style="color: var(--gold-dark)">◀</span>
+        </div>
+
+        <div class="index-card" onclick="openGrade('الصف الثامن')">
+            <div class="card-right">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                <div class="card-text"><h4>الصف الثامن الأساسي</h4><p>المقرر العماني الحديث</p></div>
+            </div>
+            <span style="color: var(--gold-dark)">◀</span>
+        </div>
     </div>
 
-    <footer>
-        <p>جميع الحقوق محفوظة لمدرسة المروج &copy; 2025</p>
-    </footer>
+    <div id="v-list" class="view">
+        <button class="back-button" onclick="switchView('v-list', 'v-index')">🔙 العودة للفهرس</button>
+        <h2 id="grade-label" style="font-family: 'Amiri'; color: var(--oman-green); margin-bottom: 25px;"></h2>
+        <div id="surah-container"></div>
+    </div>
 
-    <script>
-        const db = {
-            "الصف الخامس": [
-                { title: "سورة المرسلات", desc: "تفسير وتلاوة سورة المرسلات المقررة للفصل الأول.", url: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Morsalat4.mp4" },
-                { title: "سورة الإنسان", desc: "تلاوة تعليمية لسورة الإنسان مع أحكام التجويد.", url: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Insan1.mp4" }
-            ],
-            "الصف الثامن": [
-                { title: "سورة الحجرات", desc: "شرح آداب التعامل من سورة الحجرات.", url: "https://www.youtube.com/embed/69T4YIitv0c" }
-            ]
-        };
+    <div id="v-player" class="view">
+        <button class="back-button" onclick="switchView('v-player', 'v-list')">🔙 عودة للقائمة</button>
+        <h2 id="p-title" style="font-family: 'Amiri'; color: var(--royal-green); font-size: 2rem; text-align: center;"></h2>
+        <div class="video-container" id="p-video"></div>
+        <p id="p-desc" style="line-height: 1.8; color: #444; text-align: justify; padding: 15px; background: #f0f0f0; border-radius: 10px;"></p>
+    </div>
 
-        let activeGrade = "";
+</div>
 
-        function changePage(fromId, toId) {
-            document.getElementById(fromId).classList.remove('active');
-            document.getElementById(toId).classList.add('active');
-            
-            // تأثير حركة الكتاب
-            const book = document.getElementById('mainBook');
-            book.style.transform = "rotateY(5deg)";
-            setTimeout(() => book.style.transform = "rotateY(0deg)", 400);
-        }
+<footer>
+    <p>بوابة مدرسة المروج الرقمية - سلطنة عمان &copy; 2025</p>
+</footer>
 
-        function loadContent(grade) {
-            activeGrade = grade;
-            document.getElementById('currentGrade').innerText = grade;
-            const listGrid = document.getElementById('surahListGrid');
-            listGrid.innerHTML = "";
+<script>
+    const database = {
+        "الصف الخامس": [
+            {t: "سورة المرسلات", d: "تلاوة تعليمية وتفسير لآيات سورة المرسلات المقررة.", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Morsalat4.mp4"},
+            {t: "سورة الإنسان", d: "شرح مفصل لسورة الإنسان مع أحكام التجويد.", v: "https://ict.moe.gov.om/tlawti/video/5/cls5_Islamic_Insan1.mp4"}
+        ],
+        "الصف الثامن": [
+            {t: "سورة الحجرات", d: "تأملات في الآداب الإسلامية من سورة الحجرات.", v: "https://www.youtube.com/embed/69T4YIitv0c"}
+        ]
+    };
 
-            const surahs = db[grade] || [];
-            if(surahs.length === 0) {
-                listGrid.innerHTML = "<p style='text-align:center;'>المحتوى سيتوفر قريباً بإذن الله</p>";
-            } else {
-                surahs.forEach((s, index) => {
-                    listGrid.innerHTML += `
-                        <div class="surah-entry" onclick="openVideo('${s.title}', '${s.desc}', '${s.url}')">
-                            <div class="surah-info">
-                                <div class="surah-num">${index + 1}</div>
-                                <div class="surah-name">${s.title}</div>
-                            </div>
-                            <span>▶</span>
+    let activeGrade = "";
+
+    function switchView(from, to) {
+        document.getElementById(from).classList.remove('active');
+        document.getElementById(to).classList.add('active');
+        window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function openGrade(grade) {
+        activeGrade = grade;
+        document.getElementById('grade-label').innerText = grade;
+        const container = document.getElementById('surah-container');
+        container.innerHTML = "";
+        
+        const surahs = database[grade] || [];
+        if(surahs.length === 0) {
+            container.innerHTML = "<p style='text-align:center; padding:40px;'>سيتم إضافة الدروس قريباً</p>";
+        } else {
+            surahs.forEach(s => {
+                container.innerHTML += `
+                    <div class="index-card" onclick="openPlayer('${s.t}', '${s.d}', '${s.v}')">
+                        <div class="card-right">
+                             <svg class="quran-icon" viewBox="0 0 24 24"><path d="M19,2L14,6.5V17.5L19,13V2M6.5,5C4.57,5 2.89,5.83 1.74,7.14C1.27,7.68 1,8.37 1,9.09V17.91C1,19.33 2.41,20.35 3.75,19.79C4.6,19.43 5.53,19.23 6.5,19.23C8.75,19.23 10.74,20.19 12,21.73C13.26,20.19 15.25,19.23 17.5,19.23C18.47,19.23 19.4,19.43 20.25,19.79C21.59,20.35 23,19.33 23,17.91V9.09C23,8.37 22.73,7.68 22.26,7.14C21.11,5.83 19.43,5 17.5,5C15.25,5 13.26,5.96 12,7.5C10.74,5.96 8.75,5 6.5,5Z"/></svg>
+                            <div class="card-text"><h4>${s.t}</h4><p>تلاوة وتفسير</p></div>
                         </div>
-                    `;
-                });
-            }
-            changePage('indexPage', 'listPage');
+                        <span>▶</span>
+                    </div>
+                `;
+            });
         }
+        switchView('v-index', 'v-list');
+    }
 
-        function openVideo(title, desc, url) {
-            document.getElementById('videoTitle').innerText = title;
-            document.getElementById('videoDesc').innerText = desc;
-            const container = document.getElementById('videoContainer');
-            
-            if(url.includes('youtube')) {
-                container.innerHTML = `<iframe width="100%" height="100%" src="${url}" frameborder="0" allowfullscreen></iframe>`;
-            } else {
-                container.innerHTML = `<video width="100%" height="100%" controls controlsList="nodownload"><source src="${url}" type="video/mp4"></video>`;
-            }
-            changePage('listPage', 'videoPage');
+    function openPlayer(t, d, v) {
+        document.getElementById('p-title').innerText = t;
+        document.getElementById('p-desc').innerText = d;
+        const frame = document.getElementById('p-video');
+        if(v.includes('youtube')) {
+            frame.innerHTML = `<iframe width="100%" height="100%" src="${v}" frameborder="0" allowfullscreen></iframe>`;
+        } else {
+            frame.innerHTML = `<video width="100%" height="100%" controls controlsList="nodownload"><source src="${v}" type="video/mp4"></video>`;
         }
-    </script>
+        switchView('v-list', 'v-player');
+    }
+</script>
+
 </body>
 </html>
