@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>بوابة المروج الرقمية | مدرسة المروج</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;500;800&family=Amiri:wght@700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oman-green: #1b3a2d;
+            --oman-gold: #c5a059;
+            --royal-gold: #d4af37;
+            --sand-light: #fdfaf3;
+            --white: #ffffff;
+            --transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: var(--transition);
+        }
+
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--sand-light);
+            background-image: url('https://www.transparenttextures.com/patterns/paper.png'), 
+                              radial-gradient(circle at top, rgba(197, 160, 89, 0.1), transparent);
+            color: var(--oman-green);
+            overflow-x: hidden;
+        }
+
+        /* هيدر سينمائي */
+        header {
+            background: linear-gradient(135deg, var(--oman-green) 0%, #0d1f18 100%);
+            padding: 60px 20px;
+            text-align: center;
+            position: relative;
+            color: var(--white);
+            border-bottom: 5px solid var(--oman-gold);
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
+            margin-bottom: 50px;
+        }
+
+        .main-logo {
+            width: 130px;
+            height: 130px;
+            border-radius: 20px;
+            border: 3px solid var(--oman-gold);
+            background: white;
+            padding: 10px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            margin-bottom: 20px;
+            transform: rotate(-2deg);
+        }
+
+        header h1 {
+            font-family: 'Amiri', serif;
+            font-size: clamp(28px, 6vw, 45px);
+            color: var(--oman-gold);
+            margin-bottom: 10px;
+            letter-spacing: 1px;
+        }
+
+        header p {
+            font-weight: 300;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px 80px;
+        }
+
+        /* تصميم قسم الصف الدراسي */
+        .grade-section {
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        .grade-title-box {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .grade-badge {
+            background: var(--oman-green);
+            color: var(--oman-gold);
+            padding: 12px 35px;
+            border-radius: 15px 50px 15px 50px;
+            font-weight: 800;
+            font-size: 1.4rem;
+            box-shadow: 8px 8px 0 var(--oman-gold);
+        }
+
+        .semester-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+
+        /* بطاقة الفصل الدراسي المطورة */
+        .semester-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 25px;
+            padding: 30px;
+            border: 1px solid rgba(197, 160, 89, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
+        }
+
+        .semester-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(27, 58, 45, 0.15);
+            border-color: var(--oman-green);
+        }
+
+        .semester-card h3 {
+            color: var(--oman-green);
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-right: 5px solid var(--oman-gold);
+            padding-right: 15px;
+        }
+
+        /* أزرار السور الاحترافية */
+        .surah-link {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: var(--white);
+            padding: 18px 25px;
+            border-radius: 15px;
+            text-decoration: none;
+            color: var(--oman-green);
+            margin-bottom: 15px;
+            border: 1px solid #f0f0f0;
+            font-weight: 600;
+        }
+
+        .surah-link:hover {
+            background: var(--oman-green);
+            color: var(--white);
+            transform: scale(1.02);
+        }
+
+        .play-indicator {
+            background: var(--oman-gold);
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            box-shadow: 0 4px 10px rgba(197, 160, 89, 0.4);
+        }
+
+        .surah-link:hover .play-indicator {
+            background: var(--white);
+            color: var(--oman-green);
+            transform: rotate(360deg);
+        }
+
+        /* فوتر ملكي */
+        footer {
+            background: var(--oman-green);
+            color: var(--white);
+            padding: 80px 20px 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        footer::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 5px;
+            background: linear-gradient(90deg, transparent, var(--oman-gold), transparent);
+        }
+
+        .footer-content h2 { 
+            color: var(--oman-gold); 
+            font-family: 'Amiri', serif; 
+            font-size: 2rem;
+            margin-bottom: 15px;
+        }
+
+        .copy-info {
+            margin-top: 40px;
+            font-size: 0.9rem;
+            opacity: 0.6;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 20px;
+        }
+
+        /* تحسينات الشاشات الصغيرة */
+        @media (max-width: 768px) {
+            header { padding: 40px 10px; clip-path: none; }
+            .grade-badge { font-size: 1.1rem; width: 100%; text-align: center; }
+            .semester-card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" alt="شعار مدرسة المروج" class="main-logo">
+    <h1>بوابة التلاوة الرقمية</h1>
+    <p>مدرسة المروج للتعليم الأساسي (5-8) | مِشكاة النور والبيان</p>
+</header>
+
+<div class="container">
+    
+    <section class="grade-section">
+        <div class="grade-title-box">
+            <div class="grade-badge">الصف الخامس الأساسي</div>
+        </div>
+        <div class="semester-grid">
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الأول</h3>
+                <a href="https://www.youtube.com/watch?v=fPshn6t89sM" target="_blank" class="surah-link">
+                    <span>سورة المرسلات</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+                <a href="https://www.youtube.com/watch?v=3u_sH2fI0U4" target="_blank" class="surah-link">
+                    <span>سورة الإنسان</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الثاني</h3>
+                <a href="https://www.youtube.com/watch?v=YpD-W-mP-Hk" target="_blank" class="surah-link">
+                    <span>سورة القيامة</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="grade-section">
+        <div class="grade-title-box">
+            <div class="grade-badge">الصف السادس الأساسي</div>
+        </div>
+        <div class="semester-grid">
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الأول</h3>
+                <a href="https://www.youtube.com/watch?v=fPshn6t89sM" target="_blank" class="surah-link">
+                    <span>سورة المدثر</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الثاني</h3>
+                <a href="https://www.youtube.com/watch?v=YpD-W-mP-Hk" target="_blank" class="surah-link">
+                    <span>سورة الجن</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="grade-section">
+        <div class="grade-title-box">
+            <div class="grade-badge">الصف السابع الأساسي</div>
+        </div>
+        <div class="semester-grid">
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الأول</h3>
+                <a href="https://www.youtube.com/watch?v=fPshn6t89sM" target="_blank" class="surah-link">
+                    <span>سورة الملك</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الثاني</h3>
+                <a href="https://www.youtube.com/watch?v=YpD-W-mP-Hk" target="_blank" class="surah-link">
+                    <span>سورة المزمل</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section class="grade-section">
+        <div class="grade-title-box">
+            <div class="grade-badge">الصف الثامن الأساسي</div>
+        </div>
+        <div class="semester-grid">
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الأول</h3>
+                <a href="https://www.youtube.com/watch?v=fPshn6t89sM" target="_blank" class="surah-link">
+                    <span>سورة الحجرات</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+                <a href="https://www.youtube.com/watch?v=3u_sH2fI0U4" target="_blank" class="surah-link">
+                    <span>سورة التحريم</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+            <div class="semester-card">
+                <h3>📖 الفصل الدراسي الثاني</h3>
+                <a href="https://www.youtube.com/watch?v=YpD-W-mP-Hk" target="_blank" class="surah-link">
+                    <span>سورة القلم</span>
+                    <div class="play-indicator">▶</div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<footer>
+    <div class="footer-content">
+        <h2>مدرسة المروج للتعليم الأساسي</h2>
+        <p>محافظة ظفار - صلالة - سلطنة عُمان</p>
+        <p style="margin-top: 15px; color: var(--oman-gold);">تحت إشراف: أ. فيصل العريبي</p>
+        <div class="copy-info">
+            جميع الحقوق محفوظة &copy; 2025 | رؤية عُمان 2040
+        </div>
+    </div>
+</footer>
+
+<script>
+    // نظام تحريك الأقسام عند التمرير بشكل احترافي
+    const sections = document.querySelectorAll('.grade-section');
+    
+    const observerOptions = {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px 0px"
+    };
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = "1";
+                entry.target.style.transform = "translateY(0)";
+            }
+        });
+    }, observerOptions);
+
+    sections.forEach(section => {
+        sectionObserver.observe(section);
+    });
+</script>
+
+</body>
+</html>
