@@ -3,253 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المروج | المصحف التفاعلي</title>
+    <title>بوابة المروج | التصميم الملكي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --royal-green: #0a2e1f;
-            --royal-gold: #c5a059;
-            --paper: #fdfbf7;
-            --glass: rgba(10, 46, 31, 0.95);
+            --royal-green: #2d4639;
+            --accent-gold: #d4af37;
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --gold-glow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: #e4e9e5;
-            color: var(--royal-green);
-            line-height: 1.6;
+            background-color: var(--royal-green);
+            /* نمط الأرابيسك في الخلفية كما في الصورة */
+            background-image: url('https://www.transparenttextures.com/patterns/arabesque.png');
+            background-attachment: fixed;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        /* --- الهيدر الضبابي --- */
+        /* --- الهيدر النصف دائري الزجاجي --- */
         header {
-            position: fixed;
-            top: 0; width: 100%; height: 70px;
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            padding: 0 20px;
-            border-bottom: 3px solid var(--royal-gold);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-
-        .header-brand { display: flex; align-items: center; gap: 12px; }
-        .logo { width: 45px; height: 45px; background: white; border-radius: 10px; border: 1.5px solid var(--royal-gold); }
-        .header-text h1 { font-family: 'Amiri', serif; color: var(--royal-gold); font-size: 1.3rem; line-height: 1; }
-        .header-text p { color: white; font-size: 0.65rem; opacity: 0.8; }
-
-        /* --- الحاوية الرئيسية --- */
-        .container {
-            max-width: 900px;
-            margin: 90px auto 100px;
-            padding: 0 15px;
-        }
-
-        .view { display: none; animation: slideUp 0.4s ease-out; }
-        .view.active { display: block; }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- الفهرس (Index Style) --- */
-        .grade-card {
-            background: var(--paper);
-            border-radius: 20px;
-            margin-bottom: 30px;
-            overflow: hidden;
-            border: 1px solid rgba(197, 160, 89, 0.3);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
-        }
-
-        .grade-header {
-            background: var(--royal-green);
-            color: var(--royal-gold);
-            padding: 15px 25px;
-            font-weight: 900;
-            font-size: 1.1rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .surah-item {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 15px 25px;
-            border-bottom: 1px solid #eee;
-            transition: 0.3s;
-        }
-
-        .surah-item:hover { background: #f3f0e7; }
-
-        .surah-info { display: flex; flex-direction: column; }
-        .surah-name { font-weight: 800; font-size: 1rem; }
-        .surah-meta { font-size: 0.75rem; color: #777; }
-
-        .action-btns { display: flex; gap: 10px; }
-        .btn-icon {
-            width: 40px; height: 40px; border-radius: 10px; border: none;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; transition: 0.2s; font-size: 1.2rem;
-        }
-        .btn-video { background: #e74c3c; color: white; }
-        .btn-read { background: var(--royal-gold); color: var(--royal-green); }
-        .btn-icon:hover { transform: scale(1.1); }
-
-        /* --- صفحة المحتوى --- */
-        .content-card {
-            background: var(--paper);
-            border-radius: 25px;
-            padding: 30px;
-            border: 2px solid var(--royal-gold);
+            width: 90%;
+            max-width: 800px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-top: none;
+            padding: 25px;
+            border-bottom-left-radius: 100px;
+            border-bottom-right-radius: 100px;
             text-align: center;
+            margin-bottom: 40px;
+            box-shadow: var(--gold-glow);
         }
 
-        .video-container {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-            background: #000;
-            border-radius: 15px;
-            margin: 20px 0;
-            overflow: hidden;
+        .header-top { display: flex; justify-content: space-around; align-items: center; margin-bottom: 10px; }
+        .school-title { font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--accent-gold); }
+        .year { font-weight: 900; opacity: 0.8; }
+
+        /* --- حاوية البطاقات (نظام الشبكة كما في الصورة) --- */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            width: 90%;
+            max-width: 900px;
+            margin-bottom: 100px;
+        }
+
+        @media (max-width: 600px) {
+            .grid-container { grid-template-columns: 1fr; }
+        }
+
+        /* --- تصميم البطاقة الزجاجي --- */
+        .card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            padding: 20px;
             display: flex;
             align-items: center;
-            justify-content: center;
-            color: white;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
 
-        .back-btn {
-            background: var(--royal-green); color: var(--royal-gold);
-            border: none; padding: 10px 20px; border-radius: 50px;
-            margin-bottom: 20px; cursor: pointer; font-weight: 800;
+        .card:hover {
+            transform: scale(1.05) rotate(1deg);
+            border-color: var(--accent-gold);
+            box-shadow: var(--gold-glow);
+            background: rgba(255, 255, 255, 0.15);
         }
 
-        /* --- الفوتر --- */
+        .card-content { display: flex; align-items: center; gap: 15px; }
+
+        /* أيقونات القرآن الذهبية */
+        .quran-icon { width: 45px; height: 45px; fill: var(--accent-gold); filter: drop-shadow(0 0 5px var(--accent-gold)); }
+
+        .info h3 { font-size: 1.2rem; color: #fff; margin-bottom: 5px; }
+        .info p { font-size: 0.75rem; color: #ccc; }
+
+        /* أزرار الإجراءات */
+        .actions { display: flex; gap: 8px; }
+        .btn {
+            width: 35px; height: 35px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            border: none; cursor: pointer; transition: 0.3s;
+        }
+        .btn-play { background: #e74c3c; color: white; box-shadow: 0 0 10px rgba(231, 76, 60, 0.5); }
+        .btn-book { background: var(--accent-gold); color: var(--royal-green); }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.2); }
+
+        /* --- الفوتر العريض المستطيل --- */
         footer {
-            position: fixed; bottom: 0; width: 100%; height: 80px;
-            background: var(--royal-green); border-top: 3px solid var(--royal-gold);
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            color: var(--royal-gold); z-index: 1000;
+            width: 90%;
+            max-width: 800px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
         }
+
+        .footer-text { font-size: 0.85rem; color: var(--accent-gold); font-weight: bold; line-height: 1.6; }
+
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-brand">
-            <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="logo" alt="logo">
-            <div class="header-text">
-                <h1>بوابة المروج التعليمية</h1>
-                <p>رؤية تربوية إسلامية معاصرة</p>
-            </div>
+        <div class="header-top">
+            <span class="year">2025</span>
+            <div class="school-title">بوابة المروج الرقمية</div>
+            <span style="font-size: 1.5rem;">🌙</span>
         </div>
+        <p style="font-size: 0.8rem; opacity: 0.7;">رؤية تربوية إسلامية معاصرة</p>
     </header>
 
-    <div class="container">
+    <div class="grid-container">
         
-        <div id="index-view" class="view active">
-            
-            <div class="grade-card">
-                <div class="grade-header">الصف الخامس الأساسي <span>V</span></div>
-                <div class="surah-item">
-                    <div class="surah-info">
-                        <span class="surah-name">سورة المرسلات</span>
-                        <span class="surah-meta">مكية | حفظ</span>
-                    </div>
-                    <div class="action-btns">
-                        <button class="btn-icon btn-video" onclick="showSurah('سورة المرسلات', 'فيديو التلاوة', 'سورة المرسلات هي سورة مكية، تتحدث عن أهوال يوم القيامة وعظمة الخالق.', 'https://www.youtube.com/embed/dQw4w9WgXcQ')">🎥</button>
-                        <button class="btn-icon btn-read" onclick="showSurah('سورة المرسلات', 'تعريف السورة', 'سورة المرسلات هي سورة مكية، تتحدث عن أهوال يوم القيامة وعظمة الخالق.')">📖</button>
-                    </div>
+        <div class="card">
+            <div class="card-content">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
+                <div class="info">
+                    <h3>الصف الخامس</h3>
+                    <p>سورة المرسلات | حفظ</p>
                 </div>
             </div>
-
-            <div class="grade-card">
-                <div class="grade-header">الصف السادس الأساسي <span>VI</span></div>
-                <div class="surah-item">
-                    <div class="surah-info">
-                        <span class="surah-name">سورة المدثر</span>
-                        <span class="surah-meta">مكية | حفظ</span>
-                    </div>
-                    <div class="action-btns">
-                        <button class="btn-icon btn-video" onclick="showSurah('سورة المدثر', 'فيديو التلاوة', 'سورة المدثر من أوائل ما نزل، تدعو للنذارة والقيام بأمر الله.')">🎥</button>
-                        <button class="btn-icon btn-read" onclick="showSurah('سورة المدثر', 'تعريف السورة', 'سورة المدثر من أوائل ما نزل، تدعو للنذارة والقيام بأمر الله.')">📖</button>
-                    </div>
-                </div>
+            <div class="actions">
+                <button class="btn btn-play">▶</button>
+                <button class="btn btn-book">📖</button>
             </div>
-
-            <div class="grade-card">
-                <div class="grade-header">الصف السابع الأساسي <span>VII</span></div>
-                <div class="surah-item">
-                    <div class="surah-info">
-                        <span class="surah-name">سورة الملك</span>
-                        <span class="surah-meta">مكية | حفظ</span>
-                    </div>
-                    <div class="action-btns">
-                        <button class="btn-icon btn-video" onclick="showSurah('سورة الملك', 'فيديو التلاوة', 'سورة الملك المنجية من عذاب القبر.')">🎥</button>
-                        <button class="btn-icon btn-read" onclick="showSurah('سورة الملك', 'تعريف السورة', 'سورة الملك المنجية من عذاب القبر.')">📖</button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="grade-card">
-                <div class="grade-header">الصف الثامن الأساسي <span>VIII</span></div>
-                <div class="surah-item">
-                    <div class="surah-info">
-                        <span class="surah-name">سورة الحجرات</span>
-                        <span class="surah-meta">مدنية | حفظ</span>
-                    </div>
-                    <div class="action-btns">
-                        <button class="btn-icon btn-video" onclick="showSurah('سورة الحجرات', 'فيديو التلاوة', 'سورة الأخلاق والآداب الاجتماعية.')">🎥</button>
-                        <button class="btn-icon btn-read" onclick="showSurah('سورة الحجرات', 'تعريف السورة', 'سورة الأخلاق والآداب الاجتماعية.')">📖</button>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
-        <div id="content-view" class="view">
-            <button class="back-btn" onclick="showIndex()">← عودة للفهرس</button>
-            <div class="content-card">
-                <h2 id="view-title" style="font-family: 'Amiri'; font-size: 2rem;"></h2>
-                <div id="video-area" class="video-container">
-                    </div>
-                <p id="view-desc" style="text-align: justify; margin-top: 20px;"></p>
+        <div class="card">
+            <div class="card-content">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
+                <div class="info">
+                    <h3>الصف السادس</h3>
+                    <p>سورة المدثر | حفظ</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-play">▶</button>
+                <button class="btn btn-book">📖</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
+                <div class="info">
+                    <h3>الصف السابع</h3>
+                    <p>سورة الملك | تلاوة</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-play">▶</button>
+                <button class="btn btn-book">📖</button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-content">
+                <svg class="quran-icon" viewBox="0 0 24 24"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM3.89 9L12 4.57 20.11 9 12 13.43 3.89 9zM12 16c-2.21 0-4-1.79-4-4h2c0 1.1.9 2 2 2s2-.9 2-2h2c0 2.21-1.79 4-4 4z"/></svg>
+                <div class="info">
+                    <h3>الصف الثامن</h3>
+                    <p>سورة الحجرات | حفظ</p>
+                </div>
+            </div>
+            <div class="actions">
+                <button class="btn btn-play">▶</button>
+                <button class="btn btn-book">📖</button>
             </div>
         </div>
 
     </div>
 
     <footer>
-        <div style="font-family: 'Amiri'; font-size: 1.2rem;">قسم التربية الإسلامية - مدرسة المروج</div>
-        <div style="font-size: 0.7rem; opacity: 0.8;">بإشراف أ. فيصل العريبي &copy; 2025</div>
+        <div class="footer-text">
+            قسم التربية الإسلامية - مدرسة المروج (5-8) <br>
+            بإشراف أ. فيصل العريبي &copy; 2025
+        </div>
     </footer>
 
-    <script>
-        function showSurah(title, sub, desc, videoUrl = null) {
-            document.getElementById('index-view').classList.remove('active');
-            document.getElementById('content-view').classList.add('active');
-
-            document.getElementById('view-title').innerText = title;
-            document.getElementById('view-desc').innerText = desc;
-
-            const videoArea = document.getElementById('video-area');
-            if(videoUrl) {
-                videoArea.style.display = 'flex';
-                videoArea.innerHTML = `<iframe width="100%" height="100%" src="${videoUrl}" frameborder="0" allowfullscreen></iframe>`;
-            } else {
-                videoArea.style.display = 'none';
-            }
-            window.scrollTo(0, 0);
-        }
-
-        function showIndex() {
-            document.getElementById('content-view').classList.remove('active');
-            document.getElementById('index-view').classList.add('active');
-            document.getElementById('video-area').innerHTML = ''; // إيقاف الفيديو عند العودة
-            window.scrollTo(0, 0);
-        }
-    </script>
 </body>
 </html>
