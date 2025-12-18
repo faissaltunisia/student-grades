@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة المروج | تلاوات جزء عم</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@300;500;800&display=swap" rel="stylesheet">
+    <title>بوابة المروج | مصحف جزء عم الرقمي</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Tajawal:wght@400;500;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* لوحة ألوان مصحف جزء عم */
-            --quran-green: #0b422a; /* الأخضر الزمردي الغامق للغلاف */
-            --quran-gold: #b38d3d;  /* الذهبي المعتق للزخارف */
-            --quran-paper: #f9f3e5; /* لون الورق القديم المريح للعين */
+            --quran-green: #0b422a;
+            --quran-gold: #b38d3d;
+            --quran-paper: #f9f3e5;
             --border-color: #d1b16a;
         }
 
@@ -18,161 +17,167 @@
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: #041a11 url('https://www.transparenttextures.com/patterns/dark-matter.png');
-            color: white; height: 100vh; overflow: hidden;
+            background: #041a11;
+            color: #333;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        .main-app {
-            display: flex; height: 100vh; padding: 15px; gap: 15px;
-        }
-
-        /* القائمة الجانبية: مستوحاة من كعب المصحف المذهب */
-        aside {
-            width: 320px;
+        /* الهيدر للهاتف والكمبيوتر */
+        header {
             background: var(--quran-green);
-            border: 2px solid var(--quran-gold);
-            border-radius: 15px;
-            display: flex; flex-direction: column;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-            z-index: 10;
+            color: var(--quran-gold);
+            padding: 15px;
+            text-align: center;
+            border-bottom: 3px solid var(--quran-gold);
+            position: sticky; top: 0; z-index: 100;
         }
 
-        .aside-header {
-            padding: 30px 15px; text-align: center;
-            border-bottom: 2px solid var(--quran-gold);
-            background: rgba(0,0,0,0.2);
+        header h2 { font-family: 'Amiri', serif; font-size: 1.5rem; }
+
+        /* القائمة: مرنة حسب الشاشة */
+        .app-container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
         }
 
-        .aside-header img {
-            width: 80px; height: 80px; background: white;
-            border-radius: 50%; border: 3px solid var(--quran-gold);
-            margin-bottom: 10px;
+        /* في الكمبيوتر جانبية، في الهاتف تظهر كشريط علوي */
+        aside {
+            width: 300px;
+            background: #062b1b;
+            border-left: 2px solid var(--quran-gold);
+            overflow-y: auto;
+            transition: 0.3s;
         }
-
-        .aside-header h2 { font-family: 'Amiri', serif; color: var(--quran-gold); font-size: 1.8rem; }
-
-        .nav-list { flex: 1; overflow-y: auto; padding: 15px; }
 
         .nav-item {
-            padding: 12px 20px; margin-bottom: 10px; border-radius: 8px;
-            border: 1px solid rgba(179, 141, 61, 0.3);
-            background: rgba(255, 255, 255, 0.05);
-            cursor: pointer; transition: 0.3s;
+            padding: 15px 20px;
+            color: #fff;
+            border-bottom: 1px solid rgba(179, 141, 61, 0.2);
+            cursor: pointer;
             display: flex; align-items: center; gap: 10px;
+            font-size: 0.95rem;
         }
 
-        .nav-item:hover, .nav-item.active {
-            background: var(--quran-gold); color: var(--quran-green);
-            font-weight: 800; transform: scale(1.02);
-        }
+        .nav-item.active { background: var(--quran-gold); color: var(--quran-green); font-weight: bold; }
 
-        /* منطقة العرض: مستوحاة من صفحات المصحف الداخلي */
+        /* المحتوى الرئيسي */
         main {
-            flex: 1; background: var(--quran-paper);
-            border-radius: 15px; border: 4px double var(--quran-gold);
-            display: flex; flex-direction: column; overflow: hidden;
+            flex: 1;
+            background: var(--quran-paper);
+            overflow-y: auto;
+            padding: 20px;
             position: relative;
         }
 
-        /* النقوش الزاوية في صفحة المصحف */
-        main::before {
-            content: "۞"; position: absolute; top: 10px; left: 10px;
-            color: var(--quran-gold); font-size: 2rem; opacity: 0.5;
-        }
-
-        .main-header {
-            padding: 30px; text-align: center; color: var(--quran-green);
-        }
-
-        .main-header h1 { font-family: 'Amiri', serif; font-size: 2.5rem; border-bottom: 2px solid var(--quran-gold); display: inline-block; padding-bottom: 10px; }
+        .main-header { text-align: center; margin-bottom: 25px; }
+        .main-header h1 { font-family: 'Amiri', serif; color: var(--quran-green); font-size: 2rem; }
 
         .semester-tabs {
-            display: flex; justify-content: center; gap: 10px; margin-bottom: 20px;
+            display: flex; justify-content: center; gap: 10px; margin: 15px 0;
         }
 
         .tab-btn {
-            padding: 8px 30px; border: 2px solid var(--quran-green);
+            padding: 8px 20px; border: 2px solid var(--quran-green);
             background: transparent; color: var(--quran-green);
-            border-radius: 50px; cursor: pointer; font-weight: bold;
+            border-radius: 50px; cursor: pointer; font-weight: bold; font-size: 0.85rem;
         }
 
         .tab-btn.active { background: var(--quran-green); color: var(--quran-gold); }
 
+        /* شبكة السور متجاوبة */
         .grid-content {
-            flex: 1; overflow-y: auto; padding: 0 30px 30px;
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            gap: 15px;
         }
 
-        /* بطاقة السورة: تصميم "فهرس المصحف" */
         .surah-card {
             background: white; border: 1px solid var(--border-color);
-            border-radius: 10px; padding: 20px; text-align: center;
-            transition: 0.3s; cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 12px; padding: 15px; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
         }
 
-        .surah-card:hover { border-color: var(--quran-green); transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .surah-card h4 { font-family: 'Amiri', serif; font-size: 1.4rem; color: var(--quran-green); }
+        .surah-card p { font-size: 0.75rem; color: #777; margin-top: 5px; }
 
-        .surah-card h4 { font-family: 'Amiri', serif; font-size: 1.6rem; color: var(--quran-green); margin-bottom: 5px; }
-        .surah-card p { color: #888; font-size: 0.8rem; }
-        .play-tag { margin-top: 15px; display: inline-block; color: var(--quran-gold); font-weight: bold; }
-
-        /* المشغل (المحراب الذهبي الرخامي) */
+        /* المشغل (متوافق مع الهاتف) */
         .mihrab-modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); z-index: 100;
-            display: none; align-items: center; justify-content: center;
+            background: rgba(0,0,0,0.95); z-index: 2000;
+            display: none; align-items: center; justify-content: center; padding: 10px;
         }
 
         .mihrab-modal.active { display: flex; }
 
         .frame-marble {
-            background: url('https://www.transparenttextures.com/patterns/white-marble.png'), #fff;
-            padding: 20px; border: 10px solid var(--quran-gold);
-            border-radius: 5px; width: 85%; max-width: 750px;
-            box-shadow: 0 0 50px var(--quran-gold); position: relative;
+            background: #fff;
+            padding: 10px;
+            border: 6px solid var(--quran-gold);
+            border-radius: 8px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
         }
 
         .close-btn {
-            position: absolute; top: -50px; right: 0;
-            background: var(--quran-gold); color: var(--quran-green);
-            border: none; padding: 10px 25px; border-radius: 5px; cursor: pointer; font-weight: bold;
+            position: absolute; top: -45px; left: 50%; transform: translateX(-50%);
+            background: var(--quran-gold); color: #000; border: none;
+            padding: 8px 25px; border-radius: 20px; font-weight: bold; cursor: pointer;
         }
 
-        video { width: 100%; border: 2px solid var(--quran-green); }
+        video { width: 100%; display: block; border-radius: 4px; }
 
-        ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: var(--quran-gold); }
+        /* --- تعديلات الهاتف الذكي (Mobile CSS) --- */
+        @media (max-width: 768px) {
+            .app-container { flex-direction: column; }
+            aside {
+                width: 100%;
+                height: auto;
+                display: flex;
+                overflow-x: auto;
+                border-left: none;
+                border-bottom: 2px solid var(--quran-gold);
+                white-space: nowrap;
+            }
+            .nav-item {
+                padding: 12px 20px;
+                border-bottom: none;
+                border-left: 1px solid rgba(179, 141, 61, 0.2);
+                flex-shrink: 0;
+            }
+            .grid-content { grid-template-columns: repeat(2, 1fr); } /* بطاقتين في الصف */
+            .main-header h1 { font-size: 1.6rem; }
+            .frame-marble { padding: 5px; border-width: 4px; }
+        }
     </style>
 </head>
 <body>
 
-<div class="main-app">
-    <aside>
-        <div class="aside-header">
-            <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png">
-            <h2>مصحف المروج</h2>
-        </div>
-        <div class="nav-list" id="grade-menu"></div>
-    </aside>
+<header>
+    <h2>مدرسة المروج | المصحف الرقمي</h2>
+</header>
+
+<div class="app-container">
+    <aside id="grade-menu"></aside>
 
     <main>
         <div class="main-header">
-            <h1 id="view-title">اختر الصف الدراسي</h1>
+            <h1 id="view-title">اختر الصف</h1>
             <div class="semester-tabs" id="tabs-area" style="display: none;">
-                <button class="tab-btn active" id="t1" onclick="switchSem(1)">الفصل الأول</button>
-                <button class="tab-btn" id="t2" onclick="switchSem(2)">الفصل الثاني</button>
+                <button class="tab-btn active" id="t1" onclick="switchSem(1)">الفصل 1</button>
+                <button class="tab-btn" id="t2" onclick="switchSem(2)">الفصل 2</button>
             </div>
         </div>
-
-        <div class="grid-content" id="content-grid">
-            </div>
+        <div class="grid-content" id="content-grid"></div>
     </main>
 </div>
 
 <div class="mihrab-modal" id="player-modal">
     <div class="frame-marble">
-        <button class="close-btn" onclick="closePlayer()">إغلاق المصحف ✕</button>
+        <button class="close-btn" onclick="closePlayer()">إغلاق ✕</button>
         <div id="video-root"></div>
     </div>
 </div>
@@ -180,36 +185,36 @@
 <script>
     const data = {
         "الصف الخامس": {
-            1: [{t:"سورة المرسلات", v:"5/cls5_Islamic_Morsalat4.mp4"}, {t:"سورة الحاقة", v:"5/cls5_Islamic_Haqqah.mp4"}],
-            2: [{t:"سورة النبأ", v:"5/cls5_Islamic_Naba.mp4"}, {t:"سورة التكوير", v:"5/cls5_Islamic_Takwir.mp4"}]
+            1: [{t:"المرسلات", v:"5/cls5_Islamic_Morsalat4.mp4"}, {t:"الحاقة", v:"5/cls5_Islamic_Haqqah.mp4"}],
+            2: [{t:"النبأ", v:"5/cls5_Islamic_Naba.mp4"}, {t:"التكوير", v:"5/cls5_Islamic_Takwir.mp4"}]
         },
         "الصف السادس": {
-            1: [{t:"سورة السجدة", v:"6/cls6_Islamic_Sajdah.mp4"}],
-            2: [{t:"سورة الملك", v:"6/cls6_Islamic_Mulk.mp4"}]
+            1: [{t:"السجدة", v:"6/cls6_Islamic_Sajdah.mp4"}],
+            2: [{t:"الملك", v:"6/cls6_Islamic_Mulk.mp4"}]
         },
         "الصف السابع": {
             1: [{t:"سورة ق", v:"7/cls7_Islamic_Qaf.mp4"}],
-            2: [{t:"سورة الرحمن", v:"7/cls7_Islamic_Rahman.mp4"}]
+            2: [{t:"الرحمن", v:"7/cls7_Islamic_Rahman.mp4"}]
         },
         "الصف الثامن": {
-            1: [{t:"سورة الحجرات", v:"8/cls8_Islamic_Hujurat.mp4"}],
-            2: [{t:"سورة النجم", v:"8/cls8_Islamic_Najm.mp4"}]
+            1: [{t:"الحجرات", v:"8/cls8_Islamic_Hujurat.mp4"}],
+            2: [{t:"النجم", v:"8/cls8_Islamic_Najm.mp4"}]
         },
         "الصف التاسع": {
-            1: [{t:"سورة الواقعة", v:"9/cls9_Islamic_Waqiah.mp4"}],
-            2: [{t:"سورة الحديد", v:"9/cls9_Islamic_Hadid.mp4"}]
+            1: [{t:"الواقعة", v:"9/cls9_Islamic_Waqiah.mp4"}],
+            2: [{t:"الحديد", v:"9/cls9_Islamic_Hadid.mp4"}]
         },
         "الصف العاشر": {
-            1: [{t:"سورة الممتحنة", v:"10/cls10_Islamic_Mumtahina.mp4"}],
-            2: [{t:"سورة الحشر", v:"10/cls10_Islamic_Hashr.mp4"}]
+            1: [{t:"الممتحنة", v:"10/cls10_Islamic_Mumtahina.mp4"}],
+            2: [{t:"الحشر", v:"10/cls10_Islamic_Hashr.mp4"}]
         },
-        "الصف الحادي عشر": {
+        "الصف 11": {
             1: [{t:"سورة يس", v:"11/cls11_Islamic_Yaseen.mp4"}],
-            2: [{t:"سورة الصافات", v:"11/cls11_Islamic_Saffat.mp4"}]
+            2: [{t:"الصافات", v:"11/cls11_Islamic_Saffat.mp4"}]
         },
-        "الصف الثاني عشر": {
+        "الصف 12": {
             1: [{t:"سورة لقمان", v:"12/cls12_Islamic_Luqman.mp4"}],
-            2: [{t:"سورة الذاريات", v:"12/cls12_Islamic_Zariyat.mp4"}]
+            2: [{t:"الذاريات", v:"12/cls12_Islamic_Zariyat.mp4"}]
         }
     };
 
@@ -219,7 +224,7 @@
     function init() {
         const menu = document.getElementById('grade-menu');
         Object.keys(data).forEach(g => {
-            menu.innerHTML += `<div class="nav-item" onclick="loadGrade('${g}')"><span>📖</span> ${g}</div>`;
+            menu.innerHTML += `<div class="nav-item" onclick="loadGrade('${g}')">📖 ${g}</div>`;
         });
         loadGrade("الصف الخامس");
     }
@@ -228,12 +233,10 @@
         currentG = g;
         document.getElementById('view-title').innerText = g;
         document.getElementById('tabs-area').style.display = 'flex';
-        
         document.querySelectorAll('.nav-item').forEach(el => {
             el.classList.remove('active');
             if(el.innerText.includes(g)) el.classList.add('active');
         });
-
         switchSem(1);
     }
 
@@ -241,24 +244,20 @@
         currentS = s;
         document.getElementById('t1').className = s === 1 ? 'tab-btn active' : 'tab-btn';
         document.getElementById('t2').className = s === 2 ? 'tab-btn active' : 'tab-btn';
-
         const grid = document.getElementById('content-grid');
         grid.innerHTML = "";
-        
-        const list = data[currentG][s] || [];
-        list.forEach(item => {
+        (data[currentG][s] || []).forEach(item => {
             grid.innerHTML += `
                 <div class="surah-card" onclick="openPlayer('${item.v}')">
                     <h4>${item.t}</h4>
-                    <p>منهج سلطنة عمان</p>
-                    <div class="play-tag">استماع للتلاوة ▶</div>
+                    <p>استماع الآن ▶</p>
                 </div>`;
         });
     }
 
     function openPlayer(v) {
         const url = "https://ict.moe.gov.om/tlawti/video/" + v;
-        document.getElementById('video-root').innerHTML = `<video controls autoplay><source src="${url}" type="video/mp4"></video>`;
+        document.getElementById('video-root').innerHTML = `<video controls autoplay playsinline><source src="${url}" type="video/mp4"></video>`;
         document.getElementById('player-modal').classList.add('active');
     }
 
