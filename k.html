@@ -3,144 +3,163 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ديني قيمي | مدرسة المروج</title>
+    <title>منصة مدرسة المروج | ديني قيمي</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --green: #004d40; --gold: #D4AF37; --bg: #fdfaf0; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); margin: 0; padding-bottom: 70px; }
+        :root { --royal-green: #004d40; --gold: #D4AF37; --white: #ffffff; }
+        body { font-family: 'Cairo', sans-serif; background: #fdfaf0; margin: 0; padding-bottom: 80px; }
         
         header { 
-            background: linear-gradient(135deg, var(--green), #002d26);
-            color: white; padding: 20px; text-align: center; border-bottom: 4px solid var(--gold);
+            background: linear-gradient(135deg, var(--royal-green), #002d26);
+            color: white; padding: 25px 15px; text-align: center; border-bottom: 5px solid var(--gold);
         }
 
-        .container { padding: 15px; max-width: 600px; margin: auto; }
+        .container { padding: 15px; max-width: 500px; margin: auto; }
 
-        /* منطقة المصحف */
+        /* منطقة التلاوة */
         .quran-card {
-            background: white; border-radius: 20px; padding: 25px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1); border: 1px solid var(--gold);
-            text-align: center; margin-bottom: 20px;
+            background: var(--white); border-radius: 20px; padding: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1.5px solid var(--gold);
+            text-align: center;
         }
-        .word { 
-            font-family: 'Amiri'; font-size: 2.2rem; margin: 0 5px; 
-            display: inline-block; padding: 2px 8px; border-radius: 8px; transition: 0.3s;
-        }
-        .active { background: var(--gold); color: white; transform: scale(1.15); }
 
-        /* زر التشغيل السحري */
-        .play-btn {
-            background: var(--green); color: white; border: none;
-            width: 100%; padding: 18px; border-radius: 50px;
-            font-size: 1.2rem; font-weight: bold; cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,77,64,0.3);
+        .mushaf-text { min-height: 120px; line-height: 2.2; margin-bottom: 20px; }
+        .word { 
+            font-family: 'Amiri'; font-size: 2rem; margin: 0 4px; 
+            display: inline-block; padding: 2px 6px; border-radius: 8px; transition: 0.3s;
+        }
+        .active { background: var(--gold); color: white; transform: scale(1.15); box-shadow: 0 4px 10px rgba(212, 175, 55, 0.3); }
+
+        /* زر التشغيل الكبير */
+        .master-btn {
+            background: var(--royal-green); color: white; border: none;
+            width: 100%; padding: 20px; border-radius: 50px;
+            font-size: 1.3rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0,77,64,0.3); border: 2px solid var(--gold);
         }
 
         /* الفيديوهات */
-        .video-grid { display: grid; grid-template-columns: 1fr; gap: 15px; }
-        .video-box { border-radius: 15px; overflow: hidden; border: 2px solid var(--gold); aspect-ratio: 16/9; background: #000; }
+        .vid-grid { display: grid; grid-template-columns: 1fr; gap: 15px; margin-top: 20px; }
+        .vid-item { border-radius: 15px; overflow: hidden; border: 2px solid var(--gold); background: #000; aspect-ratio: 16/9; }
 
         /* ناف بار الهاتف */
-        .nav-bar {
+        .bottom-nav {
             position: fixed; bottom: 0; width: 100%; background: white;
-            display: flex; justify-content: space-around; padding: 10px;
-            border-top: 2px solid var(--gold); box-shadow: 0 -5px 10px rgba(0,0,0,0.05);
+            display: flex; justify-content: space-around; padding: 12px;
+            border-top: 2px solid var(--gold); box-shadow: 0 -5px 15px rgba(0,0,0,0.1);
         }
-        .nav-btn { background: none; border: none; font-size: 0.8rem; color: var(--green); cursor: pointer; }
+        .nav-item { border: none; background: none; color: var(--royal-green); font-weight: bold; font-family: 'Cairo'; font-size: 0.85rem; }
     </style>
 </head>
 <body>
 
 <header>
-    <h2 style="margin:0; font-family:'Amiri'; color:var(--gold);">مدرسة المروج للتعليم الأساسي</h2>
-    <p style="margin:0; font-size:0.9rem;">منصة ديني قيمي الرقمية</p>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Emblem_of_Oman.svg/1200px-Emblem_of_Oman.svg.png" style="height:50px; margin-bottom:10px;">
+    <h1 style="margin:0; font-size:1.2rem; color:var(--gold);">مدرسة المروج للتعليم الأساسي (5-8)</h1>
 </header>
 
 <div class="container">
-    <div id="quran-sec">
+    <select id="grade" onchange="loadNewGrade()" style="width:100%; padding:12px; border-radius:12px; border:2px solid var(--gold); margin-bottom:20px; font-family:'Cairo';">
+        <option value="5">الصف الخامس - سورة المعارج</option>
+        <option value="6">الصف السادس - سورة الملك</option>
+    </select>
+
+    <div id="quran-sec" class="page">
         <div class="quran-card">
-            <h3 style="color:var(--green)">سورة المعارج</h3>
-            <div id="text-display" style="line-height:2.5; margin-bottom:20px;">
+            <div id="text-box" class="mushaf-text">
                 </div>
-            <button class="play-btn" onclick="handleAudio()" id="btn-label">
-                ▶ تشغيل التلاوة والتتبع
+            <button class="master-btn" id="playBtn" onclick="togglePlay()">
+                <span id="icon">▶</span> تشغيل التلاوة والتتبع
             </button>
+            <p id="loader" style="color: #888; font-size: 0.8rem; margin-top: 10px; display: none;">جاري تحميل الصوت...</p>
         </div>
     </div>
 
-    <div id="video-sec" style="display:none;">
-        <div class="video-grid" id="v-grid"></div>
+    <div id="video-sec" class="page" style="display:none;">
+        <div class="vid-grid" id="v-list"></div>
     </div>
 </div>
 
-<nav class="nav-bar">
-    <button class="nav-btn" onclick="show('quran-sec')">📖<br>تلاوة</button>
-    <button class="nav-btn" onclick="show('video-sec')">🎥<br>فيديوهات</button>
-    <button class="nav-btn" onclick="alert('سجل النقاط قيد التطوير')">🏆<br>نقاطي</button>
+<nav class="bottom-nav">
+    <button class="nav-item" onclick="showPage('quran-sec')">📖<br>تلاوة</button>
+    <button class="nav-item" onclick="showPage('video-sec')">🎥<br>فيديوهات</button>
+    <button class="nav-item" onclick="alert('مركز الألعاب قيد التحديث ليتوافق مع دليل الطالب')">🎮<br>ألعاب</button>
 </nav>
 
-<audio id="player" preload="auto" crossorigin="anonymous">
-    <source src="https://download.quranicaudio.com/quran/ahmed_sa3d_al-ghaamidi/070.mp3" type="audio/mpeg">
-</audio>
-
 <script>
-    const config = {
-        words: ["سَأَلَ", "سَائِلٌ", "بِعَذَابٍ", "وَاقِعٍ", "لِّلْكَافِرِينَ", "لَيْسَ", "لَهُ", "دَافِعٌ"],
-        times: [0.5, 1.5, 2.5, 3.8, 5.2, 6.5, 7.5, 8.5],
-        vids: ["O8XJmXqN_zU", "V6S6t-3s6iM", "7hYy1F6vO4k", "d6p2zX7-0gM"]
+    const contentData = {
+        "5": {
+            words: ["سَأَلَ", "سَائِلٌ", "بِعَذَابٍ", "وَاقِعٍ", "لِّلْكَافِرِينَ", "لَيْسَ", "لَهُ", "دَافِعٌ"],
+            times: [800, 2000, 3200, 4500, 5800, 7200, 8200, 9200], // ميلي ثانية
+            audio: "https://www.everyayah.com/data/Hudhaify_64kbps/070001.mp3", // رابط مباشر ومستقر جداً
+            vids: ["O8XJmXqN_zU", "V6S6t-3s6iM", "7hYy1F6vO4k", "d6p2zX7-0gM"]
+        },
+        "6": {
+            words: ["تَبَارَكَ", "الَّذِي", "بِيَدِهِ", "الْمُلْكُ", "وَهُوَ", "عَلَىٰ", "كُلِّ", "شَيْءٍ", "قَدِيرٌ"],
+            times: [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000],
+            audio: "https://www.everyayah.com/data/Hudhaify_64kbps/067001.mp3",
+            vids: ["Yf-S-0I0_Sg", "G7rR0V4J7mE", "L4P9E3f9B_s", "K8P7D6c5B_a"]
+        }
     };
 
-    // توليد الكلمات
-    const display = document.getElementById('text-display');
-    display.innerHTML = config.words.map((w, i) => `<span class="word" id="w-${i}">${w}</span>`).join('');
+    let sound;
+    let timer;
 
-    // توليد الفيديوهات
-    const grid = document.getElementById('v-grid');
-    grid.innerHTML = config.vids.map(id => `<div class="video-box"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe></div>`).join('');
-
-    const audio = document.getElementById('player');
-    let isPlaying = false;
-
-    // وظيفة معالجة الصوت (الإصلاح المبرمج)
-    async function handleAudio() {
-        const btn = document.getElementById('btn-label');
+    function loadNewGrade() {
+        if(sound) sound.stop();
+        const grade = document.getElementById('grade').value;
+        const info = contentData[grade];
         
-        try {
-            if (!isPlaying) {
-                // إجبار المتصفح على تحميل الملف عند الضغط
-                await audio.play();
-                isPlaying = true;
-                btn.innerHTML = "⏸ إيقاف مؤقت";
-                btn.style.background = "#c0392b";
-            } else {
-                audio.pause();
-                isPlaying = false;
-                btn.innerHTML = "▶ استئناف التلاوة";
-                btn.style.background = "var(--green)";
-            }
-        } catch (err) {
-            console.error("Audio Error:", err);
-            alert("عذراً، المتصفح يحتاج لضغط ثانية لتنشيط الصوت.");
+        // رسم الكلمات
+        document.getElementById('text-box').innerHTML = info.words.map((w, i) => `<span class="word" id="w-${i}">${w}</span>`).join('');
+        
+        // رسم الفيديوهات
+        document.getElementById('v-list').innerHTML = info.vids.map(id => `<div class="vid-item"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe></div>`).join('');
+
+        // تجهيز محرك الصوت Howler
+        sound = new Howl({
+            src: [info.audio],
+            html5: true, // مهم جداً للتشغيل على الهواتف
+            format: ['mp3'],
+            onload: () => { document.getElementById('loader').style.display = 'none'; },
+            onloaderror: (id, err) => { console.log("خطأ في التحميل:", err); }
+        });
+    }
+
+    function togglePlay() {
+        if (!sound) loadNewGrade();
+
+        if (sound.playing()) {
+            sound.pause();
+            document.getElementById('icon').innerText = "▶";
+            clearInterval(timer);
+        } else {
+            sound.play();
+            document.getElementById('icon').innerText = "⏸";
+            document.getElementById('loader').style.display = 'block';
+            
+            // محرك التتبع الدقيق
+            timer = setInterval(() => {
+                const seek = sound.seek() * 1000; // تحويل لثواني
+                const grade = document.getElementById('grade').value;
+                contentData[grade].times.forEach((t, i) => {
+                    if (seek >= t) {
+                        document.querySelectorAll('.word').forEach(w => w.classList.remove('active'));
+                        document.getElementById(`w-${i}`).classList.add('active');
+                    }
+                });
+            }, 100);
         }
     }
 
-    // محرك التتبع الزمني
-    audio.ontimeupdate = () => {
-        const currentTime = audio.currentTime;
-        config.times.forEach((t, i) => {
-            if (currentTime >= t) {
-                document.querySelectorAll('.word').forEach(w => w.classList.remove('active'));
-                const activeWord = document.getElementById(`w-${i}`);
-                if(activeWord) activeWord.classList.add('active');
-            }
-        });
-    };
-
-    function show(id) {
-        document.getElementById('quran-sec').style.display = 'none';
-        document.getElementById('video-sec').style.display = 'none';
+    function showPage(id) {
+        document.querySelectorAll('.page').forEach(p => p.style.display = 'none');
         document.getElementById(id).style.display = 'block';
     }
+
+    // التشغيل الأول
+    window.onload = loadNewGrade;
 </script>
 
 </body>
