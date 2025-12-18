@@ -16,123 +16,131 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
-        /* هيكلة الجسم لضمان عدم هروب العناصر */
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--dark-emerald);
             height: 100vh;
-            width: 100vw;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; /* يمنع الصفحة كاملة من التحرك لضمان ثبات الأشرطة */
         }
 
-        /* --- 1. شريط الوزارة (إجبار الظهور في الأعلى) --- */
+        /* --- شريط الوزارة العلوي (ثابت دائماً) --- */
         .ministry-bar {
             background: #000;
             color: var(--gold-light);
             text-align: center;
-            padding: 8px 2px;
-            font-size: 11px; /* حجم خط ثابت ومناسب للهواتف */
+            padding: 8px 5px;
+            font-size: 0.7rem;
             font-weight: bold;
             border-bottom: 1.5px solid var(--quran-gold);
-            width: 100%;
-            display: block !important; /* إجبار العرض */
-            position: relative;
             z-index: 9999;
+            flex-shrink: 0;
         }
 
-        /* --- 2. الهيدر الرئيسي --- */
+        /* --- الهيدر الرئيسي --- */
         header {
             background: linear-gradient(135deg, var(--quran-green), #062b1b);
-            color: var(--quran-gold);
+            color: var(--quran-gold); 
             padding: 10px 15px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             border-bottom: 3px solid var(--quran-gold);
-            position: relative;
-            z-index: 1000;
+            z-index: 9000;
             flex-shrink: 0;
         }
 
-        .header-brand { display: flex; align-items: center; gap: 8px; flex: 1; }
+        .header-brand { display: flex; align-items: center; gap: 10px; flex: 1; }
         .header-brand img { width: 45px; height: 45px; border-radius: 50%; border: 1.5px solid var(--quran-gold); background: #fff; }
-        .school-name { color: #fff; font-weight: 800; font-size: 12px; line-height: 1.2; }
-
+        .school-name { color: #fff; font-weight: 800; font-size: 0.85rem; line-height: 1.2; }
         .header-title { flex: 2; text-align: center; }
-        .header-title h1 { font-family: 'Amiri', serif; font-size: 1.4rem; }
+        .header-title h1 { font-family: 'Amiri', serif; font-size: 1.4rem; white-space: nowrap; }
 
-        /* --- القائمة العلوية للهاتف --- */
+        /* --- شريط التنقل للموبايل --- */
         .mobile-nav { 
             display: none; 
             background: #062b1b; 
             overflow-x: auto; 
-            padding: 8px; 
+            padding: 10px; 
             gap: 8px; 
             border-bottom: 2px solid var(--quran-gold);
             flex-shrink: 0;
+            z-index: 8000;
         }
 
-        /* --- منطقة المحتوى --- */
+        /* --- منطقة المحتوى (هي الوحيدة التي تتحرك) --- */
         .app-wrapper { 
             display: flex; 
             flex: 1; 
             overflow: hidden; 
-            background: var(--quran-paper);
+            position: relative;
         }
 
-        aside { width: 250px; background: #062b1b; border-left: 2px solid var(--quran-gold); overflow-y: auto; }
-        .nav-item { padding: 12px; margin: 8px; border-radius: 10px; color: #fff; cursor: pointer; border: 1px solid rgba(196, 160, 77, 0.2); font-size: 14px; }
-        .nav-item.active { background: var(--quran-gold); color: var(--quran-green); font-weight: bold; }
+        aside { 
+            width: 250px; 
+            background: #062b1b; 
+            border-left: 2px solid var(--quran-gold); 
+            overflow-y: auto; 
+        }
 
-        main { flex: 1; overflow-y: auto; padding: 15px; padding-bottom: 80px; }
-        .mushaf-page { max-width: 900px; margin: 0 auto; background: white; border: 6px double var(--quran-gold); padding: 20px 10px; border-radius: 5px; }
+        main { 
+            flex: 1; 
+            background: var(--quran-paper); 
+            overflow-y: auto; 
+            padding: 15px; 
+            padding-bottom: 40px; /* مساحة لعدم تداخل المحتوى مع الفوتر */
+            -webkit-overflow-scrolling: touch;
+        }
 
-        .semester-switch { display: flex; justify-content: center; gap: 8px; margin-bottom: 20px; }
-        .sem-btn { padding: 8px 15px; border: 1.5px solid var(--quran-green); background: #fff; border-radius: 50px; font-size: 12px; font-weight: bold; cursor: pointer; }
+        /* --- شريط حقوق الملكية السفلي (ثابت دائماً) --- */
+        .fixed-footer {
+            background: var(--dark-emerald);
+            color: var(--quran-gold);
+            text-align: center;
+            padding: 12px 5px;
+            font-size: 0.75rem;
+            border-top: 2.5px solid var(--quran-gold);
+            z-index: 9999;
+            flex-shrink: 0;
+            box-shadow: 0 -4px 10px rgba(0,0,0,0.3);
+        }
+
+        /* التنسيقات العامة للبطاقات */
+        .mushaf-page { max-width: 900px; margin: 0 auto; border: 8px double var(--quran-gold); background: white; padding: 25px 15px; border-radius: 4px; }
+        .nav-item { padding: 12px; margin: 5px; border-radius: 10px; color: #fff; cursor: pointer; border: 1px solid rgba(196,160,77,0.1); font-size: 0.9rem; }
+        .nav-item.active { background: var(--quran-gold); color: var(--quran-green); font-weight: 800; }
+        
+        .semester-switch { display: flex; justify-content: center; gap: 10px; margin-bottom: 20px; }
+        .sem-btn { padding: 10px 25px; border: 2px solid var(--quran-green); background: #fff; border-radius: 50px; cursor: pointer; font-weight: 800; font-size: 0.85rem; }
         .sem-btn.active { background: var(--quran-green); color: var(--quran-gold); }
 
-        .surah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 15px; }
-        .surah-card { background: white; border: 1px solid #e0d5ba; border-radius: 12px; padding: 35px 10px; text-align: center; position: relative; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05); }
-        .surah-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: var(--quran-gold); }
-        .surah-card h4 { font-family: 'Amiri', serif; font-size: 1.8rem; color: var(--quran-green); }
-
-        /* --- الفوتر والزر العائم --- */
-        .fixed-footer {
-            position: absolute; bottom: 0; width: 100%; 
-            background: var(--dark-emerald); color: var(--quran-gold); 
-            text-align: center; padding: 10px; font-size: 10px; 
-            border-top: 2px solid var(--quran-gold); z-index: 2000;
-        }
+        .surah-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px; }
+        .surah-card { background: white; border: 1px solid #e0d5ba; border-radius: 15px; padding: 40px 15px; text-align: center; cursor: pointer; position: relative; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .surah-card::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 6px; background: var(--quran-gold); }
+        .surah-card h4 { font-family: 'Amiri', serif; font-size: 2rem; color: var(--quran-green); }
 
         .floating-info {
-            position: fixed; bottom: 60px; left: 15px;
+            position: fixed; bottom: 75px; left: 20px;
             width: 45px; height: 45px; background: var(--quran-gold);
             color: var(--quran-green); border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
-            font-weight: 800; font-size: 20px; z-index: 3000; border: 2px solid #fff;
+            font-weight: bold; font-size: 1.5rem; z-index: 9500; border: 2px solid #fff;
         }
 
         @media (max-width: 768px) {
-            header { padding: 8px; }
-            .header-title h1 { font-size: 1rem; }
-            .header-brand img { width: 38px; height: 38px; }
-            .school-name { font-size: 10px; }
             aside { display: none; }
             .mobile-nav { display: flex; }
             .surah-grid { grid-template-columns: 1fr; }
+            .header-title h1 { font-size: 1.1rem; }
+            .school-name { font-size: 0.7rem; }
         }
 
-        /* المودال والمشغل */
-        .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; display: none; align-items: center; justify-content: center; padding: 20px; }
-        .modal.active { display: flex; }
-        .modal-content { background: white; padding: 25px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; border: 4px solid var(--quran-gold); }
-        .player-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 9999; display: none; align-items: center; justify-content: center; }
+        /* المشغل والمودال */
+        .player-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 10000; display: none; align-items: center; justify-content: center; padding: 10px; }
         .player-overlay.active { display: flex; }
-        video { width: 100%; max-height: 80vh; }
-        .close-player { position: absolute; top: 20px; left: 20px; background: var(--quran-gold); padding: 10px 20px; border-radius: 50px; border: none; font-weight: bold; }
+        .close-player { position: absolute; top: 20px; left: 20px; background: var(--quran-gold); border: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; cursor: pointer; }
+        video { width: 100%; max-width: 800px; border: 5px solid var(--quran-gold); border-radius: 10px; }
     </style>
 </head>
 <body>
@@ -144,18 +152,18 @@
         <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" alt="شعار المروج">
         <div class="school-name">مدرسة المروج<br>(1-12)</div>
     </div>
-    <div class="header-title">
-        <h1>مُصحَف المُرُوج الرَّقمِي</h1>
-    </div>
-    <div style="width: 45px;"></div> </header>
+    <div class="header-title"><h1>مُصحَف المُرُوج الرَّقمِي</h1></div>
+    <div style="flex:1"></div>
+</header>
 
 <nav class="mobile-nav" id="m-nav"></nav>
 
 <div class="app-wrapper">
     <aside><div class="nav-list" id="pc-nav"></div></aside>
+    
     <main>
         <div class="mushaf-page">
-            <h2 id="grade-title" style="text-align:center; color:var(--quran-green); margin-bottom:15px; font-family:'Amiri';">اختر الصف</h2>
+            <h2 id="grade-title" style="text-align:center; color:var(--quran-green); margin-bottom:15px; font-family:'Amiri'; font-size:2rem;">اختر الصف</h2>
             <div class="semester-switch">
                 <button class="sem-btn active" id="s1" onclick="setSem(1)">الفصل الأول</button>
                 <button class="sem-btn" id="s2" onclick="setSem(2)">الفصل الثاني</button>
@@ -165,23 +173,15 @@
     </main>
 </div>
 
-<div class="floating-info" onclick="toggleInfo()">؟</div>
-
 <div class="fixed-footer">
-    تصميم وتطوير: <strong>أ. فيصل العريبي</strong> - مدرسة المروج 2025 ©
+    حقوق الملكية محفوظة لمدرسة المروج © تصميم وتطوير: <strong>أ. فيصل العريبي</strong> - 2025م
 </div>
 
-<div class="modal" id="info-modal">
-    <div class="modal-content">
-        <h3 style="color:var(--quran-green); font-family:'Amiri'; margin-bottom:10px;">دليل المنصة</h3>
-        <p style="font-size: 14px; line-height: 1.6; text-align: right;">اختر الصف من القائمة، ثم حدد الفصل الدراسي، واضغط على بطاقة السورة لتشغيل التلاوة التعليمية.</p>
-        <button onclick="toggleInfo()" style="margin-top:15px; padding:10px 30px; background:var(--quran-green); color:var(--quran-gold); border:none; border-radius:50px; font-weight:bold;">ابدأ الآن</button>
-    </div>
-</div>
+<div class="floating-info" onclick="alert('دليل المنصة: اختر الصف الدراسي ثم الفصل، واضغط على السورة للاستماع للتلاوة')">؟</div>
 
 <div class="player-overlay" id="player">
     <button class="close-player" onclick="closePlayer()">إغلاق ✕</button>
-    <div id="video-root" style="width: 100%; max-width: 800px; padding: 10px;"></div>
+    <div id="video-root"></div>
 </div>
 
 <script>
@@ -203,7 +203,7 @@
         const pc = document.getElementById('pc-nav');
         const mb = document.getElementById('m-nav');
         Object.keys(database).forEach(g => {
-            pc.innerHTML += `<div class="nav-item" onclick="setGrade('${g}')">📖 ${g}</div>`;
+            pc.innerHTML += `<div class="nav-item" onclick="setGrade('${g}')">۞ ${g}</div>`;
             mb.innerHTML += `<div class="nav-item" onclick="setGrade('${g}')" style="flex-shrink:0; white-space:nowrap;">${g}</div>`;
         });
         setGrade(activeG);
@@ -229,9 +229,8 @@
     function render() {
         const grid = document.getElementById('grid');
         grid.innerHTML = "";
-        const items = database[activeG][activeS] || [];
-        items.forEach(item => {
-            grid.innerHTML += `<div class="surah-card" onclick="play('${item.v}')"><h4>${item.t}</h4><p style="color:var(--quran-gold); font-size:11px; margin-top:10px;">انقر للتشغيل</p></div>`;
+        database[activeG][activeS].forEach(item => {
+            grid.innerHTML += `<div class="surah-card" onclick="play('${item.v}')"><h4>${item.t}</h4><p style="color:var(--quran-gold); font-size:0.8rem; margin-top:10px;">تشغيل التلاوة</p></div>`;
         });
     }
 
@@ -242,7 +241,6 @@
     }
 
     function closePlayer() { document.getElementById('player').classList.remove('active'); document.getElementById('video-root').innerHTML = ""; }
-    function toggleInfo() { document.getElementById('info-modal').classList.toggle('active'); }
 
     init();
 </script>
