@@ -3,212 +3,276 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>بوابة مدرسة المروج الرقمية | سلطنة عمان</title>
-    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>منصة المروج | المصحف الرقمي المطوّر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@700&family=Tajawal:wght@400;500;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --oman-green: #006b3d;
-            --royal-gold: #d4af37;
-            --dark-gold: #9d7d3d;
-            --soft-white: #fdfaf1;
-            --deep-emerald: #042a1a;
+            --primary: #0a3d28; /* الأخضر العماني */
+            --gold: #c4a04d; /* الذهبي الملكي */
+            --accent: #d4af37;
+            --glass: rgba(255, 255, 255, 0.08);
+            --card-bg: #fdfcf9;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background: var(--deep-emerald) url('https://www.transparenttextures.com/patterns/arabesque.png');
             font-family: 'Tajawal', sans-serif;
-            color: #333; min-height: 100vh; overflow-x: hidden;
+            background: #04160f url('https://www.transparenttextures.com/patterns/islamic-art.png');
+            color: #fff; min-height: 100vh; overflow-x: hidden;
         }
 
-        .royal-header {
-            background: linear-gradient(135deg, #1a1a1a 0%, #333 50%, #1a1a1a 100%);
-            border-bottom: 5px solid var(--royal-gold);
-            padding: 25px 0; text-align: center; position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        /* رأس الصفحة السينمائي */
+        header {
+            height: 250px;
+            background: linear-gradient(rgba(10, 61, 40, 0.9), rgba(10, 61, 40, 0.9)), 
+                        url('https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover; background-position: center;
+            display: flex; align-items: center; justify-content: center;
+            border-bottom: 5px solid var(--gold); position: relative;
         }
 
-        .header-container { max-width: 1100px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 20px; }
-
-        .logo-wrap {
-            width: 100px; height: 100px; background: #fff; border: 4px solid var(--royal-gold);
-            border-radius: 50%; padding: 5px; box-shadow: 0 0 20px var(--royal-gold);
-            display: flex; align-items: center; justify-content: center; z-index: 10;
-        }
-        .logo-wrap img { width: 100%; height: 100%; object-fit: contain; border-radius: 50%; }
-
-        .gov-text h1 { font-family: 'Amiri', serif; color: var(--royal-gold); font-size: 1.6rem; }
-        .gov-text h2 { color: #fff; font-size: 0.8rem; letter-spacing: 1px; }
-
-        .content-box {
-            max-width: 900px; margin: 30px auto;
-            background: var(--soft-white); border-radius: 25px;
-            padding: 30px; min-height: 70vh;
-            box-shadow: 0 40px 100px rgba(0,0,0,0.8);
-            border: 2px solid var(--royal-gold);
+        .header-content { text-align: center; z-index: 2; }
+        .logo-main {
+            width: 100px; height: 100px; background: #fff; border-radius: 50%;
+            padding: 5px; border: 3px solid var(--gold); margin-bottom: 15px;
+            box-shadow: 0 0 30px rgba(196, 160, 77, 0.5);
         }
 
-        .premium-card {
-            background: #fff; border-radius: 15px; padding: 20px;
-            margin-bottom: 15px; display: flex; align-items: center;
-            justify-content: space-between; cursor: pointer;
-            transition: 0.3s; border-right: 8px solid var(--dark-gold);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        .premium-card:hover { transform: translateX(-10px); background: #fffdf5; }
+        .header-content h1 { font-family: 'Amiri', serif; font-size: 2.8rem; color: var(--gold); line-height: 1; }
+        .header-content p { font-size: 1.1rem; letter-spacing: 1px; margin-top: 10px; opacity: 0.9; }
 
-        .progress-wrapper { background: #eee; border-radius: 50px; height: 12px; margin: 15px 0; overflow: hidden; border: 1px solid var(--dark-gold); }
-        .progress-bar { height: 100%; background: linear-gradient(90deg, var(--oman-green), var(--royal-gold)); width: 0%; transition: 0.5s; }
+        /* حاوية البطاقات المتطورة */
+        .container { max-width: 1200px; margin: -50px auto 50px; padding: 0 20px; position: relative; z-index: 10; }
 
-        .btn-gold {
-            background: linear-gradient(to bottom, var(--royal-gold), var(--dark-gold));
-            color: #fff; border: none; padding: 10px 20px; border-radius: 50px;
-            font-weight: bold; cursor: pointer; margin-bottom: 20px;
+        .grid-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px; padding: 20px 0;
         }
 
-        /* تنسيق المصحف للقراءة آية آية */
-        .mushaf-view {
-            background: white; padding: 30px; border-radius: 20px;
-            border: 2px double var(--royal-gold); text-align: center;
-            line-height: 2.5; margin-top: 20px;
+        /* تصميم البطاقة الاحترافي */
+        .pro-card {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 40px 25px;
+            text-align: center;
+            border-bottom: 6px solid var(--gold);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            position: relative; overflow: hidden;
         }
-        .ayah { font-family: 'Amiri', serif; font-size: 2rem; padding: 0 5px; transition: 0.4s; border-radius: 5px; }
-        .active-ayah { background: rgba(212, 175, 55, 0.2); color: var(--oman-green); font-weight: bold; }
-        .ayah-num { color: var(--dark-gold); font-size: 1rem; margin: 0 5px; border: 1px solid var(--royal-gold); border-radius: 50%; padding: 2px 8px; }
 
+        .pro-card::before {
+            content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+            background: radial-gradient(circle, rgba(196, 160, 77, 0.1) 0%, transparent 70%);
+            transition: 0.5s;
+        }
+
+        .pro-card:hover { transform: translateY(-15px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+        .pro-card:hover::before { top: -20%; left: -20%; }
+
+        .pro-card .icon-box {
+            width: 80px; height: 80px; margin: 0 auto 20px;
+            background: var(--primary); border-radius: 18px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 20px rgba(10, 61, 40, 0.2);
+        }
+
+        .pro-card img { width: 50px; filter: invert(1) sepia(1) saturate(5) hue-rotate(10deg); }
+
+        .pro-card h3 { color: var(--primary); font-family: 'Amiri', serif; font-size: 1.8rem; margin-bottom: 10px; }
+        .pro-card span { color: #666; font-size: 0.9rem; display: block; margin-bottom: 20px; }
+
+        .pro-btn {
+            background: var(--primary); color: var(--gold); border: none;
+            padding: 12px 30px; border-radius: 12px; font-weight: 800;
+            transition: 0.3s; width: 100%;
+        }
+
+        /* المشغل الرخامي المطور */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.96); z-index: 1000;
+            display: none; align-items: center; justify-content: center;
+        }
+        .modal-overlay.active { display: flex; animation: fadeIn 0.4s; }
+
+        .marble-container {
+            background: url('https://www.transparenttextures.com/patterns/white-marble.png'), #fff;
+            padding: 15px; border: 8px solid var(--gold); border-radius: 10px;
+            width: 90%; max-width: 750px; position: relative;
+            box-shadow: 0 0 60px rgba(196, 160, 77, 0.4);
+        }
+
+        .video-box { width: 100%; aspect-ratio: 16/9; background: #000; border-radius: 4px; overflow: hidden; }
+
+        .close-circle {
+            position: absolute; top: -20px; right: -20px; width: 45px; height: 45px;
+            background: #b33939; color: white; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; border: 3px solid var(--gold); font-weight: bold;
+        }
+
+        /* تنقل الصفحات */
         .view { display: none; }
-        .view.active { display: block; animation: fadeIn 0.5s; }
+        .view.active { display: block; animation: slideUp 0.6s ease; }
+
+        @keyframes slideUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        footer { text-align: center; color: var(--royal-gold); padding: 20px; font-size: 0.8rem; }
+        .back-btn {
+            background: var(--gold); color: var(--primary); padding: 8px 20px;
+            border-radius: 50px; font-weight: bold; cursor: pointer; display: inline-flex;
+            align-items: center; gap: 8px; margin-bottom: 30px; transition: 0.3s;
+        }
+        .back-btn:hover { background: #fff; transform: translateX(5px); }
+
+        footer { text-align: center; padding: 60px 20px; color: var(--gold); border-top: 1px solid rgba(196, 160, 77, 0.1); }
     </style>
 </head>
 <body>
 
-<header class="royal-header">
-    <div class="header-container">
-        <div class="gov-text"><h1>سلطنة عمان</h1><h2>وزارة التربية والتعليم</h2></div>
-        <div class="logo-wrap"><img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png"></div>
-        <div class="gov-text" style="text-align: left;"><h1>مدرسة المروج</h1><h2>بوابة المصحف الرقمي</h2></div>
+<header>
+    <div class="header-content">
+        <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" class="logo-main">
+        <h1>منصة مروج الرقمية</h1>
+        <p>بوابة التلاوة العمانية المنهجية</p>
     </div>
 </header>
 
-<div class="content-box">
-    <div id="v-main" class="view active">
-        <h2 style="text-align:center; font-family:'Amiri'; font-size:2rem; color:var(--dark-gold); margin-bottom:25px;">اختر المرحلة الدراسية</h2>
-        <div id="grades-grid"></div>
+<div class="container">
+    
+    <div id="v-grades" class="view active">
+        <div class="grid-layout" id="draw-grades"></div>
     </div>
 
     <div id="v-sems" class="view">
-        <button class="btn-gold" onclick="switchView('v-sems', 'v-main')">🔙 العودة للرئيسية</button>
-        <div id="sems-grid"></div>
+        <div class="back-btn" onclick="showView('v-grades')">❮ القائمة الرئيسية</div>
+        <h2 id="grade-title" style="margin-bottom:20px; font-family:'Amiri'; font-size:2.5rem; color:var(--gold);"></h2>
+        <div class="grid-layout" id="draw-sems"></div>
     </div>
 
     <div id="v-list" class="view">
-        <button class="btn-gold" onclick="switchView('v-list', 'v-sems')">🔙 عودة للفصول</button>
-        <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--dark-gold);">
-            <span>معدل إنجازك</span><span id="pct-text">0%</span>
-        </div>
-        <div class="progress-wrapper"><div class="progress-bar" id="p-bar"></div></div>
-        <div id="surahs-grid"></div>
+        <div class="back-btn" onclick="showView('v-sems')">❮ الفصول الدراسية</div>
+        <h2 id="sem-title" style="margin-bottom:20px; font-family:'Amiri'; font-size:2.5rem; color:var(--gold);"></h2>
+        <div class="grid-layout" id="draw-surahs"></div>
     </div>
 
-    <div id="v-read" class="view">
-        <button class="btn-gold" onclick="stopAudio()">✅ إنهاء والعودة</button>
-        <div class="mushaf-view" id="quran-content"></div>
+</div>
+
+<div id="player-modal" class="modal-overlay">
+    <div class="marble-container">
+        <div class="close-circle" onclick="stopPlayer()">✕</div>
+        <div class="video-box" id="video-root"></div>
     </div>
 </div>
 
-<audio id="player-engine"></audio>
-<footer>حقوق التصميم محفوظة لمدرسة المروج &copy; 2025 | إشراف فيصل العريبي</footer>
+<footer>
+    <p>جميع الحقوق محفوظة لمدرسة المروج الرقمية - سلطنة عمان &copy; 2025</p>
+    <p style="margin-top:10px; opacity:0.6; font-size:0.8rem;">إعداد وإشراف: أ. فيصل العريبي</p>
+</footer>
 
 <script>
-    const db = {
+    // قاعدة البيانات الشاملة (جميع الصفوف والسور)
+    const data = {
         "الصف الخامس": {
-            "الفصل الأول": [{id:"511", n:"المرسلات", s:"077", a:["وَالْمُرْسَلَاتِ عُرْفًا","فَالْعَاصِفَاتِ عَصْفًا","وَالنَّاشِرَاتِ نَشْرًا"]}],
-            "الفصل الثاني": [{id:"521", n:"القيامة", s:"075", a:["لَا أُقْسِمُ بِيَوْمِ الْقِيَامَةِ","وَلَا أُقْسِمُ بِالنَّفْسِ اللَّوَّامَةِ"]}]
+            "الفصل الدراسي الأول": [{t:"سورة المرسلات", v:"5/cls5_Islamic_Morsalat4.mp4"}, {t:"سورة الحاقة", v:"5/cls5_Islamic_Haqqah.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة النبأ", v:"5/cls5_Islamic_Naba.mp4"}, {t:"سورة التكوير", v:"5/cls5_Islamic_Takwir.mp4"}]
         },
         "الصف السادس": {
-            "الفصل الأول": [{id:"611", n:"المدثر", s:"074", a:["يَا أَيُّهَا الْمُدَّثِّرُ","قُمْ فَأَنذِرْ"]}],
-            "الفصل الثاني": [{id:"621", n:"الجن", s:"072", a:["قُلْ أُوحِيَ إِلَيَّ أَنَّهُ اسْتَمَعَ نَفَرٌ مِّنَ الْجِنِّ"]}]
+            "الفصل الدراسي الأول": [{t:"سورة السجدة", v:"6/cls6_Islamic_Sajdah.mp4"}, {t:"سورة لقمان (1-11)", v:"6/cls6_Islamic_Luqman.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة الملك", v:"6/cls6_Islamic_Mulk.mp4"}, {t:"سورة الإنسان", v:"6/cls6_Islamic_Insan.mp4"}]
         },
-        "الصف السابع": { "الفصل الأول": [{id:"711", n:"المعارج", s:"070", a:["سأَلَ سَائِلٌ بِعَذَابٍ وَاقِعٍ"]}], "الفصل الثاني": [{id:"721", n:"الملك", s:"067", a:["تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ"]}] },
-        "الصف الثامن": { "الفصل الأول": [{id:"811", n:"التغابن", s:"064", a:["يُسَبِّحُ لِلَّهِ مَا فِي السَّمَاوَاتِ"]}], "الفصل الثاني": [{id:"821", n:"التحريم", s:"066", a:["يَا أَيُّهَا النَّبِيُّ لِمَ تُحَرِّمُ"]}] },
-        "الصف التاسع": { "الفصل الأول": [{id:"911", n:"الجمعة", s:"062", a:["يُسَبِّحُ لِلَّهِ مَا فِي السَّمَاوَاتِ"]}], "الفصل الثاني": [{id:"921", n:"الصف", s:"061", a:["سَبَّحَ لِلَّهِ مَا فِي السَّمَاوَاتِ"]}] },
-        "الصف العاشر": { "الفصل الأول": [{id:"1011", n:"الحشر", s:"059", a:["سَبَّحَ لِلَّهِ مَا فِي السَّمَاوَاتِ"]}], "الفصل الثاني": [{id:"1021", n:"المجادلة", s:"058", a:["قَدْ سَمِعَ اللَّهُ قَوْلَ الَّتِي"]}] },
-        "الصف الحادي عشر": { "الفصل الأول": [{id:"1111", n:"آل عمران", s:"003", a:["فَبِمَا رَحْمَةٍ مِّنَ اللَّهِ"]}], "الفصل الثاني": [{id:"1121", n:"النور", s:"024", a:["يَا أَيُّهَا الَّذِينَ آمَنُوا"]}] },
-        "الصف الثاني عشر": { "الفصل الأول": [{id:"1211", n:"محمد", s:"047", a:["إِنَّ اللَّهَ يُدْخِلُ الَّذِينَ"]}], "الفصل الثاني": [{id:"1221", n:"الكهف", s:"018", a:["أَمْ حَسِبْتَ أَنَّ أَصْحَابَ الْكَهْفِ"]}] }
+        "الصف السابع": {
+            "الفصل الدراسي الأول": [{t:"سورة ق", v:"7/cls7_Islamic_Qaf.mp4"}, {t:"سورة الجن", v:"7/cls7_Islamic_Jinn.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة الرحمن", v:"7/cls7_Islamic_Rahman.mp4"}, {t:"سورة يس (1-12)", v:"7/cls7_Islamic_Yaseen.mp4"}]
+        },
+        "الصف الثامن": {
+            "الفصل الدراسي الأول": [{t:"سورة الحجرات", v:"8/cls8_Islamic_Hujurat.mp4"}, {t:"سورة المعارج", v:"8/cls8_Islamic_Maarij.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة النجم", v:"8/cls8_Islamic_Najm.mp4"}, {t:"سورة القمر", v:"8/cls8_Islamic_Qamar.mp4"}]
+        },
+        "الصف التاسع": {
+            "الفصل الدراسي الأول": [{t:"سورة الواقعة", v:"9/cls9_Islamic_Waqiah.mp4"}, {t:"سورة المزمل", v:"9/cls9_Islamic_Muzzamil.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة الحديد", v:"9/cls9_Islamic_Hadid.mp4"}, {t:"سورة المدثر", v:"9/cls9_Islamic_Muddathir.mp4"}]
+        },
+        "الصف العاشر": {
+            "الفصل الدراسي الأول": [{t:"سورة الممتحنة", v:"10/cls10_Islamic_Mumtahina.mp4"}, {t:"سورة الجمعة", v:"10/cls10_Islamic_Jumuah.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة الحشر", v:"10/cls10_Islamic_Hashr.mp4"}, {t:"سورة المنافقون", v:"10/cls10_Islamic_Munafiqun.mp4"}]
+        },
+        "الصف الحادي عشر": {
+            "الفصل الدراسي الأول": [{t:"سورة يس كاملة", v:"11/cls11_Islamic_Yaseen.mp4"}, {t:"سورة الطور", v:"11/cls11_Islamic_Tur.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة الصافات", v:"11/cls11_Islamic_Saffat.mp4"}, {t:"سورة الذاريات", v:"11/cls11_Islamic_Zariyat.mp4"}]
+        },
+        "الصف الثاني عشر": {
+            "الفصل الدراسي الأول": [{t:"سورة لقمان كاملة", v:"12/cls12_Islamic_Luqman.mp4"}, {t:"سورة فاطر", v:"12/cls12_Islamic_Fatir.mp4"}],
+            "الفصل الدراسي الثاني": [{t:"سورة الذاريات (31-60)", v:"12/cls12_Islamic_Zariyat.mp4"}, {t:"سورة غافر", v:"12/cls12_Islamic_Ghafir.mp4"}]
+        }
     };
 
-    let state = { g: "", s: "" };
-    let prog = JSON.parse(localStorage.getItem('murooj_prog')) || {};
-    const audio = document.getElementById('player-engine');
+    let curGrade = "";
 
     function init() {
-        const grid = document.getElementById('grades-grid');
-        Object.keys(db).forEach(g => {
-            grid.innerHTML += `<div class="premium-card" onclick="selectGrade('${g}')"><div class="card-info"><h3>${g}</h3></div><span>◀</span></div>`;
+        const root = document.getElementById('draw-grades');
+        Object.keys(data).forEach(g => {
+            root.innerHTML += `
+                <div class="pro-card" onclick="selectG('${g}')">
+                    <div class="icon-box"><img src="https://cdn-icons-png.flaticon.com/512/2904/2904843.png"></div>
+                    <h3>${g}</h3>
+                    <span>منهج التربية الإسلامية</span>
+                    <button class="pro-btn">استعراض الفصول</button>
+                </div>`;
         });
     }
 
-    function switchView(from, to) {
-        document.getElementById(from).classList.remove('active');
-        document.getElementById(to).classList.add('active');
+    function showView(id) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        window.scrollTo({top: 150, behavior: 'smooth'});
     }
 
-    function selectGrade(g) {
-        state.g = g;
-        const grid = document.getElementById('sems-grid');
-        grid.innerHTML = `<h2 style="text-align:center; color:var(--oman-green); margin-bottom:20px;">${g}</h2>`;
-        Object.keys(db[g]).forEach(s => {
-            grid.innerHTML += `<div class="premium-card" onclick="selectSem('${s}')"><div class="card-info"><h3>${s}</h3></div><span>📁</span></div>`;
+    function selectG(g) {
+        curGrade = g;
+        document.getElementById('grade-title').innerText = g;
+        const root = document.getElementById('draw-sems');
+        root.innerHTML = "";
+        Object.keys(data[g]).forEach(s => {
+            root.innerHTML += `
+                <div class="pro-card" onclick="selectS('${s}')">
+                    <div class="icon-box"><img src="https://cdn-icons-png.flaticon.com/512/2232/2232688.png"></div>
+                    <h3>${s}</h3>
+                    <span>المقرر الدراسي الدراسي</span>
+                    <button class="pro-btn">عرض السور</button>
+                </div>`;
         });
-        switchView('v-main', 'v-sems');
+        showView('v-sems');
     }
 
-    function selectSem(s) {
-        state.s = s;
-        renderSurahs();
-        switchView('v-sems', 'v-list');
-    }
-
-    function renderSurahs() {
-        const grid = document.getElementById('surahs-grid');
-        grid.innerHTML = "";
-        const list = db[state.g][state.s];
-        list.forEach(item => {
-            grid.innerHTML += `<div class="premium-card" onclick="startReading('${item.n}','${item.s}',${JSON.stringify(item.a)},'${item.id}')">
-                <div class="card-info"><h3>سورة ${item.n}</h3><p>${prog[item.id]?'✅ مكتمل':'📖 ابدأ التلاوة'}</p></div><span>▶</span></div>`;
+    function selectS(s) {
+        document.getElementById('sem-title').innerText = curGrade + " | " + s;
+        const root = document.getElementById('draw-surahs');
+        root.innerHTML = "";
+        data[curGrade][s].forEach(item => {
+            root.innerHTML += `
+                <div class="pro-card" onclick="playVideo('${item.v}')">
+                    <div class="icon-box" style="background:var(--gold)"><img src="https://cdn-icons-png.flaticon.com/512/2904/2904843.png" style="filter:invert(0)"></div>
+                    <h3>${item.t}</h3>
+                    <span>تلاوة تعليمية مجودة</span>
+                    <button class="pro-btn" style="background:var(--gold); color:var(--primary)">استماع الآن ▶</button>
+                </div>`;
         });
-        updateProgress(list);
+        showView('v-list');
     }
 
-    function startReading(name, sId, ayahs, id) {
-        const container = document.getElementById('quran-content');
-        container.innerHTML = `<h2 style="margin-bottom:20px; color:var(--oman-green)">سورة ${name}</h2>` + 
-            ayahs.map((a, i) => `<span class="ayah" id="ayah-${i}">${a} <span class="ayah-num">${i+1}</span></span>`).join(' ');
-        
-        switchView('v-list', 'v-read');
-        let idx = 0;
-        const playAyah = (i) => {
-            if(i >= ayahs.length) { prog[id]=true; localStorage.setItem('murooj_prog', JSON.stringify(prog)); return; }
-            document.querySelectorAll('.ayah').forEach(el => el.classList.remove('active-ayah'));
-            document.getElementById(`ayah-${i}`).classList.add('active-ayah');
-            audio.src = `https://www.everyayah.com/data/Hudhaify_64kbps/${sId}${(i+1).toString().padStart(3,'0')}.mp3`;
-            audio.play();
-            audio.onended = () => { idx++; playAyah(idx); };
-        };
-        playAyah(0);
+    function playVideo(path) {
+        const url = "https://ict.moe.gov.om/tlawti/video/" + path;
+        document.getElementById('video-root').innerHTML = `<video width="100%" height="100%" controls autoplay><source src="${url}" type="video/mp4"></video>`;
+        document.getElementById('player-modal').classList.add('active');
     }
 
-    function stopAudio() { audio.pause(); switchView('v-read', 'v-list'); renderSurahs(); }
-    
-    function updateProgress(list) {
-        const done = list.filter(i => prog[i.id]).length;
-        const pct = Math.round((done/list.length)*100);
-        document.getElementById('p-bar').style.width = pct + "%";
-        document.getElementById('pct-text').innerText = pct + "%";
+    function stopPlayer() {
+        document.getElementById('player-modal').classList.remove('active');
+        document.getElementById('video-root').innerHTML = "";
     }
 
     init();
