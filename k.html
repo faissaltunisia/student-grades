@@ -2,186 +2,148 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>منصة مدرسة المروج | ديني قيمي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة مدرسة المروج | التتبع الصوتي الكامل</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --royal-green: #004d40; --gold: #D4AF37; --bg: #f8faf9; }
+        :root { --royal-green: #004d40; --gold: #D4AF37; --bg: #fdfaf0; }
+        * { box-sizing: border-box; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); margin: 0; padding-bottom: 80px; }
         
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); margin: 0; overflow-x: hidden; }
-
-        /* الهيدر الملكي */
-        header {
+        header { 
             background: linear-gradient(135deg, var(--royal-green), #002d26);
-            color: white; padding: 25px 15px; text-align: center;
-            border-bottom: 5px solid var(--gold); box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        header img { height: 60px; margin-bottom: 10px; }
-        header h1 { font-size: 1.2rem; margin: 0; color: var(--gold); font-family: 'Amiri'; }
-
-        .container { max-width: 600px; margin: auto; padding: 15px; }
-
-        /* لوحة التحكم بالصفوف */
-        .selector-card {
-            background: white; border-radius: 15px; padding: 15px;
-            margin-bottom: 20px; border: 1px solid #ddd; display: flex; gap: 10px;
-        }
-        select {
-            flex: 1; padding: 12px; border-radius: 10px; border: 2px solid var(--gold);
-            font-family: 'Cairo'; font-weight: bold; background: white;
+            color: white; padding: 20px; text-align: center; border-bottom: 5px solid var(--gold);
         }
 
-        /* منطقة التلاوة والتتبع */
-        .mushaf-card {
-            background: white; border-radius: 25px; padding: 30px 15px;
-            text-align: center; border: 2px solid var(--gold);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05); position: relative;
-        }
-        .mushaf-text { min-height: 180px; line-height: 2.8; margin-bottom: 30px; }
-        .word {
-            font-family: 'Amiri'; font-size: 2.2rem; margin: 0 5px;
-            display: inline-block; transition: 0.3s; padding: 2px 8px; border-radius: 10px;
-        }
-        /* تظليل الكلمة عند القراءة */
-        .word.active { background: var(--gold); color: white; transform: scale(1.15); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
+        .container { padding: 15px; max-width: 600px; margin: auto; }
 
-        /* زر التشغيل الكبير المصمم للهاتف */
-        .play-btn {
-            background: var(--royal-green); color: white; border: none;
-            width: 100%; padding: 20px; border-radius: 50px;
-            font-size: 1.3rem; font-weight: bold; cursor: pointer;
+        /* منطقة المصحف */
+        .quran-container {
+            background: white; border-radius: 20px; padding: 25px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1.5px solid var(--gold);
+            text-align: center;
+        }
+
+        .sura-text {
+            font-family: 'Amiri'; font-size: 1.8rem; line-height: 2.5;
+            text-align: justify; direction: rtl; margin-bottom: 25px;
+            color: #333;
+        }
+
+        /* تنسيق الآية النشطة */
+        .ayah { padding: 0 5px; border-radius: 5px; transition: 0.4s; display: inline; }
+        .active-ayah { background: var(--gold); color: white; box-shadow: 0 2px 8px rgba(212, 175, 55, 0.5); }
+
+        .controls {
+            position: sticky; bottom: 20px; background: white;
+            padding: 15px; border-radius: 50px; border: 2px solid var(--gold);
             display: flex; align-items: center; justify-content: center; gap: 15px;
-            box-shadow: 0 8px 20px rgba(0,77,64,0.3);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.2);
         }
-        .play-btn:active { transform: scale(0.98); }
 
-        /* قائمة التنقل السفلية */
-        .nav-bottom {
-            position: fixed; bottom: 0; width: 100%; background: white;
-            display: flex; justify-content: space-around; padding: 12px;
-            border-top: 3px solid var(--gold); box-shadow: 0 -5px 15px rgba(0,0,0,0.05);
+        .btn-play {
+            background: var(--royal-green); color: white; border: none;
+            width: 60px; height: 60px; border-radius: 50%; font-size: 1.5rem;
+            cursor: pointer; display: flex; align-items: center; justify-content: center;
         }
-        .nav-item { border: none; background: none; color: var(--royal-green); font-size: 0.8rem; font-weight: bold; }
-        
-        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <header>
-    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Emblem_of_Oman.svg/1200px-Emblem_of_Oman.svg.png">
-    <h1>مدرسة المروج للتعليم الأساسي (5-8)</h1>
-    <p style="margin:0; font-size:0.8rem;">منصة ديني قيمي الرقمية</p>
+    <h1 style="margin:0; font-size:1.3rem; color:var(--gold);">مدرسة المروج للتعليم الأساسي</h1>
+    <p style="margin:0; font-size:0.8rem;">تتبع تلاوة سورة المعارج (1-10)</p>
 </header>
 
 <div class="container">
-    <div class="selector-card">
-        <select id="grade" onchange="initGrade()">
-            <option value="5">الصف الخامس</option>
-            <option value="6">الصف السادس</option>
-            <option value="7">الصف السابع</option>
-            <option value="8">الصف الثامن</option>
-        </select>
-        <select id="term" onchange="initGrade()">
-            <option value="1">الفصل 1</option>
-            <option value="2">الفصل 2</option>
-        </select>
-    </div>
-
-    <div id="quran-ui">
-        <div class="mushaf-card">
-            <h3 id="sura-title" style="color:var(--royal-green); margin-top:0;">سورة المعارج</h3>
-            <div id="mushaf-box" class="mushaf-text">
-                </div>
-            
-            <button class="play-btn" onclick="toggleAudio()" id="controlBtn">
-                <span id="playIcon">▶</span> تشغيل التتبع الصوتي
-            </button>
-            <p id="audioStatus" style="font-size: 0.7rem; color: #999; margin-top: 10px;">اضغط للبدء (رابط مباشر آمن)</p>
-        </div>
-    </div>
-
-    <div id="video-ui" class="hidden">
-        <div id="video-list" style="display:grid; gap:15px;"></div>
+    <div class="quran-container">
+        <h2 style="color:var(--royal-green); font-family:'Amiri';">سورة المعارج</h2>
+        <div id="mushaf" class="sura-text">
+            </div>
     </div>
 </div>
 
-<nav class="nav-bottom">
-    <button class="nav-item" onclick="showTab('quran-ui')">📖<br>تلاوة</button>
-    <button class="nav-item" onclick="showTab('video-ui')">🎥<br>دروس</button>
-    <button class="nav-item" onclick="alert('مركز الألعاب قيد التحديث')">🎮<br>ألعاب</button>
-</nav>
+<div class="container">
+    <div class="controls">
+        <button class="btn-play" onclick="toggleAudio()" id="playBtn">▶</button>
+        <div style="flex:1; text-align:right;">
+            <div id="status" style="font-size:0.9rem; font-weight:bold; color:var(--royal-green);">اضغط للبدء</div>
+            <div id="progress" style="height:4px; background:#eee; width:100%; margin-top:5px;">
+                <div id="bar" style="height:100%; background:var(--gold); width:0%;"></div>
+            </div>
+        </div>
+    </div>
+</div>
 
-<audio id="mainAudio" crossorigin="anonymous"></audio>
+<audio id="audioSource" preload="auto">
+    <source src="https://server11.mp3quran.net/huzaifi/070.mp3" type="audio/mpeg">
+</audio>
 
 <script>
-    // قاعدة بيانات دقيقة جداً
-    const db = {
-        "5": {
-            sura: "سورة المعارج",
-            words: ["سَأَلَ", "سَائِلٌ", "بِعَذَابٍ", "وَاقِعٍ", "لِّلْكاَفِرِينَ", "لَيْسَ", "لَهُ", "دَافِعٌ"],
-            times: [0.7, 1.8, 3.1, 4.4, 5.8, 7.2, 8.2, 9.2],
-            audio: "https://www.everyayah.com/data/Hudhaify_64kbps/070001.mp3",
-            vids: ["O8XJmXqN_zU", "V6S6t-3s6iM", "7hYy1F6vO4k", "d6p2zX7-0gM"]
-        },
-        "6": {
-            sura: "سورة الملك",
-            words: ["تَبَارَكَ", "الَّذِي", "بِيَدِهِ", "الْمُلْكُ", "وَهُوَ", "عَلَىٰ", "كُلِّ", "شَيْءٍ", "قَدِيرٌ"],
-            times: [1.0, 2.2, 3.2, 4.2, 5.2, 6.2, 7.2, 8.2, 9.2],
-            audio: "https://www.everyayah.com/data/Hudhaify_64kbps/067001.mp3",
-            vids: ["Yf-S-0I0_Sg", "G7rR0V4J7mE", "L4P9E3f9B_s", "K8P7D6c5B_a"]
-        }
-    };
+    // بيانات الآيات وتوقيتاتها (سورة المعارج - الشيخ الحذيفي)
+    const suraData = [
+        { id: 1, text: "سَأَلَ سَائِلٌ بِعَذَابٍ وَاقِعٍ ﴿١﴾", start: 0, end: 5.5 },
+        { id: 2, text: "لِّلْكَافِرِينَ لَيْسَ لَهُ دَافِعٌ ﴿٢﴾", start: 5.5, end: 11.5 },
+        { id: 3, text: "مِّنَ اللَّهِ ذِي الْمَعَارِجِ ﴿٣﴾", start: 11.5, end: 16.5 },
+        { id: 4, text: "تَعْرُجُ الْمَلَائِكَةُ وَالرُّوحُ إِلَيْهِ فِي يَوْمٍ كَانَ مِقْدَارُهُ خَمْسِينَ أَلْفَ سَنَةٍ ﴿٤﴾", start: 16.5, end: 28.0 },
+        { id: 5, text: "فَاصْبِرْ صَبْرًا جَمِيلًا ﴿٥﴾", start: 28.0, end: 32.5 },
+        { id: 6, text: "إِنَّهُمْ يَرَوْنَهُ بَعِيدًا ﴿٦﴾", start: 32.5, end: 36.5 },
+        { id: 7, text: "وَنَرَاهُ قَرِيبًا ﴿٧﴾", start: 36.5, end: 40.5 },
+        { id: 8, text: "يَوْمَ تَكُونُ السَّمَاءُ كَالْمُهْلِ ﴿٨﴾", start: 40.5, end: 46.5 },
+        { id: 9, text: "وَتَكُونُ الْجِبَالُ كَالْعِهْنِ ﴿٩﴾", start: 46.5, end: 52.0 },
+        { id: 10, text: "وَلَا يَسْأَلُ حَمِيمٌ حَمِيمًا ﴿١٠﴾", start: 52.0, end: 58.0 }
+    ];
 
-    const audio = document.getElementById('mainAudio');
-    let isPlaying = false;
+    const audio = document.getElementById('audioSource');
+    const playBtn = document.getElementById('playBtn');
+    const statusText = document.getElementById('status');
+    const mushaf = document.getElementById('mushaf');
 
-    function initGrade() {
-        const grade = document.getElementById('grade').value;
-        const data = db[grade] || db["5"];
-        
-        // ضبط العنوان والكلمات
-        document.getElementById('sura-title').innerText = data.sura;
-        const box = document.getElementById('mushaf-box');
-        box.innerHTML = data.words.map((w, i) => `<span class="word" id="w-${i}">${w}</span>`).join(' ');
-        
-        // ضبط الصوت والفيديوهات
-        audio.src = data.audio;
-        audio.load();
-        isPlaying = false;
-        document.getElementById('playIcon').innerText = "▶";
-
-        const vList = document.getElementById('video-list');
-        vList.innerHTML = data.vids.map(id => `
-            <div style="border-radius:15px; overflow:hidden; border:2px solid var(--gold); aspect-ratio:16/9;">
-                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>
-            </div>
-        `).join('');
+    // 1. عرض السورة نصياً عند التشغيل
+    function loadSura() {
+        mushaf.innerHTML = suraData.map(a => `<span class="ayah" id="ayah-${a.id}">${a.text}</span>`).join(' ');
     }
 
+    // 2. معالجة تشغيل الصوت (حل مشكلة الحظر)
     function toggleAudio() {
-        if (!isPlaying) {
+        if (audio.paused) {
             audio.play().then(() => {
-                isPlaying = true;
-                document.getElementById('playIcon').innerText = "⏸";
-                document.getElementById('audioStatus').innerText = "جاري التتبع بدقة...";
+                playBtn.innerText = "⏸";
+                statusText.innerText = "جاري التلاوة والتتبع...";
             }).catch(e => {
-                alert("يرجى المحاولة مرة أخرى، المتصفح يحتاج لإذنك لتشغيل الصوت.");
+                alert("يرجى الضغط مرة أخرى لتفعيل الصوت في المتصفح");
             });
         } else {
             audio.pause();
-            isPlaying = false;
-            document.getElementById('playIcon').innerText = "▶";
+            playBtn.innerText = "▶";
+            statusText.innerText = "تم الإيقاف مؤقتًا";
         }
     }
 
-    // محرك التتبع الدقيق (يتم استدعاؤه تلقائياً عند تشغيل الصوت)
+    // 3. محرك المزامنة (تغيير لون الآية مع الصوت)
     audio.ontimeupdate = () => {
-        const grade = document.getElementById('grade').value;
-        const times = (db[grade] || db["5"]).times;
-        const now = audio.currentTime;
+        const currentTime = audio.currentTime;
+        
+        // تحديث شريط التقدم
+        const progress = (audio.currentTime / audio.duration) * 100;
+        document.getElementById('bar').style.width = progress + "%";
 
-        times.forEach((t, i) => {
-            if (now >= t) {
-                document.querySelectorAll('.word').forEach(w
+        // البحث عن الآية الحالية
+        suraData.forEach(ayah => {
+            const el = document.getElementById(`ayah-${ayah.id}`);
+            if (currentTime >= ayah.start && currentTime < ayah.end) {
+                // إزالة التمييز من الجميع وإضافته للآية الحالية
+                document.querySelectorAll('.ayah').forEach(a => a.classList.remove('active-ayah'));
+                el.classList.add('active-ayah');
+                
+                // التمرير التلقائي في الهاتف ليظل النص ظاهراً
+                el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    };
+
+    window.onload = loadSura;
+</script>
+
+</body>
+</html>
