@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منصة ديني قيمي التفاعلية - سلطنة عمان</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --oman-green: #00843d; --oman-red: #d21034; --oman-gold: #c5a059;
+            --deep-teal: #004d40; --glass: rgba(255, 255, 255, 0.95);
+        }
+
+        body { font-family: 'Cairo', sans-serif; background: #f0f2f5; margin: 0; color: #333; }
+
+        /* --- الواجهة الرئيسية الاحترافية --- */
+        header {
+            background: linear-gradient(135deg, var(--deep-teal), var(--oman-green));
+            color: white; padding: 20px 5%; display: flex; justify-content: space-between;
+            align-items: center; border-bottom: 5px solid var(--oman-gold);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .school-info { display: flex; align-items: center; gap: 20px; }
+        .school-info img { height: 70px; filter: drop-shadow(0 0 5px white); }
+        .school-name { border-right: 3px solid var(--oman-gold); padding-right: 15px; }
+
+        /* --- القائمة الانسيابية --- */
+        .nav-container { max-width: 1200px; margin: -30px auto 30px; display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; padding: 0 20px; }
+        .nav-card {
+            background: var(--glass); padding: 25px; border-radius: 20px; text-align: center;
+            cursor: pointer; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid #eee;
+        }
+        .nav-card:hover { transform: translateY(-10px); background: var(--oman-gold); color: white; }
+        .nav-card i { font-size: 2.5rem; display: block; margin-bottom: 10px; }
+
+        /* --- اختيار الصف والفصل --- */
+        .filter-section { text-align: center; margin-bottom: 30px; }
+        select { padding: 12px 25px; border-radius: 30px; border: 2px solid var(--oman-green); font-family: 'Cairo'; font-size: 1rem; margin: 5px; outline: none; }
+
+        /* --- قسم القراءة والتتبع الصوتي --- */
+        .reader-box { background: white; max-width: 900px; margin: auto; padding: 40px; border-radius: 30px; position: relative; border: 1px solid var(--oman-gold); }
+        .word { font-family: 'Amiri'; font-size: 3rem; margin: 5px; display: inline-block; transition: 0.3s; padding: 5px 10px; border-radius: 12px; }
+        .active-word { background: var(--oman-gold); color: white; transform: scale(1.2); box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .audio-controls { margin-top: 30px; background: #f9f9f9; padding: 15px; border-radius: 50px; }
+
+        /* --- مركز الألعاب المطور --- */
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .game-card { background: white; border-radius: 20px; overflow: hidden; border-top: 5px solid var(--oman-red); transition: 0.3s; cursor: pointer; }
+        .game-card:hover { transform: scale(1.03); }
+        .game-img { width: 100%; height: 150px; background: #eee; display: flex; align-items: center; justify-content: center; font-size: 4rem; }
+        .game-body { padding: 20px; text-align: center; }
+        
+        /* التحدي داخل اللعبة */
+        .quiz-option { display: block; width: 100%; padding: 12px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; transition: 0.2s; }
+        .quiz-option:hover { background: #e8f5e9; border-color: var(--oman-green); }
+
+        .section-view { display: none; padding: 20px; animation: fadeIn 0.6s ease; }
+        .active-view { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; } }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="school-info">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Emblem_of_Oman.svg/1200px-Emblem_of_Oman.svg.png" alt="شعار سلطنة عمان">
+        <div class="school-name">
+            <h2 style="margin:0;">وزارة التربية والتعليم</h2>
+            <h3 style="margin:0; font-weight:normal;">مدرسة .........................</h3>
+        </div>
+    </div>
+    <div class="user-stats">⭐ النقاط: <span id="pts">0</span></div>
+</header>
+
+<div style="height: 100px; background: var(--deep-teal);"></div>
+
+<div class="app-container">
+    <div class="nav-container">
+        <div class="nav-card" onclick="showView('reading-view')">📖 القراءة والتتبع</div>
+        <div class="nav-card" onclick="showView('video-view')">🎥 المكتبة المرئية</div>
+        <div class="nav-card" onclick="showView('games-view')">🎮 مركز التحديات</div>
+        <div class="nav-card" onclick="showView('exam-view')">📝 الاختبارات</div>
+    </div>
+
+    <div class="filter-section">
+        <select id="grade-sel" onchange="loadGradeData()">
+            <option value="5">الصف الخامس</option>
+            <option value="6">الصف السادس</option>
+            <option value="7">الصف السابع</option>
+            <option value="8">الصف الثامن</option>
+            <option value="9">الصف التاسع</option>
+            <option value="10">الصف العاشر</option>
+            <option value="11">الصف الحادي عشر</option>
+            <option value="12">الصف الثاني عشر</option>
+        </select>
+        <select id="sem-sel">
+            <option>الفصل الأول</option>
+            <option>الفصل الثاني</option>
+        </select>
+    </div>
+
+    <div id="reading-view" class="section-view active-view">
+        <div class="reader-box">
+            <h2 style="text-align:center; color: var(--deep-teal);">تتبع تلاوة: <span id="surah-title">سورة المعارج</span></h2>
+            <div id="mushaf-content" style="text-align:center; line-height:2.5;">
+                </div>
+            <div class="audio-controls">
+                <audio id="quran-audio" style="width:100%;" controls src="https://server11.mp3quran.net/huzaifi/070.mp3"></audio>
+                <p style="text-align:center; font-size:0.9rem; color:#666;">اضغط تشغيل للمتابعة كلمة بكلمة</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="games-view" class="section-view">
+        <h2 style="text-align:center;">اختر اللعبة المناسبة لدرسك</h2>
+        <div class="games-grid">
+            <div class="game-card" onclick="openGame('quiz')">
+                <div class="game-img">❓</div>
+                <div class="game-body">
+                    <h3>تحدي الخيارات الذكي</h3>
+                    <p>أجب عن الأسئلة بناءً على الصور والنصوص</p>
+                </div>
+            </div>
+            <div class="game-card" onclick="openGame('makharij')">
+                <div class="game-img">👄</div>
+                <div class="game-body">
+                    <h3>صيد المخارج</h3>
+                    <p>فرز الكلمات حسب مخرج الحرف</p>
+                </div>
+            </div>
+        </div>
+        
+        <div id="quiz-area" style="display:none; background:white; padding:30px; border-radius:20px; margin-top:30px;">
+            <img src="https://img.freepik.com/free-vector/kaaba-illustration-concept_52683-47024.jpg" style="width:200px; display:block; margin:auto;">
+            <h3 id="q-text">ما هي القبلة التي يتجه إليها المسلمون في صلاتهم؟</h3>
+            <div class="quiz-option" onclick="ans(true)">الكعبة المشرفة</div>
+            <div class="quiz-option" onclick="ans(false)">بيت المقدس</div>
+            <div class="quiz-option" onclick="ans(false)">المسجد النبوي</div>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    let score = 0;
+    
+    // بيانات السور (4 لكل فصل لكل صف) - نموذج
+    const quranData = {
+        "5": ["المعارج", "الحاقة", "القيامة", "الإنسان"],
+        "6": ["الملك", "القلم", "نوح", "الجن"],
+        // يمكن التوسع لبقية الصفوف هنا
+    };
+
+    function showView(id) {
+        document.querySelectorAll('.section-view').forEach(v => v.classList.remove('active-view'));
+        document.getElementById(id).classList.add('active-view');
+        
+        if(id === 'reading-view') initReader();
+    }
+
+    // برمجة التتبع الصوتي التلقائي
+    function initReader() {
+        const container = document.getElementById('mushaf-content');
+        const text = "سَأَلَ سَائِلٌ بِعَذَابٍ وَاقِعٍ لِّلْكَافِرِينَ لَيْسَ لَهُ دَافِعٌ";
+        container.innerHTML = text.split(' ').map((w, i) => `<span class="word" id="w-${i}">${w}</span>`).join('');
+        
+        const audio = document.getElementById('quran-audio');
+        audio.ontimeupdate = function() {
+            // منطق محاكاة تتبع الكلمات بناءً على وقت الأوديو
+            let current = Math.floor(audio.currentTime / 1.5); // تقريباً كل ثانية ونصف كلمة
+            document.querySelectorAll('.word').forEach(w => w.classList.remove('active-word'));
+            if(document.getElementById(`w-${current}`)) {
+                document.getElementById(`w-${current}`).classList.add('active-word');
+            }
+        };
+    }
+
+    function openGame(type) {
+        if(type === 'quiz') document.getElementById('quiz-area').style.display = 'block';
+    }
+
+    function ans(isCorrect) {
+        if(isCorrect) {
+            score += 100;
+            alert("إجابة صحيحة! +100 نقطة");
+        } else {
+            alert("حاول مرة أخرى");
+        }
+        document.getElementById('pts').innerText = score;
+    }
+
+    // تشغيل القراءة عند التحميل
+    window.onload = () => initReader();
+
+</script>
+
+</body>
+</html>
