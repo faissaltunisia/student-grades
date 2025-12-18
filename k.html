@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منصة مدرسة المروج | فيصل العريبي</title>
+    <title>منصة مدرسة المروج الرقمية | فيصل العريبي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --royal-green: #004d40; --gold: #D4AF37; --bg: #f4f1ea; }
-        * { box-sizing: border-box; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); margin: 0; }
+        :root { --royal-green: #004d40; --gold: #D4AF37; --bg: #f4f1ea; --white: #ffffff; }
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Cairo', sans-serif; background: var(--bg); margin: 0; overflow-x: hidden; }
 
         header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             background: rgba(0, 77, 64, 0.95); backdrop-filter: blur(10px);
-            border-bottom: 4px solid var(--gold); padding: 10px 20px;
+            border-bottom: 4px solid var(--gold); padding: 10px 25px;
             display: flex; justify-content: space-between; align-items: center; color: white;
         }
-        .oman-logo { height: 40px; filter: brightness(0) invert(1); }
+        .oman-logo { height: 45px; filter: brightness(0) invert(1); }
 
-        main { margin-top: 100px; padding: 20px; max-width: 1100px; margin-left: auto; margin-right: auto; }
+        main { margin-top: 110px; padding: 20px; max-width: 1200px; margin-left: auto; margin-right: auto; min-height: 80vh; }
 
         .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .main-card {
-            background: white; border-radius: 20px; padding: 25px; text-align: center;
-            border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            cursor: pointer; transition: 0.3s;
+            background: var(--white); border-radius: 20px; padding: 30px; text-align: center;
+            border: 1px solid rgba(212,175,55,0.3); box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            cursor: pointer; transition: 0.4s;
         }
-        .main-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .main-card:hover { transform: translateY(-8px); border-color: var(--gold); }
 
-        /* مشغل الفيديو السينمائي */
         #video-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: rgba(0,0,0,0.95); display: none; z-index: 9999;
@@ -36,29 +35,33 @@
         }
         .video-box { width: 90%; max-width: 800px; background: #000; border: 3px solid var(--gold); border-radius: 15px; overflow: hidden; }
 
-        /* مشغل الصوت السفلي */
-        #audioBar {
+        .mushaf-container { background: white; border-radius: 25px; padding: 40px; border: 3px double var(--gold); text-align: center; line-height: 2.8; }
+        .word { font-family: 'Amiri'; font-size: 2.3rem; padding: 0 8px; display: inline-block; transition: 0.3s; color: #333; }
+        .active-word { color: var(--gold); transform: scale(1.2); font-weight: bold; text-shadow: 0 0 10px rgba(212,175,55,0.4); }
+
+        .audio-bar {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-            width: 90%; max-width: 500px; background: white; border-radius: 50px;
-            padding: 15px 25px; border: 3px solid var(--gold); display: none;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2); z-index: 2000; align-items: center; gap: 15px;
+            width: 90%; max-width: 550px; background: white; border-radius: 100px;
+            padding: 12px 25px; border: 3px solid var(--gold); display: none;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3); z-index: 2500; align-items: center; gap: 15px;
         }
-        .btn-play { background: var(--royal-green); color: white; border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; font-size: 1.2rem; }
-
-        .btn-royal { background: var(--royal-green); color: var(--gold); border: 2px solid var(--gold); padding: 10px 20px; border-radius: 30px; cursor: pointer; font-weight: bold; margin: 5px; }
-
-        .mushaf-view { background: white; border-radius: 20px; padding: 30px; border: 2px solid var(--gold); text-align: center; margin-top: 20px; line-height: 2.5; }
-        .word { font-family: 'Amiri'; font-size: 2rem; padding: 0 5px; color: #333; }
-        .active-word { color: var(--gold); font-weight: bold; transform: scale(1.1); display: inline-block; }
+        .btn-play { background: var(--royal-green); color: white; border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; font-size: 1.3rem; }
+        .btn-royal { background: var(--royal-green); color: var(--gold); border: 2px solid var(--gold); padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; margin: 5px; }
 
         .view { display: none; }
-        .active-view { display: block; }
+        .active-view { display: block; animation: fadeIn 0.5s; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        footer { background: #002d26; color: white; padding: 30px; text-align: center; border-top: 5px solid var(--gold); margin-top: 50px; }
     </style>
 </head>
 <body>
 
 <header>
-    <div><h1 style="margin:0; font-size:1rem;">مدرسة المروج للتعليم الأساسي</h1></div>
+    <div>
+        <h1 style="margin:0; font-size:1.1rem;">مدرسة المروج للتعليم الأساسي</h1>
+        <small style="color:var(--gold)">نظام التلاوة الرقمي | إشراف فيصل العريبي</small>
+    </div>
     <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Emblem_of_Oman.svg/1200px-Emblem_of_Oman.svg.png" class="oman-logo">
 </header>
 
@@ -81,132 +84,124 @@
     </section>
 
     <section id="reading" class="view">
-        <button class="btn-royal" onclick="exitReading()">⬅ إنهاء والعودة للسور</button>
-        <div class="mushaf-view" id="mushaf-content"></div>
+        <button class="btn-royal" onclick="exitReading()">⬅ إنهاء التلاوة والعودة</button>
+        <div class="mushaf-container" id="mushaf-content"></div>
     </section>
 </main>
 
 <div id="video-overlay">
-    <div class="video-box" id="player-container">
-        <div id="yt-player"></div>
-    </div>
-    <button class="btn-royal" onclick="closeVideo()" style="background:#d32f2f; color:white; border:none; margin-top:20px; padding:15px 40px; font-size:1.1rem;">❌ إغلاق الفيديو والرجوع للسورة</button>
+    <div class="video-box" id="player-container"><div id="yt-player"></div></div>
+    <button class="btn-royal" onclick="closeVideo()" style="margin-top:20px; background:#d32f2f; color:white; border:none; padding:15px 40px;">❌ إغلاق الفيديو والعودة للسورة</button>
 </div>
 
-<div id="audioBar">
+<div class="audio-bar" id="audioBar">
     <button class="btn-play" onclick="toggleAudio()" id="pBtn">▶</button>
     <div style="flex:1">
-        <div id="audio-title" style="font-weight:bold; color:var(--royal-green); font-size:0.8rem;"></div>
-        <div style="width:100%; height:5px; background:#eee; border-radius:5px; margin-top:5px; overflow:hidden;">
-            <div id="a-prog" style="width:0%; height:100%; background:var(--gold);"></div>
+        <div id="audio-title" style="font-weight:bold; color:var(--royal-green); font-size:0.9rem;"></div>
+        <div style="width:100%; height:6px; background:#eee; border-radius:5px; margin-top:5px; overflow:hidden;">
+            <div id="a-prog" style="width:0%; height:100%; background:var(--gold); transition: 0.1s;"></div>
         </div>
     </div>
 </div>
 
 <audio id="audioEngine"></audio>
 
+<footer><p>جميع الحقوق محفوظة لمدرسة المروج 2025 © | تصميم وبرمجة: فيصل العريبي</p></footer>
+
 <script src="https://www.youtube.com/iframe_api"></script>
 
 <script>
     const curriculum = {
-        5: { 1: [{n: "المرسلات", id: "077", vid: "dQw4w9WgXcQ"}], 2: [{n: "القيامة", id: "075", vid: "dQw4w9WgXcQ"}] },
-        6: { 1: [{n: "المدثر", id: "074", vid: "dQw4w9WgXcQ"}], 2: [{n: "نوح", id: "071", vid: "dQw4w9WgXcQ"}] },
-        // ... (بقية الصفوف بنفس النمط)
+        5: { 
+            1: [{n: "المرسلات", id: "077", txt: "وَالْمُرْسَلَاتِ عُرْفًا فَالْعَاصِفَاتِ عَصْفًا وَالنَّاشِرَاتِ نَشْرًا فَالْفَارِقَاتِ فَرْقًا"}, {n: "الإنسان (1-14)", id: "076", txt: "هَلْ أَتَىٰ عَلَى الْإِنسَانِ حِينٌ مِّنَ الدَّهْرِ لَمْ يَكُن شَيْئًا مَّذْكُورًا"}],
+            2: [{n: "الإنسان (15-31)", id: "076", txt: "وَيُطَافُ عَلَيْهِم بِآنِيَةٍ مِّن فِضَّةٍ وَأَكْوَابٍ كَانَتْ قَوَارِيرَا"}, {n: "القيامة", id: "075", txt: "لَا أُقْسِمُ بِيَوْمِ الْقِيَامَةِ وَلَا أُقْسِمُ بِالنَّفْسِ اللَّوَّامَةِ"}]
+        },
+        6: { 
+            1: [{n: "المدثر", id: "074", txt: "يَا أَيُّهَا الْمُدَّثِّرُ قُمْ فَأَنذِرْ وَرَبَّكَ فَكَبِّرْ"}, {n: "المزمل", id: "073", txt: "يَا أَيُّهَا الْمُزَّمِّلُ قُمِ اللَّيْلَ إِلَّا قَلِيلًا"}],
+            2: [{n: "الجن", id: "072", txt: "قُلْ أُوحِيَ إِلَيَّ أَنَّهُ اسْتَمَعَ نَفَرٌ مِّنَ الْجِنِّ"}, {n: "نوح", id: "071", txt: "إِنَّا أَرْسَلْنَا نُوحًا إِلَىٰ قَوْمِهِ أَنْ أَنذِرْ قَوْمَكَ"}]
+        },
+        7: {
+            1: [{n: "المعارج", id: "070", txt: "سَأَلَ سَائِلٌ بِعَذَابٍ وَاقِعٍ لِّلْكَافِرِينَ لَيْسَ لَهُ دَافِعٌ"}, {n: "الحاقة", id: "069", txt: "الْحَاقَّةُ مَا الْحَاقَّةُ وَمَا أَدْرَاكَ مَا الْحَاقَّةُ"}],
+            2: [{n: "القلم", id: "068", txt: "ن وَالْقَلَمِ وَمَا يَسْطُرُونَ مَا أَنتَ بِنِعْمَةِ رَبِّكَ"}, {n: "الملك", id: "067", txt: "تَبَارَكَ الَّذِي بِيَدِهِ الْمُلْكُ وَهُوَ عَلَىٰ كُلِّ شَيْءٍ قَدِيرٌ"}]
+        },
+        8: {
+            1: [{n: "التغابن", id: "064", txt: "يُسَبِّحُ لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ"}, {n: "الطلاق (1-5)", id: "065", txt: "يَا أَيُّهَا النَّبِيُّ إِذَا طَلَّقْتُمُ النِّسَاءَ فَطَلِّقُوهُنَّ"}],
+            2: [{n: "الطلاق (6-12)", id: "065", txt: "أَسْكِنُوهُنَّ مِنْ حَيْثُ سَكَنتُم مِّن وُجْدِكُمْ"}, {n: "التحريم", id: "066", txt: "يَا أَيُّهَا النَّبِيُّ لِمَ تُحَرِّمُ مَا أَحَلَّ اللَّهُ لَكَ"}]
+        },
+        9: {
+            1: [{n: "الجمعة", id: "062", txt: "يُسَبِّحُ لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ"}, {n: "المنافقون", id: "063", txt: "إِذَا جَاءَكَ الْمُنَافِقُونَ قَالُوا نَشْهَدُ إِنَّكَ لَرَسُولُ اللَّهِ"}],
+            2: [{n: "الممتحنة", id: "060", txt: "يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَتَّخِذُوا عَدُوِّي وَعَدُوَّكُمْ"}, {n: "الصف", id: "061", txt: "سَبَّحَ لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ"}]
+        },
+        10: {
+            1: [{n: "الحشر", id: "059", txt: "سَبَّحَ لِلَّهِ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ وَهُوَ الْعَزِيزُ الْحَكِيمُ"}],
+            2: [{n: "المجادلة", id: "058", txt: "قَدْ سَمِعَ اللَّهُ قَوْلَ الَّتِي تُجَادِلُكَ فِي زَوْجِهَا"}]
+        },
+        11: {
+            1: [{n: "آل عمران", id: "003", txt: "فَبِمَا رَحْمَةٍ مِّنَ اللَّهِ لِنتَ لَهُمْ وَلَوْ كُنتَ فَظًّا"}, {n: "الأنبياء", id: "021", txt: "وَلَهُ مَن فِي السَّمَاوَاتِ وَالْأَرْضِ وَمَنْ عِندَهُ"}],
+            2: [{n: "الأعراف", id: "007", txt: "إِنَّ الَّذِينَ تَدْعُونَ مِن دُونِ اللَّهِ عِبَادٌ أَمْثَالُكُمْ"}, {n: "النور", id: "024", txt: "يَا أَيُّهَا الَّذِينَ آمَنُوا لِيَسْتَأْذِنكُمُ الَّذِينَ مَلَكَتْ"}]
+        },
+        12: {
+            1: [{n: "محمد", id: "047", txt: "إِنَّ اللَّهَ يُدْخِلُ الَّذِينَ آمَنُوا وَعَمِلُوا الصَّالِحَاتِ"}, {n: "النور (آية 30)", id: "024", txt: "قُل لِّلْمُؤْمِنِينَ يَغُضُّوا مِنْ أَبْصَارِهِمْ وَيَحْفَظُوا"}],
+            2: [{n: "الكهف", id: "018", txt: "أَمْ حَسِبْتَ أَنَّ أَصْحَابَ الْكَهْفِ وَالرَّقِيمِ كَانُوا"}]
+        }
     };
 
     let selectedGrade, player;
     const audioEngine = document.getElementById('audioEngine');
 
-    // إنشاء بطاقات الصفوف
     const grid = document.getElementById('grades-grid');
-    for(let i=5; i<=12; i++) {
-        grid.innerHTML += `<div class="main-card" onclick="selectGrade(${i})"><h2>الصف ${i}</h2><p>المنهج العماني</p></div>`;
-    }
+    for(let i=5; i<=12; i++) { grid.innerHTML += `<div class="main-card" onclick="selectGrade(${i})"><h2>الصف ${i}</h2><p>المنهج العماني</p></div>`; }
 
-    function showView(id) {
-        document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view'));
-        document.getElementById(id).classList.add('active-view');
-        window.scrollTo(0,0);
-    }
-
+    function showView(id) { document.querySelectorAll('.view').forEach(v => v.classList.remove('active-view')); document.getElementById(id).classList.add('active-view'); }
     function selectGrade(g) { selectedGrade = g; showView('terms'); }
 
     function renderSuras(term) {
         const list = document.getElementById('suras-list');
         list.innerHTML = `<h2 style="text-align:center; color:var(--royal-green)">سور الفصل ${term}</h2>`;
-        const suras = curriculum[selectedGrade] ? curriculum[selectedGrade][term] : [{n: "سورة تجريبية", id: "001", vid: "dQw4w9WgXcQ"}];
-        suras.forEach(s => {
-            list.innerHTML += `<div class="main-card" style="margin-bottom:15px; display:flex; justify-content:space-between; align-items:center;">
-                <h3>سورة ${s.n}</h3>
+        curriculum[selectedGrade][term].forEach(s => {
+            list.innerHTML += `<div class="main-card" style="margin-bottom:15px; display:flex; justify-content:space-between; align-items:center; padding:15px 25px;">
+                <h3 style="margin:0">سورة ${s.n}</h3>
                 <div>
-                    <button class="btn-royal" onclick="startReading('${s.n}', '${s.id}')">🔊 تلاوة</button>
-                    <button class="btn-royal" style="background:var(--gold); color:white;" onclick="openVideo('${s.vid}')">📺 فيديو</button>
+                    <button class="btn-royal" onclick="startReading('${s.n}', '${s.id}', '${s.txt}')">🔊 تلاوة</button>
+                    <button class="btn-royal" style="background:var(--gold); color:white;" onclick="openVideo('dQw4w9WgXcQ')">📺 فيديو</button>
                 </div>
             </div>`;
         });
         showView('suras');
     }
 
-    // --- إصلاح مشكلة إغلاق الفيديو ---
     function openVideo(vidId) {
         document.getElementById('video-overlay').style.display = 'flex';
-        if (player && typeof player.loadVideoById === 'function') {
-            player.loadVideoById(vidId);
-        } else {
-            player = new YT.Player('yt-player', {
-                height: '360', width: '100%', videoId: vidId,
-                playerVars: {'autoplay': 1, 'controls': 1},
-                events: { 'onStateChange': (e) => { if(e.data === 0) closeVideo(); } }
-            });
-        }
+        player = new YT.Player('yt-player', { height: '360', width: '100%', videoId: vidId, events: { 'onStateChange': (e) => { if(e.data === 0) closeVideo(); } } });
     }
 
     function closeVideo() {
-        // إيقاف الفيديو تماماً
-        if (player && typeof player.stopVideo === 'function') {
-            player.stopVideo();
-        }
-        // إخفاء الواجهة
+        if (player && player.stopVideo) player.stopVideo();
         document.getElementById('video-overlay').style.display = 'none';
-        // مسح محتوى الفيديو لضمان التوقف في بعض المتصفحات
-        document.getElementById('yt-player').innerHTML = ""; 
-        // إعادة تهيئة المكان لليوتيوب
         document.getElementById('player-container').innerHTML = '<div id="yt-player"></div>';
-        player = null; 
     }
 
-    // --- نظام التلاوة الصوتي ---
-    function startReading(name, id) {
-        const demoWords = ["بِسْمِ", "اللَّهِ", "الرَّحْمَنِ", "الرَّحِيمِ", "الْحَمْدُ", "لِلَّهِ", "رَبِّ", "الْعَالَمِينَ"];
-        document.getElementById('mushaf-content').innerHTML = `<h2>سورة ${name}</h2>` + 
-            demoWords.map((w, i) => `<span class="word" id="w-${i}">${w}</span>`).join(' ');
-        
-        document.getElementById('audio-title').innerText = "تلاوة سورة " + name;
+    function startReading(name, id, text) {
+        const words = text.split(" ");
+        document.getElementById('mushaf-content').innerHTML = `<h2>سورة ${name}</h2>` + words.map((w, i) => `<span class="word" id="w-${i}">${w}</span>`).join(' ');
+        document.getElementById('audio-title').innerText = "يتلو الآن: سورة " + name;
         document.getElementById('audioBar').style.display = 'flex';
-        
         audioEngine.src = `https://www.everyayah.com/data/Hudhaify_64kbps/${id}001.mp3`;
         audioEngine.play();
         document.getElementById('pBtn').innerText = "⏸";
         showView('reading');
-
         audioEngine.ontimeupdate = () => {
             let pct = (audioEngine.currentTime / audioEngine.duration) * 100;
             document.getElementById('a-prog').style.width = pct + "%";
+            let wordIdx = Math.floor((audioEngine.currentTime / audioEngine.duration) * words.length);
+            document.querySelectorAll('.word').forEach(el => el.classList.remove('active-word'));
+            if(document.getElementById(`w-${wordIdx}`)) document.getElementById(`w-${wordIdx}`).classList.add('active-word');
         };
     }
 
-    function toggleAudio() {
-        if(audioEngine.paused) { audioEngine.play(); document.getElementById('pBtn').innerText = "⏸"; }
-        else { audioEngine.pause(); document.getElementById('pBtn').innerText = "▶"; }
-    }
-
-    function exitReading() {
-        audioEngine.pause();
-        document.getElementById('audioBar').style.display = 'none';
-        showView('suras');
-    }
-
-    function onYouTubeIframeAPIReady() { }
+    function toggleAudio() { if(audioEngine.paused) { audioEngine.play(); document.getElementById('pBtn').innerText = "⏸"; } else { audioEngine.pause(); document.getElementById('pBtn').innerText = "▶"; } }
+    function exitReading() { audioEngine.pause(); document.getElementById('audioBar').style.display = 'none'; showView('suras'); }
+    function onYouTubeIframeAPIReady() {}
 </script>
 </body>
 </html>
