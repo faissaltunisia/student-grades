@@ -2,193 +2,275 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>منصة ديني قيمي | مدرسة المروج للتعليم الأساسي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>منصة ديني قيمي | مدرسة المروج</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Amiri:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --royal-green: #004d40; --gold: #D4AF37; --bg: #f4f7f6; }
-        body { font-family: 'Cairo', sans-serif; background: var(--bg); margin: 0; }
+        :root {
+            --royal-green: #004d40;
+            --omani-gold: #D4AF37;
+            --light-gold: #fdfaf0;
+            --white: #ffffff;
+        }
 
-        /* الهيدر */
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body { 
+            font-family: 'Cairo', sans-serif; 
+            background-color: #f4f4f4; 
+            margin: 0; 
+            padding-bottom: 50px; /* مساحة للقائمة السفلية في الهاتف */
+        }
+
+        /* هيدر متجاوب */
         header {
             background: linear-gradient(135deg, var(--royal-green), #002d26);
-            color: white; padding: 15px 5%; display: flex; justify-content: space-between;
-            align-items: center; border-bottom: 5px solid var(--gold);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            border-bottom: 4px solid var(--omani-gold);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
-        .brand { display: flex; align-items: center; gap: 15px; }
-        .brand img { height: 60px; }
+        header img { height: 50px; margin-bottom: 5px; }
+        header h1 { font-size: 1.1rem; margin: 0; color: var(--omani-gold); }
 
-        /* نظام التبويب */
-        .tabs { display: flex; justify-content: center; gap: 10px; margin: 20px 0; }
-        .tab-btn { padding: 12px 25px; border-radius: 30px; border: none; background: white; cursor: pointer; font-weight: bold; transition: 0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-        .tab-btn.active { background: var(--royal-green); color: white; border: 2px solid var(--gold); }
+        /* حاوية المحتوى */
+        .container { padding: 15px; max-width: 800px; margin: auto; }
 
-        /* منطقة المحتوى */
-        .container { max-width: 1000px; margin: auto; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .panel { display: none; animation: fadeIn 0.5s; }
-        .panel.active { display: block; }
+        /* اختيار الصف والفصل - تصميم مريح للمس */
+        .selector-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        select {
+            flex: 1;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid var(--omani-gold);
+            font-family: 'Cairo';
+            background: white;
+        }
 
-        /* التتبع الصوتي */
-        .quran-box { text-align: center; background: #fffcf0; padding: 30px; border-radius: 15px; border: 1px solid #e0d0b0; margin-bottom: 20px; }
-        .word { font-family: 'Amiri'; font-size: 3rem; margin: 0 10px; display: inline-block; transition: 0.3s; padding: 5px 10px; border-radius: 10px; color: #444; }
-        .active-word { background: var(--gold); color: white; transform: scale(1.2); box-shadow: 0 5px 15px rgba(212, 175, 55, 0.4); }
+        /* قسم التتبع الصوتي - محسن للهاتف */
+        .quran-card {
+            background: var(--white);
+            border-radius: 20px;
+            padding: 25px 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            border: 1px solid var(--omani-gold);
+        }
+        .mushaf-text {
+            line-height: 2.2;
+            margin-bottom: 25px;
+            min-height: 150px;
+        }
+        .word {
+            font-family: 'Amiri';
+            font-size: 1.8rem; /* حجم مناسب للهاتف */
+            margin: 0 4px;
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        .active-word {
+            background: var(--omani-gold);
+            color: white;
+            transform: scale(1.1);
+        }
 
-        /* الفيديوهات */
-        .video-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .vid-card { border-radius: 15px; overflow: hidden; background: #000; height: 200px; border-bottom: 4px solid var(--gold); }
+        /* زر التشغيل الكبير */
+        .play-btn {
+            background: var(--royal-green);
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
 
-        /* الألعاب */
-        .game-zone { text-align: center; padding: 40px; border: 3px dashed var(--gold); border-radius: 20px; }
-        .option-btn { width: 100%; padding: 15px; margin: 10px 0; border: 2px solid #eee; border-radius: 10px; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
-        .option-btn:hover { background: var(--gold); color: white; }
+        /* شبكة الفيديوهات - متجاوبة */
+        .video-grid {
+            display: grid;
+            grid-template-columns: 1fr; /* عمود واحد في الهاتف */
+            gap: 15px;
+        }
+        @media (min-width: 600px) {
+            .video-grid { grid-template-columns: 1fr 1fr; } /* عمودين في الأجهزة الأكبر */
+        }
+        .video-card {
+            background: black;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 2px solid var(--omani-gold);
+            aspect-ratio: 16/9;
+        }
 
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* تبويب القائمة السفلية (مثل تطبيقات الهاتف) */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            padding: 10px 0;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            border-top: 2px solid var(--omani-gold);
+        }
+        .nav-item {
+            font-size: 0.75rem;
+            color: #666;
+            text-align: center;
+            cursor: pointer;
+        }
+        .nav-item.active { color: var(--royal-green); font-weight: bold; }
+        .nav-item i { display: block; font-size: 1.2rem; margin-bottom: 2px; }
+
+        .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <header>
-    <div class="brand">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Emblem_of_Oman.svg/1200px-Emblem_of_Oman.svg.png">
-        <div>
-            <h2 style="margin:0;">مدرسة المروج للتعليم الأساسي (5-8)</h2>
-            <p style="margin:0; font-size:0.8rem;">بوابة ديني قيمي الرقمية</p>
-        </div>
-    </div>
-    <div>⭐ النقاط: <span id="score">0</span></div>
+    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Emblem_of_Oman.svg/1200px-Emblem_of_Oman.svg.png" alt="شعار عمان">
+    <h1>مدرسة المروج للتعليم الأساسي (5-8)</h1>
 </header>
 
-<div style="text-align:center; margin-top:20px;">
-    <select id="grade" onchange="loadContent()" style="padding:10px; border-radius:10px;">
-        <option value="5">الصف الخامس</option>
-        <option value="6">الصف السادس</option>
-        <option value="7">الصف السابع</option>
-        <option value="8">الصف الثامن</option>
-    </select>
-</div>
-
-<div class="tabs">
-    <button class="tab-btn active" onclick="showTab('quran', this)">📖 التتبع الصوتي</button>
-    <button class="tab-btn" onclick="showTab('vids', this)">🎥 الفيديوهات</button>
-    <button class="tab-btn" onclick="showTab('play', this)">🎮 مركز الألعاب</button>
-</div>
-
 <div class="container">
-    <div id="quran" class="panel active">
-        <div class="quran-box" id="quran-text"></div>
-        <div style="text-align:center;">
-            <button onclick="playAudio()" id="playBtn" style="padding:15px 40px; background:var(--royal-green); color:white; border:none; border-radius:50px; cursor:pointer;">▶ تشغيل وتتبع التلاوة</button>
-            <audio id="audioPlayer" crossorigin="anonymous"></audio>
+    <div class="selector-group">
+        <select id="gradeSelect" onchange="initApp()">
+            <option value="5">الصف 5</option>
+            <option value="6">الصف 6</option>
+            <option value="7">الصف 7</option>
+            <option value="8">الصف 8</option>
+        </select>
+        <select id="termSelect" onchange="initApp()">
+            <option value="1">الفصل 1</option>
+            <option value="2">الفصل 2</option>
+        </select>
+    </div>
+
+    <div id="quran-sec" class="content-sec">
+        <div class="quran-card">
+            <h2 id="sura-name" style="color:var(--royal-green); font-size: 1.2rem;">سورة المعارج</h2>
+            <div id="mushaf-display" class="mushaf-text"></div>
+            <button class="play-btn" onclick="toggleAudio()" id="mainPlayBtn">
+                <span>▶</span> تشغيل وتتبع التلاوة
+            </button>
+            <audio id="audioElement"></audio>
         </div>
     </div>
 
-    <div id="vids" class="panel">
-        <div class="video-grid" id="video-grid"></div>
+    <div id="video-sec" class="content-sec hidden">
+        <div class="video-grid" id="video-grid">
+            </div>
     </div>
 
-    <div id="play" class="panel">
-        <div id="menu" class="game-zone">
-            <h3>تحدي المعلومات الدينية</h3>
-            <button onclick="startGame()" style="padding:10px 30px; background:var(--gold); color:white; border:none; border-radius:10px; cursor:pointer;">ابدأ المستوى الأول</button>
-        </div>
-        <div id="quiz" class="game-zone" style="display:none;">
-            <h3 id="question"></h3>
-            <div id="options"></div>
-            <button onclick="resetGames()" style="margin-top:20px; background:#666; color:white; border:none; padding:5px 15px; border-radius:5px;">عودة للقائمة</button>
+    <div id="game-sec" class="content-sec hidden">
+        <div class="quran-card" id="quiz-container">
+            <h3>تحدي المعلومات</h3>
+            <p id="question">اضغط لبدء اللعبة</p>
+            <div id="options-box"></div>
         </div>
     </div>
 </div>
+
+<nav class="bottom-nav">
+    <div class="nav-item active" onclick="switchSection('quran-sec', this)">📖<br>تلاوة</div>
+    <div class="nav-item" onclick="switchSection('video-sec', this)">🎥<br>فيديوهات</div>
+    <div class="nav-item" onclick="switchSection('game-sec', this)">🎮<br>ألعاب</div>
+</nav>
 
 <script>
-    // قاعدة بيانات محسنة
-    const data = {
+    const appData = {
         "5": {
             sura: "سورة المعارج",
             words: ["سَأَلَ", "سَائِلٌ", "بِعَذَابٍ", "وَاقِعٍ", "لِّلْكَافِرِينَ", "لَيْسَ", "لَهُ", "دَافِعٌ"],
-            times: [0.5, 1.8, 3.2, 4.5, 6.0, 7.5, 8.5, 9.5],
+            times: [0.8, 2.0, 3.2, 4.5, 5.8, 7.2, 8.2, 9.2],
             audio: "https://server11.mp3quran.net/huzaifi/070.mp3",
-            vids: ["O8XJmXqN_zU", "V6S6t-3s6iM", "7hYy1F6vO4k", "d6p2zX7-0gM"],
-            quiz: [{q: "ما معنى 'المعارج'؟", o: ["المصاعد", "الجبال", "الأرض"], c: 0}]
+            vids: ["O8XJmXqN_zU", "V6S6t-3s6iM", "7hYy1F6vO4k", "d6p2zX7-0gM"]
         },
         "6": {
             sura: "سورة الملك",
             words: ["تَبَارَكَ", "الَّذِي", "بِيَدِهِ", "الْمُلْكُ", "وَهُوَ", "عَلَىٰ", "كُلِّ", "شَيْءٍ", "قَدِيرٌ"],
-            times: [1, 2.5, 3.5, 4.5, 5.5, 6.5, 7.5, 8.5, 9.5],
+            times: [1, 2, 3, 4, 5, 6, 7, 8, 9],
             audio: "https://server11.mp3quran.net/huzaifi/067.mp3",
-            vids: ["Yf-S-0I0_Sg", "G7rR0V4J7mE", "L4P9E3f9B_s", "K8P7D6c5B_a"],
-            quiz: [{q: "ما هي السورة التي تشفع لصاحبها؟", o: ["الملك", "الكهف", "يس"], c: 0}]
+            vids: ["Yf-S-0I0_Sg", "G7rR0V4J7mE", "L4P9E3f9B_s", "K8P7D6c5B_a"]
         }
     };
 
-    function showTab(id, btn) {
-        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
-        btn.classList.add('active');
+    let isPlaying = false;
+
+    function switchSection(id, el) {
+        document.querySelectorAll('.content-sec').forEach(s => s.classList.add('hidden'));
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.getElementById(id).classList.remove('hidden');
+        el.classList.add('active');
     }
 
-    function loadContent() {
-        const grade = document.getElementById('grade').value;
-        const info = data[grade] || data["5"];
-        
-        // تحميل القرآن
-        const qBox = document.getElementById('quran-text');
-        qBox.innerHTML = info.words.map((w, i) => `<span class="word" id="word-${i}">${w}</span>`).join('');
-        
-        const player = document.getElementById('audioPlayer');
-        player.src = info.audio;
-        player.load(); // إعادة تحميل الملف الصوتي لضمان العمل
+    function initApp() {
+        const grade = document.getElementById('gradeSelect').value;
+        const data = appData[grade] || appData["5"];
 
-        // تحميل الفيديوهات
-        const vGrid = document.getElementById('video-grid');
-        vGrid.innerHTML = info.vids.map(id => `<div class="vid-card"><iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" frameborder="0"></iframe></div>`).join('');
-    }
+        // تجهيز القرآن
+        document.getElementById('sura-name').innerText = data.sura;
+        const mushaf = document.getElementById('mushaf-display');
+        mushaf.innerHTML = data.words.map((w, i) => `<span class="word" id="word-${i}">${w}</span>`).join('');
 
-    // إصلاح التتبع الصوتي
-    function playAudio() {
-        const player = document.getElementById('audioPlayer');
-        const grade = document.getElementById('grade').value;
-        const times = (data[grade] || data["5"]).times;
-        
-        player.play().catch(e => alert("يرجى الضغط مرة أخرى لتفعيل الصوت في متصفحك"));
+        const audio = document.getElementById('audioElement');
+        audio.src = data.audio;
+        audio.load();
 
-        player.ontimeupdate = () => {
-            const current = player.currentTime;
-            times.forEach((t, i) => {
-                if(current >= t) {
+        // التتبع الصوتي
+        audio.ontimeupdate = () => {
+            const now = audio.currentTime;
+            data.times.forEach((t, i) => {
+                if (now >= t) {
                     document.querySelectorAll('.word').forEach(w => w.classList.remove('active-word'));
-                    const wordEl = document.getElementById(`word-${i}`);
-                    if(wordEl) wordEl.classList.add('active-word');
+                    document.getElementById(`word-${i}`).classList.add('active-word');
                 }
             });
         };
+
+        // تجهيز الفيديوهات (4)
+        const vGrid = document.getElementById('video-grid');
+        vGrid.innerHTML = data.vids.map(id => `
+            <div class="video-card">
+                <iframe width="100%" height="100%" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>
+            </div>
+        `).join('');
     }
 
-    // نظام الألعاب
-    function startGame() {
-        document.getElementById('menu').style.display = 'none';
-        document.getElementById('quiz').style.display = 'block';
-        const grade = document.getElementById('grade').value;
-        const qData = (data[grade] || data["5"]).quiz[0];
-        document.getElementById('question').innerText = qData.q;
-        document.getElementById('options').innerHTML = qData.o.map((opt, i) => `<button class="option-btn" onclick="checkAns(${i === qData.c})">${opt}</button>`).join('');
-    }
-
-    function checkAns(correct) {
-        if(correct) {
-            alert("✅ إجابة صحيحة! +50 نقطة");
-            document.getElementById('score').innerText = parseInt(document.getElementById('score').innerText) + 50;
+    function toggleAudio() {
+        const audio = document.getElementById('audioElement');
+        const btn = document.getElementById('mainPlayBtn');
+        
+        if (!isPlaying) {
+            audio.play().then(() => {
+                isPlaying = true;
+                btn.innerHTML = "<span>⏸</span> إيقاف مؤقت";
+            }).catch(e => alert("اضغط مرة أخرى لتشغيل الصوت"));
         } else {
-            alert("❌ إجابة خاطئة، حاول مجدداً");
+            audio.pause();
+            isPlaying = false;
+            btn.innerHTML = "<span>▶</span> استئناف التلاوة";
         }
-        resetGames();
     }
 
-    function resetGames() {
-        document.getElementById('menu').style.display = 'block';
-        document.getElementById('quiz').style.display = 'none';
-    }
-
-    window.onload = loadContent;
+    // تشغيل التطبيق عند التحميل
+    window.onload = initApp;
 </script>
 
 </body>
