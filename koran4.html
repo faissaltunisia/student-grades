@@ -10,30 +10,27 @@
             --primary-bg: #041a11;
             --header-gradient: linear-gradient(180deg, #0b422a 0%, #062b1b 100%);
             --accent-gold: #c4a04d;
-            --text-white: #ffffff;
-            --card-bg: #ffffff;
             --app-body-bg: #f2ede0;
+            --sidebar-width: 280px;
         }
 
-        /* تصفير الإعدادات وجعل الشاشة ثابتة كالتطبيق */
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         html, body { 
             height: 100%; 
             width: 100%; 
-            overflow: hidden; /* منع تمرير الصفحة كاملة */
+            overflow: hidden; 
             background-color: var(--primary-bg);
             font-family: 'Tajawal', sans-serif;
         }
 
-        /* --- الهيكل العلوي (ثابت لا يتحرك) --- */
+        /* --- الهيكل العلوي الثابت (وزارة + هيدر) --- */
         .app-header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             z-index: 2000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
         }
 
         .gov-bar {
@@ -42,7 +39,7 @@
             text-align: center;
             padding: 6px 0;
             font-size: 10px;
-            letter-spacing: 0.5px;
+            font-weight: bold;
             border-bottom: 1px solid var(--accent-gold);
         }
 
@@ -56,35 +53,49 @@
         }
 
         .brand { display: flex; align-items: center; gap: 10px; }
-        .brand img { width: 45px; height: 45px; border-radius: 50%; border: 1.5px solid var(--accent-gold); box-shadow: 0 0 10px rgba(0,0,0,0.2); }
+        .brand img { width: 45px; height: 45px; border-radius: 50%; border: 1.5px solid var(--accent-gold); background: #fff; }
         .brand-text h2 { color: #fff; font-size: 11px; font-weight: 800; line-height: 1.2; }
-        
-        .app-title { font-family: 'Amiri', serif; color: var(--accent-gold); font-size: 1.4rem; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .app-title { font-family: 'Amiri', serif; color: var(--accent-gold); font-size: 1.4rem; }
 
-        .categories-scroller {
+        /* --- تصميم الحاسوب (القائمة الجانبية) --- */
+        .desktop-sidebar {
+            position: fixed;
+            top: 95px; /* بعد الهيدر */
+            right: 0;
+            width: var(--sidebar-width);
+            bottom: 50px; /* قبل الفوتر */
             background: #062b1b;
-            display: flex;
+            border-left: 2px solid var(--accent-gold);
+            padding: 20px 10px;
+            overflow-y: auto;
+            z-index: 1500;
+        }
+
+        /* --- تصميم الهاتف (شريط علوي متحرك) --- */
+        .mobile-tabs-container {
+            display: none; /* يظهر في الهاتف فقط */
+            background: #062b1b;
             overflow-x: auto;
             padding: 10px;
             gap: 10px;
-            scrollbar-width: none; /* إخفاء السكرول بار */
+            border-bottom: 2px solid var(--accent-gold);
+            scrollbar-width: none;
         }
-        .categories-scroller::-webkit-scrollbar { display: none; }
 
-        /* --- منطقة المحتوى (المتحركة) --- */
+        /* --- منطقة المحتوى --- */
         .scrollable-content {
             position: absolute;
-            top: 135px; /* يوازي ارتفاع الهيدر */
-            bottom: 50px; /* يوازي ارتفاع الفوتر */
+            top: 95px; 
+            bottom: 50px;
             left: 0;
-            right: 0;
+            right: var(--sidebar-width); /* يترك مساحة للسايدبار في الحاسوب */
             overflow-y: auto;
             background: var(--app-body-bg);
-            padding: 20px 15px;
+            padding: 25px;
             -webkit-overflow-scrolling: touch;
         }
 
-        /* --- الهيكل السفلي (ثابت فوق المحتوى) --- */
+        /* --- الفوتر الثابت (اسمك) --- */
         .app-footer {
             position: fixed;
             bottom: 0;
@@ -101,61 +112,42 @@
             font-size: 11px;
         }
 
-        /* عناصر القائمة والبطاقات */
-        .tab-item {
-            padding: 8px 18px;
+        /* العناصر المشتركة */
+        .grade-item {
+            padding: 12px 15px;
+            margin-bottom: 8px;
             background: rgba(255,255,255,0.05);
             color: #fff;
-            border-radius: 20px;
-            border: 1px solid rgba(196, 160, 77, 0.3);
-            white-space: nowrap;
-            font-size: 12px;
-            transition: 0.3s;
-        }
-        .tab-item.active { background: var(--accent-gold); color: var(--primary-bg); font-weight: bold; }
-
-        .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px; }
-        
-        .surah-card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 30px 15px;
-            text-align: center;
-            border: 1px solid #ddd;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            position: relative;
-        }
-        .surah-card h3 { font-family: 'Amiri', serif; font-size: 2rem; color: #0b422a; margin-bottom: 5px; }
-        .surah-card p { font-size: 12px; color: var(--accent-gold); font-weight: bold; }
-
-        /* تنسيق الفصل الدراسي */
-        .sem-switcher {
-            display: flex;
-            background: #e0d9c8;
             border-radius: 10px;
-            margin-bottom: 20px;
-            padding: 4px;
-        }
-        .sem-btn {
-            flex: 1;
-            padding: 10px;
-            border: none;
-            border-radius: 8px;
-            background: transparent;
-            font-weight: bold;
-            color: #555;
+            border: 1px solid rgba(196, 160, 77, 0.2);
             cursor: pointer;
+            transition: 0.3s;
+            text-align: center;
         }
+        .grade-item.active { background: var(--accent-gold); color: var(--primary-bg); font-weight: bold; }
+
+        .sem-switcher { display: flex; background: #e0d9c8; border-radius: 10px; margin-bottom: 25px; padding: 4px; max-width: 400px; margin-inline: auto; }
+        .sem-btn { flex: 1; padding: 10px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; background: transparent; }
         .sem-btn.active { background: var(--primary-bg); color: var(--accent-gold); }
 
-        /* المشغل الاحترافي */
-        .video-player-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 3000; display: none;
-            align-items: center; justify-content: center;
+        .surah-card {
+            background: #fff; border-radius: 15px; padding: 35px 15px; text-align: center;
+            border: 1px solid #ddd; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer;
         }
-        .video-player-overlay.active { display: flex; }
-        .close-player { position: absolute; top: 30px; left: 20px; color: #fff; font-size: 25px; cursor: pointer; }
+        .surah-card h3 { font-family: 'Amiri', serif; font-size: 2rem; color: #0b422a; }
+
+        /* --- Media Queries للتحويل بين الهاتف والحاسوب --- */
+        @media (max-width: 992px) {
+            .desktop-sidebar { display: none; }
+            .mobile-tabs-container { display: flex; position: fixed; top: 95px; width: 100%; z-index: 1800; }
+            .scrollable-content { right: 0; top: 145px; } /* تعديل توب المحتوى في الهاتف */
+            .app-title { font-size: 1.1rem; }
+            .brand-text h2 { font-size: 9px; }
+        }
+
+        /* مشغل الفيديو */
+        .player-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 5000; display: none; align-items: center; justify-content: center; }
+        .player-overlay.active { display: flex; }
     </style>
 </head>
 <body>
@@ -167,33 +159,31 @@
                 <img src="https://raw.githubusercontent.com/faissaltunisia/student-grades/main/Screenshot%202025-12-16%20235912.png" alt="شعار المروج">
                 <div class="brand-text">
                     <h2>مدرسة المروج</h2>
-                    <h2 style="color: var(--accent-gold)">(1-12)</h2>
+                    <h2 style="color: var(--accent-gold)">للتعليم الأساسي</h2>
                 </div>
             </div>
-            <div class="app-title">مُصحَف المُرُوج</div>
+            <div class="app-title">مُصحَف المُرُوج الرَّقمِي</div>
             <div style="width: 20px;"></div>
         </header>
-        <div class="categories-scroller" id="grade-tabs">
-            </div>
+        <div class="mobile-tabs-container" id="m-tabs"></div>
     </div>
+
+    <aside class="desktop-sidebar" id="pc-sidebar"></aside>
 
     <div class="scrollable-content">
         <div class="sem-switcher">
             <button class="sem-btn active" id="s1" onclick="changeSem(1)">الفصل الأول</button>
             <button class="sem-btn" id="s2" onclick="changeSem(2)">الفصل الثاني</button>
         </div>
-        
-        <div class="card-grid" id="content-grid">
-            </div>
+        <div id="grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 20px;"></div>
     </div>
 
     <footer class="app-footer">
-        حقوق الملكية لمدرسة المروج © تصميم: <strong>أ. فيصل العريبي</strong> 2025
+        حقوق الملكية لمدرسة المروج © تصميم وتطوير: <strong>أ. فيصل العريبي</strong> 2025م
     </footer>
 
-    <div class="video-player-overlay" id="player">
-        <span class="close-player" onclick="stopVideo()">✕</span>
-        <div id="video-box" style="width: 100%;"></div>
+    <div class="player-overlay" id="player" onclick="closeVideo()">
+        <div id="v-content" style="width: 100%;"></div>
     </div>
 
     <script>
@@ -208,58 +198,56 @@
             "الصف 12": { 1: [{t:"سورة لقمان", v:"12/cls12_Islamic_Luqman.mp4"}], 2: [{t:"سورة الذاريات", v:"12/cls12_Islamic_Zariyat.mp4"}] }
         };
 
-        let currentG = "الصف الخامس";
-        let currentS = 1;
+        let currentG = "الصف الخامس"; let currentS = 1;
 
-        function renderTabs() {
-            const container = document.getElementById('grade-tabs');
+        function init() {
+            const pc = document.getElementById('pc-sidebar');
+            const mb = document.getElementById('m-tabs');
             Object.keys(db).forEach(g => {
-                const div = document.createElement('div');
-                div.className = `tab-item ${g === currentG ? 'active' : ''}`;
-                div.innerText = g;
-                div.onclick = () => {
-                    currentG = g;
-                    document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
-                    div.classList.add('active');
-                    renderCards();
-                };
-                container.appendChild(div);
+                const btnPC = document.createElement('div');
+                btnPC.className = `grade-item g-${g}`; btnPC.innerText = g;
+                btnPC.onclick = () => selectGrade(g);
+                pc.appendChild(btnPC);
+
+                const btnMB = document.createElement('div');
+                btnMB.className = `grade-item g-${g}`; btnMB.style.whiteSpace="nowrap"; btnMB.innerText = g;
+                btnMB.onclick = () => selectGrade(g);
+                mb.appendChild(btnMB);
             });
+            selectGrade(currentG);
+        }
+
+        function selectGrade(g) {
+            currentG = g;
+            document.querySelectorAll('.grade-item').forEach(el => {
+                el.classList.toggle('active', el.innerText === g);
+            });
+            render();
         }
 
         function changeSem(s) {
             currentS = s;
             document.getElementById('s1').classList.toggle('active', s === 1);
             document.getElementById('s2').classList.toggle('active', s === 2);
-            renderCards();
+            render();
         }
 
-        function renderCards() {
-            const grid = document.getElementById('content-grid');
-            grid.innerHTML = "";
+        function render() {
+            const grid = document.getElementById('grid'); grid.innerHTML = "";
             db[currentG][currentS].forEach(item => {
-                grid.innerHTML += `
-                    <div class="surah-card" onclick="openVideo('${item.v}')">
-                        <h3>${item.t}</h3>
-                        <p>▶ استماع وتلاوة</p>
-                    </div>
-                `;
+                grid.innerHTML += `<div class="surah-card" onclick="playVideo('${item.v}')"><h3>${item.t}</h3><p style="color:var(--accent-gold)">إضغط للتشغيل</p></div>`;
             });
         }
 
-        function openVideo(file) {
+        function playVideo(file) {
             const url = "https://ict.moe.gov.om/tlawti/video/" + file;
-            document.getElementById('video-box').innerHTML = `<video controls autoplay playsinline style="width:100%"><source src="${url}" type="video/mp4"></video>`;
+            document.getElementById('v-content').innerHTML = `<video controls autoplay playsinline style="width:100%"><source src="${url}" type="video/mp4"></video>`;
             document.getElementById('player').classList.add('active');
         }
 
-        function stopVideo() {
-            document.getElementById('player').classList.remove('active');
-            document.getElementById('video-box').innerHTML = "";
-        }
+        function closeVideo() { document.getElementById('player').classList.remove('active'); document.getElementById('v-content').innerHTML = ""; }
 
-        renderTabs();
-        renderCards();
+        init();
     </script>
 </body>
 </html>
